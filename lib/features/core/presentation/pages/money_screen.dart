@@ -7,17 +7,17 @@ import '../bloc/bloc.dart';
 import '../widgets/widgets.dart';
 
 @RoutePage()
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+class MoneyScreen extends StatelessWidget {
+  const MoneyScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CoreBloc, CoreState>(
       builder: (context, state) {
         return const ScreenBox(
-          backgroundColor: Color(0xFFFF5F96),
+          backgroundColor: Color(0xFF833991),
           child: Center(
-            child: Text("settings"),
+            child: Text("money"),
           ),
         );
       },

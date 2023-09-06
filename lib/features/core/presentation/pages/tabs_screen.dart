@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:forrest/styles/app_images.dart';
 
 import '../../../../extensions/extensions.dart';
 import '../../../../navigation/auto_router.gr.dart';
-import '../../../../styles/app_images.dart';
 
 @RoutePage()
 class TabsScreen extends StatelessWidget {
@@ -12,7 +12,6 @@ class TabsScreen extends StatelessWidget {
   @override
   Widget build(context) {
     var appColors = Theme.of(context).extension<AppColors>()!;
-    var textStyles = Theme.of(context).extension<AppTextStyles>()!;
 
     return WillPopScope(
       onWillPop: () async => false,
@@ -20,8 +19,9 @@ class TabsScreen extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         routes: const [
           HomeTab(),
-          DeveloperTab(),
-          DeveloperTab(),
+          MoneyTab(),
+          ProfileTab(),
+          SettingsTab(),
         ],
         builder: (context, child, controller) {
           return Scaffold(
@@ -31,106 +31,50 @@ class TabsScreen extends StatelessWidget {
             bottomNavigationBar: Stack(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(12),
-                  margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  margin: const EdgeInsets.fromLTRB(32, 0, 32, 32),
                   decoration: const BoxDecoration(
-                    color: Color(0xFF1D1C1D),
-                    borderRadius: BorderRadius.all(Radius.circular(80)),
+                    color: Color(0xFF36DBFF),
+                    borderRadius: BorderRadius.all(Radius.circular(32)),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x10000000),
+                        color: Color(0x30000000),
                         spreadRadius: 4,
                         blurRadius: 8,
                       ),
                     ],
                   ),
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      TabBar(
-                        indicator: const BoxDecoration(
-                          color: Color(0xFF1D1C1D),
-                          borderRadius: BorderRadius.all(Radius.circular(36)),
+                  child: TabBar(
+                    controller: controller,
+                    labelPadding: EdgeInsets.zero,
+                    indicatorColor: Colors.transparent,
+                    tabs: [
+                      const Tab(
+                        icon: Icon(
+                          Icons.forward_10_outlined,
+                          size: 40,
                         ),
-                        controller: controller,
-                        labelColor: const Color(0xFF4CD9A6),
-                        labelStyle: const TextStyle(fontSize: 8),
-                        labelPadding: EdgeInsets.zero,
-                        unselectedLabelColor: const Color(0xFFFFFFFF),
-                        tabs: [
-                          GestureDetector(
-                            onTap: null,
-                            child: Container(
-                              color: Colors.transparent,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  controller.index == 0
-                                      ? Image.asset(
-                                          AppImages.logoPng,
-                                          height: 24,
-                                        )
-                                      : Image.asset(
-                                          AppImages.logoPng,
-                                          height: 24,
-                                        ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5),
-                                    child: Text(
-                                      'translation.myGenerations',
-                                      style: textStyles.p3.copyWith(
-                                          color: controller.index == 0
-                                              ? const Color(0xFF4CD9A6)
-                                              : const Color(0xFFFFFFFF)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              controller.index == 2
-                                  ? Image.asset(
-                                      AppImages.logoPng,
-                                      height: 24,
-                                    )
-                                  : Image.asset(
-                                      AppImages.logoPng,
-                                      height: 24,
-                                    ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 5),
-                                child: Text(
-                                  'translation.settings',
-                                  style: textStyles.p3.copyWith(
-                                      color: controller.index == 2
-                                          ? const Color(0xFF4CD9A6)
-                                          : const Color(0xFFFFFFFF)),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                        iconMargin: EdgeInsets.zero,
                       ),
-                      Positioned(
-                        top: -28,
-                        left: (MediaQuery.of(context).size.width - 60) / 2 - 58,
-                        child: GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {},
-                          child: Container(
-                            color: Colors.transparent,
-                            child: Image.asset(
-                              AppImages.logoPng,
-                              height: 94,
-                              width: 116,
-                            ),
-                          ),
+                      const Tab(
+                        icon: Icon(
+                          Icons.monetization_on_outlined,
+                          size: 40,
                         ),
-                      )
+                        iconMargin: EdgeInsets.zero,
+                      ),
+                      Image.asset(
+                        AppImages.logoPng,
+                        width: 48,
+                        height: 48,
+                      ),
+                      const Tab(
+                        icon: Icon(
+                          Icons.settings_outlined,
+                          size: 40,
+                        ),
+                        iconMargin: EdgeInsets.zero,
+                      ),
                     ],
                   ),
                 ),

@@ -3,21 +3,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../styles/app_images.dart';
 import '../bloc/bloc.dart';
 import '../widgets/widgets.dart';
 
 @RoutePage()
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CoreBloc, CoreState>(
       builder: (context, state) {
-        return const ScreenBox(
-          backgroundColor: Color(0xFFFF5F96),
+        return ScreenBox(
+          backgroundColor: const Color(0xFF36DBFF),
           child: Center(
-            child: Text("settings"),
+            child: Image.asset(
+              AppImages.logoPng,
+              width: 300,
+              height: 300,
+            ),
           ),
         );
       },
