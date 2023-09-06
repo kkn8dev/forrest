@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 
-import '../../../../extensions/extensions.dart';
- 
 class ScreenBox extends StatelessWidget {
   const ScreenBox({
     Key? key,
     required this.child,
     this.padding,
+    this.backgroundColor,
   }) : super(key: key);
 
   final Widget child;
   final EdgeInsets? padding;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    var appColors = Theme.of(context).extension<AppColors>()!;
-
     return Scaffold(
-      backgroundColor: appColors.white,
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraint) {

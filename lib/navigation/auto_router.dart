@@ -30,8 +30,22 @@ class RootRouter extends $RootRouter {
               ],
             ),
             AutoRoute(
+              path: Routes.profile,
+              page: ProfileTab.page,
+              children: <AutoRoute>[
+                AutoRoute(path: '', page: ProfileRoute.page),
+              ],
+            ),
+            AutoRoute(
+              path: Routes.money,
+              page: MoneyTab.page,
+              children: <AutoRoute>[
+                AutoRoute(path: '', page: MoneyRoute.page),
+              ],
+            ),
+            AutoRoute(
               path: Routes.settings,
-              page: DeveloperTab.page,
+              page: SettingsTab.page,
               children: <AutoRoute>[
                 AutoRoute(path: '', page: SettingsRoute.page),
               ],
@@ -62,9 +76,19 @@ class HomeTabPage extends AutoRouter {
   const HomeTabPage({super.key});
 }
 
-@RoutePage(name: 'DeveloperTab')
-class DeveloperTabPage extends AutoRouter {
-  const DeveloperTabPage({super.key});
+@RoutePage(name: 'SettingsTab')
+class SettingsTabPage extends AutoRouter {
+  const SettingsTabPage({super.key});
+}
+
+@RoutePage(name: 'MoneyTab')
+class MoneyTabPage extends AutoRouter {
+  const MoneyTabPage({super.key});
+}
+
+@RoutePage(name: 'ProfileTab')
+class ProfileTabPage extends AutoRouter {
+  const ProfileTabPage({super.key});
 }
 
 class EmptyRouterPage extends AutoRouter {
@@ -75,5 +99,7 @@ class Routes {
   static const tabs = 'tabs';
   static const home = 'home';
   static const develop = 'develop';
+  static const money = 'money';
+  static const profile = 'profile';
   static const settings = 'settings';
 }

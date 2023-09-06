@@ -40,13 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Stack(
       children: [
         const ScreenBox(
-          padding: EdgeInsets.fromLTRB(20, 20, 20, 20 + 14),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(bottom: 20, top: 8),
-              ),
-            ],
+          backgroundColor: Color(0xFF8ADB53),
+          child: Center(
+            child: Text("home"),
           ),
         ),
         if (isLoading)
