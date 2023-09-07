@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../../../navigation/forrest_router.dart';
 import '../../data/data_sources/data_sources.dart';
 import '../bloc/bloc.dart';
 
@@ -33,6 +34,7 @@ class _RootWrapperScreenState extends State<RootWrapperScreen>
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
+    ForrestRouter(context);
     super.initState();
   }
 

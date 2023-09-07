@@ -14,42 +14,43 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String activeIndex = '';
-  int length = 0;
-  bool isLoading = false;
   late CoreBloc coreBloc = context.read<CoreBloc>();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void updateActiveIndex(String newActiveIndex) async {
-    setState(() {
-      activeIndex = newActiveIndex;
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  int currentDay = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const ScreenBox(
-          backgroundColor: Color(0xFF8ADB53),
-          child: Center(
-            child: Text("home"),
+    var habits = coreBloc.state.habits
+        .where(
+          (element) => element.day == currentDay,
+        )
+        .toList();
+    return ScreenBox(
+      backgroundColor: const Color(0xFF8ADB53),
+      child: Column(
+        children: [
+          Calendar(
+            currentDay: currentDay,
+            onDayPressed: (day) {
+              setState(() {
+                currentDay = day;
+              });
+            },
           ),
-        ),
-        if (isLoading)
-          Container(
-              color: const Color(0x99000000),
-              child: const Center(child: CircularProgressIndicator()))
-      ],
+          const SizedBox(height: 32),
+          SizedBox(
+            height: 400,
+            child: ListView.separated(
+              itemBuilder: (_, i) {
+                return HabitItem(habit: habits[i]);
+              },
+              itemCount: habits.length,
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox(height: 16);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

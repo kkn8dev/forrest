@@ -10,6 +10,9 @@ ThemeData lightTheme = ThemeData(
       white: AppColorsPalette.white,
       gray: AppColorsPalette.gray,
       darkBlue: AppColorsPalette.darkBlue,
+      primary: AppColorsPalette.primary,
+      success: AppColorsPalette.success,
+      error: AppColorsPalette.error,
     ),
     AppTextStyles(
       h1: TextStyle(
