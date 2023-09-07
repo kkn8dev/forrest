@@ -135,7 +135,7 @@ class _$_CoreState implements _CoreState {
       [this.id,
       this.locale,
       this.unknownError,
-      final List<HabitEntity> habits = habitsDump])
+      final List<HabitEntity> habits = const []])
       : _habits = habits;
 
   @override

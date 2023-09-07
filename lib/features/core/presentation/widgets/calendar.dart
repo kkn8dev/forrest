@@ -54,13 +54,14 @@ class _CalendarState extends State<Calendar> {
               height: 48,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (_, i) {
+                itemBuilder: (_, index) {
+                  var i = index + 1;
                   return GestureDetector(
                     onTap: () {
                       widget.onDayPressed(i);
                     },
                     child: Text(
-                      (i + 1).toString(),
+                      i.toString(),
                       style: textStyles.h1.copyWith(
                         color: widget.currentDay == i
                             ? appColors.black

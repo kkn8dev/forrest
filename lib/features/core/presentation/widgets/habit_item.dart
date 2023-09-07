@@ -7,9 +7,11 @@ class HabitItem extends StatefulWidget {
   const HabitItem({
     Key? key,
     required this.habit,
+    required this.onHabitTap,
   }) : super(key: key);
 
   final HabitEntity habit;
+  final Function(HabitEntity habitEntity) onHabitTap;
 
   @override
   State<HabitItem> createState() => _HabitItemState();
@@ -22,7 +24,9 @@ class _HabitItemState extends State<HabitItem> {
     var textStyles = Theme.of(context).extension<AppTextStyles>()!;
 
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        widget.onHabitTap(widget.habit);
+      },
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(

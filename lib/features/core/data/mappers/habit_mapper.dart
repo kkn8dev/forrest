@@ -1,7 +1,7 @@
 import '../../domain/entity/entity.dart';
 import '../models/models.dart';
 
-HabitEntity templateMapper(HabitModel model) {
+HabitEntity habitMapper(HabitModel model) {
   return HabitEntity(
     isCompleted: model.isCompleted,
     text: model.text,

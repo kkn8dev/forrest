@@ -7,7 +7,6 @@ import 'features/core/data/repositories/core_repository_impl.dart';
 import 'features/core/domain/repositories/core_repository.dart';
 import 'features/core/domain/usecases/usecases.dart';
 import 'features/core/presentation/bloc/bloc.dart';
-
 // core dependencies
 import 'utils/dio_client.dart';
 
@@ -18,9 +17,15 @@ Future<void> init() async {
   sl.registerLazySingleton(
     () => CoreBloc(
       initAppUseCase: sl(),
+      loadHabitsUseCase: sl(),
+      toggleHabitStatusUseCase: sl(),
+      createHabitUseCase: sl(),
     ),
   );
   sl.registerLazySingleton(() => InitAppUseCase(sl()));
+  sl.registerLazySingleton(() => LoadHabitsUseCase(sl()));
+  sl.registerLazySingleton(() => ToggleHabitStatusUseCase(sl()));
+  sl.registerLazySingleton(() => CreateHabitUseCase(sl()));
   sl.registerLazySingleton<CoreRepository>(
     () => CoreRepositoryImpl(
       remoteDataSource: sl(),
