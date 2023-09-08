@@ -14,8 +14,7 @@ class CoreRemoteDataSourceImpl implements CoreRemoteDataSource {
   Future<bool> initApp() async {
     try {
       final response = await client.post(
-        '$baseApiUrl/core/init',
-        data: {"attributes": {}},
+        '$baseApiUrl/getForbiddenWordsList',
       );
       if (response.statusCode == 200) {
         // final jsonMap = response.data as Map<String, dynamic>;

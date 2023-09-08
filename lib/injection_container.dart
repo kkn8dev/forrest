@@ -7,7 +7,6 @@ import 'features/core/data/repositories/core_repository_impl.dart';
 import 'features/core/domain/repositories/core_repository.dart';
 import 'features/core/domain/usecases/usecases.dart';
 import 'features/core/presentation/bloc/bloc.dart';
-
 // core dependencies
 import 'utils/dio_client.dart';
 
@@ -28,8 +27,8 @@ Future<void> init() async {
     ),
   );
   sl.registerLazySingleton<CoreRemoteDataSource>(
-    () => CoreRemoteDataSourceMock(),
-    // () => CoreRemoteDataSourceImpl(client: sl()),
+    // () => CoreRemoteDataSourceMock(),
+    () => CoreRemoteDataSourceImpl(client: sl()),
   );
   sl.registerLazySingleton<CoreLocalDataSource>(
     // () => AuthRemoteDataSourceMock(
