@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forrest/features/core/domain/entity/entity.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../extensions/extensions.dart';
 import '../bloc/bloc.dart';
@@ -31,10 +32,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  onDeleteHabit(HabitEntity habitEntity) {
+    coreBloc.add(
+      DeleteHabitCoreEvent(habit: habitEntity),
+    );
+  }
+
   createHabit() {
+    var uuid = const Uuid();
     coreBloc.add(
       CreateHabitCoreEvent(
-        habit: const HabitEntity(
+        habit: HabitEntity(
+          uuid: uuid.v4(),
           isCompleted: false,
           text: 'New habit',
           year: 2023,
@@ -80,6 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (_, i) {
                     return HabitItem(
                       habit: habits[i],
+                      onDeleteHabit: onDeleteHabit,
                       onHabitTap: onHabitTap,
                     );
                   },

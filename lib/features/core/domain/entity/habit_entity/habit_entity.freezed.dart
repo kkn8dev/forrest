@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HabitEntity {
+  String get uuid => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   int get year => throw _privateConstructorUsedError;
@@ -33,7 +34,13 @@ abstract class $HabitEntityCopyWith<$Res> {
           HabitEntity value, $Res Function(HabitEntity) then) =
       _$HabitEntityCopyWithImpl<$Res, HabitEntity>;
   @useResult
-  $Res call({bool isCompleted, String text, int year, int month, int day});
+  $Res call(
+      {String uuid,
+      bool isCompleted,
+      String text,
+      int year,
+      int month,
+      int day});
 }
 
 /// @nodoc
@@ -49,6 +56,7 @@ class _$HabitEntityCopyWithImpl<$Res, $Val extends HabitEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uuid = null,
     Object? isCompleted = null,
     Object? text = null,
     Object? year = null,
@@ -56,6 +64,10 @@ class _$HabitEntityCopyWithImpl<$Res, $Val extends HabitEntity>
     Object? day = null,
   }) {
     return _then(_value.copyWith(
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
       isCompleted: null == isCompleted
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
@@ -88,7 +100,13 @@ abstract class _$$_HabitEntityCopyWith<$Res>
       __$$_HabitEntityCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isCompleted, String text, int year, int month, int day});
+  $Res call(
+      {String uuid,
+      bool isCompleted,
+      String text,
+      int year,
+      int month,
+      int day});
 }
 
 /// @nodoc
@@ -102,6 +120,7 @@ class __$$_HabitEntityCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uuid = null,
     Object? isCompleted = null,
     Object? text = null,
     Object? year = null,
@@ -109,6 +128,10 @@ class __$$_HabitEntityCopyWithImpl<$Res>
     Object? day = null,
   }) {
     return _then(_$_HabitEntity(
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
       isCompleted: null == isCompleted
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
@@ -137,12 +160,15 @@ class __$$_HabitEntityCopyWithImpl<$Res>
 
 class _$_HabitEntity implements _HabitEntity {
   const _$_HabitEntity(
-      {required this.isCompleted,
+      {required this.uuid,
+      required this.isCompleted,
       required this.text,
       required this.year,
       required this.month,
       required this.day});
 
+  @override
+  final String uuid;
   @override
   final bool isCompleted;
   @override
@@ -156,7 +182,7 @@ class _$_HabitEntity implements _HabitEntity {
 
   @override
   String toString() {
-    return 'HabitEntity(isCompleted: $isCompleted, text: $text, year: $year, month: $month, day: $day)';
+    return 'HabitEntity(uuid: $uuid, isCompleted: $isCompleted, text: $text, year: $year, month: $month, day: $day)';
   }
 
   @override
@@ -164,6 +190,7 @@ class _$_HabitEntity implements _HabitEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_HabitEntity &&
+            (identical(other.uuid, uuid) || other.uuid == uuid) &&
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted) &&
             (identical(other.text, text) || other.text == text) &&
@@ -174,7 +201,7 @@ class _$_HabitEntity implements _HabitEntity {
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, isCompleted, text, year, month, day);
+      Object.hash(runtimeType, uuid, isCompleted, text, year, month, day);
 
   @JsonKey(ignore: true)
   @override
@@ -185,12 +212,15 @@ class _$_HabitEntity implements _HabitEntity {
 
 abstract class _HabitEntity implements HabitEntity {
   const factory _HabitEntity(
-      {required final bool isCompleted,
+      {required final String uuid,
+      required final bool isCompleted,
       required final String text,
       required final int year,
       required final int month,
       required final int day}) = _$_HabitEntity;
 
+  @override
+  String get uuid;
   @override
   bool get isCompleted;
   @override

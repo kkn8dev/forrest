@@ -12,4 +12,7 @@ abstract class CoreRepository {
 
   Future<Either<Failure, List<HabitEntity>>> createHabit(
       HabitEntity habitEntity);
+
+  Future<Either<Failure, List<HabitEntity>>> deleteHabit(
+      HabitEntity habitEntity);
 }

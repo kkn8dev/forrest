@@ -8,10 +8,12 @@ class HabitItem extends StatefulWidget {
     Key? key,
     required this.habit,
     required this.onHabitTap,
+    required this.onDeleteHabit,
   }) : super(key: key);
 
   final HabitEntity habit;
   final Function(HabitEntity habitEntity) onHabitTap;
+  final Function(HabitEntity habitEntity) onDeleteHabit;
 
   @override
   State<HabitItem> createState() => _HabitItemState();
@@ -26,6 +28,9 @@ class _HabitItemState extends State<HabitItem> {
     return GestureDetector(
       onTap: () {
         widget.onHabitTap(widget.habit);
+      },
+      onDoubleTap: () {
+        widget.onDeleteHabit(widget.habit);
       },
       child: Container(
         padding: const EdgeInsets.all(16),

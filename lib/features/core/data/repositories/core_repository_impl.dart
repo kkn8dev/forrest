@@ -37,6 +37,7 @@ class CoreRepositoryImpl implements CoreRepository {
       HabitEntity habitEntity) async {
     try {
       var habitModel = HabitModel(
+        uuid: habitEntity.uuid,
         isCompleted: habitEntity.isCompleted,
         text: habitEntity.text,
         createdAt:
@@ -57,12 +58,34 @@ class CoreRepositoryImpl implements CoreRepository {
   ) async {
     try {
       var habitModel = HabitModel(
+        uuid: habitEntity.uuid,
         isCompleted: habitEntity.isCompleted,
         text: habitEntity.text,
         createdAt:
             DateTime(habitEntity.year, habitEntity.month, habitEntity.day),
       );
       var result = await localDataSource.createHabit(habitModel);
+      return Right(result.map((e) => habitMapper(e)).toList());
+    } on UserException catch (e) {
+      return Left(UserFailure(code: e.code, message: e.message));
+    } on ServerException {
+      return Left(ServerFailure(code: 500, message: 'Server Error'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<HabitEntity>>> deleteHabit(
+    HabitEntity habitEntity,
+  ) async {
+    try {
+      var habitModel = HabitModel(
+        uuid: habitEntity.uuid,
+        isCompleted: habitEntity.isCompleted,
+        text: habitEntity.text,
+        createdAt:
+            DateTime(habitEntity.year, habitEntity.month, habitEntity.day),
+      );
+      var result = await localDataSource.deleteHabit(habitModel);
       return Right(result.map((e) => habitMapper(e)).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));

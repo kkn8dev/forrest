@@ -20,12 +20,14 @@ Future<void> init() async {
       loadHabitsUseCase: sl(),
       toggleHabitStatusUseCase: sl(),
       createHabitUseCase: sl(),
+      deleteHabitUseCase: sl(),
     ),
   );
   sl.registerLazySingleton(() => InitAppUseCase(sl()));
   sl.registerLazySingleton(() => LoadHabitsUseCase(sl()));
   sl.registerLazySingleton(() => ToggleHabitStatusUseCase(sl()));
   sl.registerLazySingleton(() => CreateHabitUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteHabitUseCase(sl()));
   sl.registerLazySingleton<CoreRepository>(
     () => CoreRepositoryImpl(
       remoteDataSource: sl(),

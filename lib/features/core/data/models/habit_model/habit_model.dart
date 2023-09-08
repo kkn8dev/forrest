@@ -5,10 +5,12 @@ part 'habit_model.g.dart';
 
 @freezed
 class HabitModel with _$HabitModel {
-  const factory HabitModel(
-      {required bool isCompleted,
-      required String text,
-      required DateTime createdAt}) = _HabitModel;
+  const factory HabitModel({
+    required String uuid,
+    required bool isCompleted,
+    required String text,
+    required DateTime createdAt,
+  }) = _HabitModel;
 
   factory HabitModel.fromJson(Map<String, dynamic> json) =>
       _$HabitModelFromJson(json);

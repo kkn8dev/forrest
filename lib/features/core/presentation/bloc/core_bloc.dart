@@ -10,12 +10,14 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
   final LoadHabitsUseCase loadHabitsUseCase;
   final ToggleHabitStatusUseCase toggleHabitStatusUseCase;
   final CreateHabitUseCase createHabitUseCase;
+  final DeleteHabitUseCase deleteHabitUseCase;
 
   CoreBloc({
     required this.initAppUseCase,
     required this.loadHabitsUseCase,
     required this.toggleHabitStatusUseCase,
     required this.createHabitUseCase,
+    required this.deleteHabitUseCase,
   }) : super(CoreState()) {
     on<InitCoreEvent>((event, emit) async {
       emit(
@@ -26,6 +28,7 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
     on<LoadHabitsCoreEvent>(_onLoadHabitsCoreEvent);
     on<ToggleHabitStatusCoreEvent>(_onToggleHabitStatusCoreEvent);
     on<CreateHabitCoreEvent>(_onCreateHabitCoreEvent);
+    on<DeleteHabitCoreEvent>(_onDeleteHabitCoreEvent);
   }
 
   void _onLoadHabitsCoreEvent(
@@ -103,8 +106,44 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
     emit(
       state.copyWith(),
     );
-    var result = await toggleHabitStatusUseCase(
-      ToggleHabitStatusUseCaseParams(
+    var result = await createHabitUseCase(
+      CreateHabitUseCaseParams(
+        habit: event.habit,
+      ),
+    );
+    result.fold(
+      (error) {
+        if (error is ServerFailure) {
+          emit(
+            state.copyWith(
+              unknownError: error,
+              // unknownErrorCount: state.unknownErrorCount + 1,
+            ),
+          );
+        }
+        return emit(
+          state.copyWith(),
+        );
+      },
+      (result) {
+        emit(
+          state.copyWith(
+            habits: result,
+          ),
+        );
+      },
+    );
+  }
+
+  void _onDeleteHabitCoreEvent(
+    DeleteHabitCoreEvent event,
+    Emitter<CoreState> emit,
+  ) async {
+    emit(
+      state.copyWith(),
+    );
+    var result = await deleteHabitUseCase(
+      DeleteHabitUseCaseParams(
         habit: event.habit,
       ),
     );

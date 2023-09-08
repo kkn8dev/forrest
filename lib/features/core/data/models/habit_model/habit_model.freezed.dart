@@ -20,6 +20,7 @@ HabitModel _$HabitModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$HabitModel {
+  String get uuid => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -36,7 +37,7 @@ abstract class $HabitModelCopyWith<$Res> {
           HabitModel value, $Res Function(HabitModel) then) =
       _$HabitModelCopyWithImpl<$Res, HabitModel>;
   @useResult
-  $Res call({bool isCompleted, String text, DateTime createdAt});
+  $Res call({String uuid, bool isCompleted, String text, DateTime createdAt});
 }
 
 /// @nodoc
@@ -52,11 +53,16 @@ class _$HabitModelCopyWithImpl<$Res, $Val extends HabitModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uuid = null,
     Object? isCompleted = null,
     Object? text = null,
     Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
       isCompleted: null == isCompleted
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
@@ -81,7 +87,7 @@ abstract class _$$_HabitModelCopyWith<$Res>
       __$$_HabitModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isCompleted, String text, DateTime createdAt});
+  $Res call({String uuid, bool isCompleted, String text, DateTime createdAt});
 }
 
 /// @nodoc
@@ -95,11 +101,16 @@ class __$$_HabitModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uuid = null,
     Object? isCompleted = null,
     Object? text = null,
     Object? createdAt = null,
   }) {
     return _then(_$_HabitModel(
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
       isCompleted: null == isCompleted
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
@@ -120,11 +131,16 @@ class __$$_HabitModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_HabitModel implements _HabitModel {
   const _$_HabitModel(
-      {required this.isCompleted, required this.text, required this.createdAt});
+      {required this.uuid,
+      required this.isCompleted,
+      required this.text,
+      required this.createdAt});
 
   factory _$_HabitModel.fromJson(Map<String, dynamic> json) =>
       _$$_HabitModelFromJson(json);
 
+  @override
+  final String uuid;
   @override
   final bool isCompleted;
   @override
@@ -134,7 +150,7 @@ class _$_HabitModel implements _HabitModel {
 
   @override
   String toString() {
-    return 'HabitModel(isCompleted: $isCompleted, text: $text, createdAt: $createdAt)';
+    return 'HabitModel(uuid: $uuid, isCompleted: $isCompleted, text: $text, createdAt: $createdAt)';
   }
 
   @override
@@ -142,6 +158,7 @@ class _$_HabitModel implements _HabitModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_HabitModel &&
+            (identical(other.uuid, uuid) || other.uuid == uuid) &&
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted) &&
             (identical(other.text, text) || other.text == text) &&
@@ -151,7 +168,8 @@ class _$_HabitModel implements _HabitModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, isCompleted, text, createdAt);
+  int get hashCode =>
+      Object.hash(runtimeType, uuid, isCompleted, text, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -169,13 +187,16 @@ class _$_HabitModel implements _HabitModel {
 
 abstract class _HabitModel implements HabitModel {
   const factory _HabitModel(
-      {required final bool isCompleted,
+      {required final String uuid,
+      required final bool isCompleted,
       required final String text,
       required final DateTime createdAt}) = _$_HabitModel;
 
   factory _HabitModel.fromJson(Map<String, dynamic> json) =
       _$_HabitModel.fromJson;
 
+  @override
+  String get uuid;
   @override
   bool get isCompleted;
   @override

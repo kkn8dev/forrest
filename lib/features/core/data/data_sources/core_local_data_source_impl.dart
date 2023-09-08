@@ -34,9 +34,17 @@ class CoreLocalDataSourceImpl implements CoreLocalDataSource {
   @override
   Future<List<HabitModel>> toggleHabitStatus(HabitModel habitModel) async {
     var habits = await readHabits();
-    habits.add(habitModel);
-    writeHabits(habits);
-    return habits;
+    var newHabit =
+        habits.firstWhere((element) => element.uuid == habitModel.uuid);
+    var index = habits.indexOf(habitModel);
+    var updatedHabit = newHabit.copyWith(isCompleted: !newHabit.isCompleted);
+    var a = [
+      ...habits.sublist(0, index),
+      updatedHabit,
+      ...habits.sublist(index + 1)
+    ];
+    writeHabits(a);
+    return a;
   }
 
   @override
@@ -45,6 +53,15 @@ class CoreLocalDataSourceImpl implements CoreLocalDataSource {
     habits.add(habitModel);
     writeHabits(habits);
     return habits;
+  }
+
+  @override
+  Future<List<HabitModel>> deleteHabit(HabitModel habitModel) async {
+    var habits = await readHabits();
+    var newHabits =
+        habits.where((element) => element.uuid != habitModel.uuid).toList();
+    writeHabits(newHabits);
+    return newHabits;
   }
 }
 

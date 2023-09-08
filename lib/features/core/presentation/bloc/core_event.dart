@@ -17,3 +17,9 @@ class CreateHabitCoreEvent extends CoreEvent {
 
   final HabitEntity habit;
 }
+
+class DeleteHabitCoreEvent extends CoreEvent {
+  DeleteHabitCoreEvent({required this.habit});
+
+  final HabitEntity habit;
+}
