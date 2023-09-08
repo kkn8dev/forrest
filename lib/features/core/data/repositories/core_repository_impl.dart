@@ -17,6 +17,7 @@ class CoreRepositoryImpl implements CoreRepository {
 
   @override
   Future<Either<Failure, bool>> initApp() async {
+    remoteDataSource.initApp();
     return const Right(true);
   }
 

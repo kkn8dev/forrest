@@ -35,8 +35,8 @@ Future<void> init() async {
     ),
   );
   sl.registerLazySingleton<CoreRemoteDataSource>(
-    () => CoreRemoteDataSourceMock(),
-    // () => CoreRemoteDataSourceImpl(client: sl()),
+    // () => CoreRemoteDataSourceMock(),
+    () => CoreRemoteDataSourceImpl(client: sl()),
   );
   sl.registerLazySingleton<CoreLocalDataSource>(
     // () => AuthRemoteDataSourceMock(

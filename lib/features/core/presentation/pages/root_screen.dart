@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../main.dart';
 import '../../../../navigation/auto_router.dart';
 import '../../../../styles/light_theme.dart';
+import '../../../../utils/dio_client.dart';
 import '../bloc/bloc.dart';
 
 final RootRouter _appRouter = RootRouter();
@@ -24,6 +26,8 @@ class RootScreen extends StatefulWidget {
 class _RootScreenState extends State<RootScreen> {
   @override
   void initState() {
+    alice.setNavigatorKey(_appRouter.navigatorKey);
+    dio.interceptors.add(alice.getDioInterceptor());
     super.initState();
   }
 

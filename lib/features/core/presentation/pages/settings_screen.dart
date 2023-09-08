@@ -14,10 +14,15 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CoreBloc, CoreState>(
       builder: (context, state) {
-        return const ScreenBox(
+        return ScreenBox(
           backgroundColor: Color(0xFFFF5F96),
           child: Center(
-            child: Text("settings"),
+            child: Button2(
+              label: 'get request',
+              onTap: () {
+                context.read<CoreBloc>().add(InitCoreEvent());
+              },
+            ),
           ),
         );
       },
