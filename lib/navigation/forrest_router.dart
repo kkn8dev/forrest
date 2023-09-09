@@ -23,6 +23,10 @@ class ForrestRouter {
     context.router.pushNamed(Routes.develop);
   }
 
+  openUpdateModal() {
+    context.router.navigateNamed('/updateModal');
+  }
+
   pop() {
     context.router.back();
   }

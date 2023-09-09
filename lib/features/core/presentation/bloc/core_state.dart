@@ -10,5 +10,7 @@ class CoreState with _$CoreState {
     String? id,
     String? locale,
     Failure? unknownError,
+    @Default([]) List<HabitEntity> habits,
   ]) = _CoreState;
 }
+

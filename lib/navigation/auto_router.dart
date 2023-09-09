@@ -56,15 +56,15 @@ class RootRouter extends $RootRouter {
           path: Routes.develop,
           page: DevelopRoute.page,
         ),
-        // CustomRoute(
-        //   durationInMilliseconds: 0,
-        //   reverseDurationInMilliseconds: 0,
-        //   barrierDismissible: true,
-        //   opaque: false,
-        //   path: Routes.uploadModal,
-        //   page: UploadPhotosModalRoute.page,
-        //   fullscreenDialog: true,
-        // ),
+        CustomRoute(
+          durationInMilliseconds: 0,
+          reverseDurationInMilliseconds: 0,
+          barrierDismissible: true,
+          opaque: false,
+          path: Routes.updateModal,
+          page: UpdateModalRoute.page,
+          fullscreenDialog: true,
+        ),
       ],
     ),
     RedirectRoute(path: '*', redirectTo: '/'),
@@ -102,4 +102,5 @@ class Routes {
   static const money = 'money';
   static const profile = 'profile';
   static const settings = 'settings';
+  static const updateModal = 'updateModal';
 }

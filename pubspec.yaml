@@ -27,6 +27,8 @@ dependencies:
   json_annotation: ^4.8.1
   logger: ^2.0.2
   flutter_native_splash: ^2.3.2
+  path_provider: ^2.1.1
+  uuid: ^4.0.0
   flutter_local_notifications: ^15.1.1
   alice:
     path: ../alice/

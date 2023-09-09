@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forrest/navigation/forrest_router.dart';
 
 import '../../../../styles/app_images.dart';
 import '../bloc/bloc.dart';
@@ -18,10 +19,15 @@ class ProfileScreen extends StatelessWidget {
         return ScreenBox(
           backgroundColor: const Color(0xFF36DBFF),
           child: Center(
-            child: Image.asset(
-              AppImages.logoPng,
-              width: 300,
-              height: 300,
+            child: GestureDetector(
+              onTap: () {
+                ForrestRouter.inst.openUpdateModal();
+              },
+              child: Image.asset(
+                AppImages.logoPng,
+                width: 300,
+                height: 300,
+              ),
             ),
           ),
         );

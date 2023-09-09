@@ -19,6 +19,7 @@ mixin _$CoreState {
   String? get id => throw _privateConstructorUsedError;
   String? get locale => throw _privateConstructorUsedError;
   Failure? get unknownError => throw _privateConstructorUsedError;
+  List<HabitEntity> get habits => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CoreStateCopyWith<CoreState> get copyWith =>
@@ -30,7 +31,11 @@ abstract class $CoreStateCopyWith<$Res> {
   factory $CoreStateCopyWith(CoreState value, $Res Function(CoreState) then) =
       _$CoreStateCopyWithImpl<$Res, CoreState>;
   @useResult
-  $Res call({String? id, String? locale, Failure? unknownError});
+  $Res call(
+      {String? id,
+      String? locale,
+      Failure? unknownError,
+      List<HabitEntity> habits});
 }
 
 /// @nodoc
@@ -49,6 +54,7 @@ class _$CoreStateCopyWithImpl<$Res, $Val extends CoreState>
     Object? id = freezed,
     Object? locale = freezed,
     Object? unknownError = freezed,
+    Object? habits = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -63,6 +69,10 @@ class _$CoreStateCopyWithImpl<$Res, $Val extends CoreState>
           ? _value.unknownError
           : unknownError // ignore: cast_nullable_to_non_nullable
               as Failure?,
+      habits: null == habits
+          ? _value.habits
+          : habits // ignore: cast_nullable_to_non_nullable
+              as List<HabitEntity>,
     ) as $Val);
   }
 }
@@ -74,7 +84,11 @@ abstract class _$$_CoreStateCopyWith<$Res> implements $CoreStateCopyWith<$Res> {
       __$$_CoreStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? id, String? locale, Failure? unknownError});
+  $Res call(
+      {String? id,
+      String? locale,
+      Failure? unknownError,
+      List<HabitEntity> habits});
 }
 
 /// @nodoc
@@ -91,6 +105,7 @@ class __$$_CoreStateCopyWithImpl<$Res>
     Object? id = freezed,
     Object? locale = freezed,
     Object? unknownError = freezed,
+    Object? habits = null,
   }) {
     return _then(_$_CoreState(
       freezed == id
@@ -105,6 +120,10 @@ class __$$_CoreStateCopyWithImpl<$Res>
           ? _value.unknownError
           : unknownError // ignore: cast_nullable_to_non_nullable
               as Failure?,
+      null == habits
+          ? _value._habits
+          : habits // ignore: cast_nullable_to_non_nullable
+              as List<HabitEntity>,
     ));
   }
 }
@@ -112,7 +131,12 @@ class __$$_CoreStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CoreState implements _CoreState {
-  _$_CoreState([this.id, this.locale, this.unknownError]);
+  _$_CoreState(
+      [this.id,
+      this.locale,
+      this.unknownError,
+      final List<HabitEntity> habits = const []])
+      : _habits = habits;
 
   @override
   final String? id;
@@ -120,10 +144,18 @@ class _$_CoreState implements _CoreState {
   final String? locale;
   @override
   final Failure? unknownError;
+  final List<HabitEntity> _habits;
+  @override
+  @JsonKey()
+  List<HabitEntity> get habits {
+    if (_habits is EqualUnmodifiableListView) return _habits;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_habits);
+  }
 
   @override
   String toString() {
-    return 'CoreState(id: $id, locale: $locale, unknownError: $unknownError)';
+    return 'CoreState(id: $id, locale: $locale, unknownError: $unknownError, habits: $habits)';
   }
 
   @override
@@ -134,11 +166,13 @@ class _$_CoreState implements _CoreState {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.locale, locale) || other.locale == locale) &&
             (identical(other.unknownError, unknownError) ||
-                other.unknownError == unknownError));
+                other.unknownError == unknownError) &&
+            const DeepCollectionEquality().equals(other._habits, _habits));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, locale, unknownError);
+  int get hashCode => Object.hash(runtimeType, id, locale, unknownError,
+      const DeepCollectionEquality().hash(_habits));
 
   @JsonKey(ignore: true)
   @override
@@ -151,7 +185,8 @@ abstract class _CoreState implements CoreState {
   factory _CoreState(
       [final String? id,
       final String? locale,
-      final Failure? unknownError]) = _$_CoreState;
+      final Failure? unknownError,
+      final List<HabitEntity> habits]) = _$_CoreState;
 
   @override
   String? get id;
@@ -159,6 +194,8 @@ abstract class _CoreState implements CoreState {
   String? get locale;
   @override
   Failure? get unknownError;
+  @override
+  List<HabitEntity> get habits;
   @override
   @JsonKey(ignore: true)
   _$$_CoreStateCopyWith<_$_CoreState> get copyWith =>

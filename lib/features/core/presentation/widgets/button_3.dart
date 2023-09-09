@@ -4,13 +4,12 @@ import '../../../../extensions/extensions.dart';
 import '../../../../styles/app_images.dart';
 
 class Button3 extends StatefulWidget {
-  const Button3(
-      {Key? key,
-      this.isDisabled = false,
-      this.isLoading = false,
-      this.onTap,
-      x})
-      : super(key: key);
+  const Button3({
+    Key? key,
+    this.isDisabled = false,
+    this.isLoading = false,
+    this.onTap,
+  }) : super(key: key);
 
   final bool isDisabled;
   final bool isLoading;
