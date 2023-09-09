@@ -22,6 +22,7 @@ HabitModel _$HabitModelFromJson(Map<String, dynamic> json) {
 mixin _$HabitModel {
   String get uuid => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
+  bool get isLocked => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
 
@@ -37,7 +38,12 @@ abstract class $HabitModelCopyWith<$Res> {
           HabitModel value, $Res Function(HabitModel) then) =
       _$HabitModelCopyWithImpl<$Res, HabitModel>;
   @useResult
-  $Res call({String uuid, bool isCompleted, String text, DateTime createdAt});
+  $Res call(
+      {String uuid,
+      bool isCompleted,
+      bool isLocked,
+      String text,
+      DateTime createdAt});
 }
 
 /// @nodoc
@@ -55,6 +61,7 @@ class _$HabitModelCopyWithImpl<$Res, $Val extends HabitModel>
   $Res call({
     Object? uuid = null,
     Object? isCompleted = null,
+    Object? isLocked = null,
     Object? text = null,
     Object? createdAt = null,
   }) {
@@ -66,6 +73,10 @@ class _$HabitModelCopyWithImpl<$Res, $Val extends HabitModel>
       isCompleted: null == isCompleted
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLocked: null == isLocked
+          ? _value.isLocked
+          : isLocked // ignore: cast_nullable_to_non_nullable
               as bool,
       text: null == text
           ? _value.text
@@ -87,7 +98,12 @@ abstract class _$$_HabitModelCopyWith<$Res>
       __$$_HabitModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String uuid, bool isCompleted, String text, DateTime createdAt});
+  $Res call(
+      {String uuid,
+      bool isCompleted,
+      bool isLocked,
+      String text,
+      DateTime createdAt});
 }
 
 /// @nodoc
@@ -103,6 +119,7 @@ class __$$_HabitModelCopyWithImpl<$Res>
   $Res call({
     Object? uuid = null,
     Object? isCompleted = null,
+    Object? isLocked = null,
     Object? text = null,
     Object? createdAt = null,
   }) {
@@ -114,6 +131,10 @@ class __$$_HabitModelCopyWithImpl<$Res>
       isCompleted: null == isCompleted
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLocked: null == isLocked
+          ? _value.isLocked
+          : isLocked // ignore: cast_nullable_to_non_nullable
               as bool,
       text: null == text
           ? _value.text
@@ -133,6 +154,7 @@ class _$_HabitModel implements _HabitModel {
   const _$_HabitModel(
       {required this.uuid,
       required this.isCompleted,
+      required this.isLocked,
       required this.text,
       required this.createdAt});
 
@@ -144,13 +166,15 @@ class _$_HabitModel implements _HabitModel {
   @override
   final bool isCompleted;
   @override
+  final bool isLocked;
+  @override
   final String text;
   @override
   final DateTime createdAt;
 
   @override
   String toString() {
-    return 'HabitModel(uuid: $uuid, isCompleted: $isCompleted, text: $text, createdAt: $createdAt)';
+    return 'HabitModel(uuid: $uuid, isCompleted: $isCompleted, isLocked: $isLocked, text: $text, createdAt: $createdAt)';
   }
 
   @override
@@ -161,6 +185,8 @@ class _$_HabitModel implements _HabitModel {
             (identical(other.uuid, uuid) || other.uuid == uuid) &&
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted) &&
+            (identical(other.isLocked, isLocked) ||
+                other.isLocked == isLocked) &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
@@ -169,7 +195,7 @@ class _$_HabitModel implements _HabitModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, uuid, isCompleted, text, createdAt);
+      Object.hash(runtimeType, uuid, isCompleted, isLocked, text, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -189,6 +215,7 @@ abstract class _HabitModel implements HabitModel {
   const factory _HabitModel(
       {required final String uuid,
       required final bool isCompleted,
+      required final bool isLocked,
       required final String text,
       required final DateTime createdAt}) = _$_HabitModel;
 
@@ -199,6 +226,8 @@ abstract class _HabitModel implements HabitModel {
   String get uuid;
   @override
   bool get isCompleted;
+  @override
+  bool get isLocked;
   @override
   String get text;
   @override

@@ -7,6 +7,7 @@ class HabitEntity with _$HabitEntity {
   const factory HabitEntity({
     required String uuid,
     required bool isCompleted,
+    required bool isLocked,
     required String text,
     required int year,
     required int month,

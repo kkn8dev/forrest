@@ -10,6 +10,9 @@ abstract class CoreRepository {
   Future<Either<Failure, List<HabitEntity>>> toggleHabitStatus(
       HabitEntity habitEntity);
 
+  Future<Either<Failure, List<HabitEntity>>> toggleHabitLock(
+      HabitEntity habitEntity);
+
   Future<Either<Failure, List<HabitEntity>>> createHabit(
       HabitEntity habitEntity);
 

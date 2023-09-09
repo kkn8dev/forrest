@@ -19,6 +19,7 @@ Future<void> init() async {
       initAppUseCase: sl(),
       loadHabitsUseCase: sl(),
       toggleHabitStatusUseCase: sl(),
+      toggleHabitLockUseCase: sl(),
       createHabitUseCase: sl(),
       deleteHabitUseCase: sl(),
     ),
@@ -26,6 +27,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => InitAppUseCase(sl()));
   sl.registerLazySingleton(() => LoadHabitsUseCase(sl()));
   sl.registerLazySingleton(() => ToggleHabitStatusUseCase(sl()));
+  sl.registerLazySingleton(() => ToggleHabitLockUseCase(sl()));
   sl.registerLazySingleton(() => CreateHabitUseCase(sl()));
   sl.registerLazySingleton(() => DeleteHabitUseCase(sl()));
   sl.registerLazySingleton<CoreRepository>(

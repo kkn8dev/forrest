@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:forrest/features/core/domain/entity/entity.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../extensions/extensions.dart';
+import '../../domain/entity/entity.dart';
 import '../bloc/bloc.dart';
 import '../widgets/widgets.dart';
 
@@ -19,16 +19,29 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late CoreBloc coreBloc = context.read<CoreBloc>();
   int currentDay = 1;
+  TextEditingController newHabitTextController = TextEditingController();
 
   @override
   void initState() {
     coreBloc.add(LoadHabitsCoreEvent());
+    var day = DateTime.now().day;
+    setState(() {
+      currentDay = day;
+    });
     super.initState();
   }
 
   onHabitTap(HabitEntity habitEntity) {
+    if (!habitEntity.isLocked) {
+      coreBloc.add(
+        ToggleHabitStatusCoreEvent(habit: habitEntity),
+      );
+    }
+  }
+
+  onHabitLongTap(HabitEntity habitEntity) {
     coreBloc.add(
-      ToggleHabitStatusCoreEvent(habit: habitEntity),
+      ToggleHabitLockCoreEvent(habit: habitEntity),
     );
   }
 
@@ -45,10 +58,11 @@ class _HomeScreenState extends State<HomeScreen> {
         habit: HabitEntity(
           uuid: uuid.v4(),
           isCompleted: false,
-          text: 'New habit',
+          isLocked: false,
+          text: newHabitTextController.value.text,
           year: 2023,
           month: 9,
-          day: 9,
+          day: currentDay,
         ),
       ),
     );
@@ -78,19 +92,25 @@ class _HomeScreenState extends State<HomeScreen> {
                   });
                 },
               ),
+              const SizedBox(height: 32),
+              TextField(
+                controller: newHabitTextController,
+              ),
+              const SizedBox(height: 32),
               Button2(
                 label: "Add habit",
                 onTap: createHabit,
               ),
               const SizedBox(height: 32),
               SizedBox(
-                height: 400,
+                height: 380,
                 child: ListView.separated(
                   itemBuilder: (_, i) {
                     return HabitItem(
                       habit: habits[i],
                       onDeleteHabit: onDeleteHabit,
                       onHabitTap: onHabitTap,
+                      onHabitLongTap: onHabitLongTap,
                     );
                   },
                   itemCount: habits.length,
@@ -98,10 +118,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     return const SizedBox(height: 16);
                   },
                 ),
-              ),
-              Button1(
-                label: "Add habit",
-                onTap: createHabit,
               ),
             ],
           ),

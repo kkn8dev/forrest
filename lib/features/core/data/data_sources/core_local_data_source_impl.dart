@@ -48,6 +48,22 @@ class CoreLocalDataSourceImpl implements CoreLocalDataSource {
   }
 
   @override
+  Future<List<HabitModel>> toggleHabitLock(HabitModel habitModel) async {
+    var habits = await readHabits();
+    var newHabit =
+        habits.firstWhere((element) => element.uuid == habitModel.uuid);
+    var index = habits.indexOf(habitModel);
+    var updatedHabit = newHabit.copyWith(isLocked: !newHabit.isLocked);
+    var a = [
+      ...habits.sublist(0, index),
+      updatedHabit,
+      ...habits.sublist(index + 1)
+    ];
+    writeHabits(a);
+    return a;
+  }
+
+  @override
   Future<List<HabitModel>> createHabit(HabitModel habitModel) async {
     var habits = await readHabits();
     habits.add(habitModel);

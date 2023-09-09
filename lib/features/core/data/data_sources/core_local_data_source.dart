@@ -7,6 +7,8 @@ abstract class CoreLocalDataSource {
 
   Future<List<HabitModel>> toggleHabitStatus(HabitModel habitModel);
 
+  Future<List<HabitModel>> toggleHabitLock(HabitModel habitModel);
+
   Future<List<HabitModel>> createHabit(HabitModel habitModel);
 
   Future<List<HabitModel>> deleteHabit(HabitModel habitModel);

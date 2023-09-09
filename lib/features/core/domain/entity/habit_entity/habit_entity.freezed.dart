@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HabitEntity {
   String get uuid => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
+  bool get isLocked => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   int get year => throw _privateConstructorUsedError;
   int get month => throw _privateConstructorUsedError;
@@ -37,6 +38,7 @@ abstract class $HabitEntityCopyWith<$Res> {
   $Res call(
       {String uuid,
       bool isCompleted,
+      bool isLocked,
       String text,
       int year,
       int month,
@@ -58,6 +60,7 @@ class _$HabitEntityCopyWithImpl<$Res, $Val extends HabitEntity>
   $Res call({
     Object? uuid = null,
     Object? isCompleted = null,
+    Object? isLocked = null,
     Object? text = null,
     Object? year = null,
     Object? month = null,
@@ -71,6 +74,10 @@ class _$HabitEntityCopyWithImpl<$Res, $Val extends HabitEntity>
       isCompleted: null == isCompleted
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLocked: null == isLocked
+          ? _value.isLocked
+          : isLocked // ignore: cast_nullable_to_non_nullable
               as bool,
       text: null == text
           ? _value.text
@@ -103,6 +110,7 @@ abstract class _$$_HabitEntityCopyWith<$Res>
   $Res call(
       {String uuid,
       bool isCompleted,
+      bool isLocked,
       String text,
       int year,
       int month,
@@ -122,6 +130,7 @@ class __$$_HabitEntityCopyWithImpl<$Res>
   $Res call({
     Object? uuid = null,
     Object? isCompleted = null,
+    Object? isLocked = null,
     Object? text = null,
     Object? year = null,
     Object? month = null,
@@ -135,6 +144,10 @@ class __$$_HabitEntityCopyWithImpl<$Res>
       isCompleted: null == isCompleted
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLocked: null == isLocked
+          ? _value.isLocked
+          : isLocked // ignore: cast_nullable_to_non_nullable
               as bool,
       text: null == text
           ? _value.text
@@ -162,6 +175,7 @@ class _$_HabitEntity implements _HabitEntity {
   const _$_HabitEntity(
       {required this.uuid,
       required this.isCompleted,
+      required this.isLocked,
       required this.text,
       required this.year,
       required this.month,
@@ -171,6 +185,8 @@ class _$_HabitEntity implements _HabitEntity {
   final String uuid;
   @override
   final bool isCompleted;
+  @override
+  final bool isLocked;
   @override
   final String text;
   @override
@@ -182,7 +198,7 @@ class _$_HabitEntity implements _HabitEntity {
 
   @override
   String toString() {
-    return 'HabitEntity(uuid: $uuid, isCompleted: $isCompleted, text: $text, year: $year, month: $month, day: $day)';
+    return 'HabitEntity(uuid: $uuid, isCompleted: $isCompleted, isLocked: $isLocked, text: $text, year: $year, month: $month, day: $day)';
   }
 
   @override
@@ -193,6 +209,8 @@ class _$_HabitEntity implements _HabitEntity {
             (identical(other.uuid, uuid) || other.uuid == uuid) &&
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted) &&
+            (identical(other.isLocked, isLocked) ||
+                other.isLocked == isLocked) &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.year, year) || other.year == year) &&
             (identical(other.month, month) || other.month == month) &&
@@ -200,8 +218,8 @@ class _$_HabitEntity implements _HabitEntity {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, uuid, isCompleted, text, year, month, day);
+  int get hashCode => Object.hash(
+      runtimeType, uuid, isCompleted, isLocked, text, year, month, day);
 
   @JsonKey(ignore: true)
   @override
@@ -214,6 +232,7 @@ abstract class _HabitEntity implements HabitEntity {
   const factory _HabitEntity(
       {required final String uuid,
       required final bool isCompleted,
+      required final bool isLocked,
       required final String text,
       required final int year,
       required final int month,
@@ -223,6 +242,8 @@ abstract class _HabitEntity implements HabitEntity {
   String get uuid;
   @override
   bool get isCompleted;
+  @override
+  bool get isLocked;
   @override
   String get text;
   @override

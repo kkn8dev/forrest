@@ -9,6 +9,7 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
   final InitAppUseCase initAppUseCase;
   final LoadHabitsUseCase loadHabitsUseCase;
   final ToggleHabitStatusUseCase toggleHabitStatusUseCase;
+  final ToggleHabitLockUseCase toggleHabitLockUseCase;
   final CreateHabitUseCase createHabitUseCase;
   final DeleteHabitUseCase deleteHabitUseCase;
 
@@ -16,6 +17,7 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
     required this.initAppUseCase,
     required this.loadHabitsUseCase,
     required this.toggleHabitStatusUseCase,
+    required this.toggleHabitLockUseCase,
     required this.createHabitUseCase,
     required this.deleteHabitUseCase,
   }) : super(CoreState()) {
@@ -27,6 +29,7 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
     });
     on<LoadHabitsCoreEvent>(_onLoadHabitsCoreEvent);
     on<ToggleHabitStatusCoreEvent>(_onToggleHabitStatusCoreEvent);
+    on<ToggleHabitLockCoreEvent>(_onToggleHabitLockCoreEvent);
     on<CreateHabitCoreEvent>(_onCreateHabitCoreEvent);
     on<DeleteHabitCoreEvent>(_onDeleteHabitCoreEvent);
   }
@@ -39,6 +42,42 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
       state.copyWith(),
     );
     var result = await loadHabitsUseCase(NoParams());
+    result.fold(
+      (error) {
+        if (error is ServerFailure) {
+          emit(
+            state.copyWith(
+              unknownError: error,
+              // unknownErrorCount: state.unknownErrorCount + 1,
+            ),
+          );
+        }
+        return emit(
+          state.copyWith(),
+        );
+      },
+      (result) {
+        emit(
+          state.copyWith(
+            habits: result,
+          ),
+        );
+      },
+    );
+  }
+
+  void _onToggleHabitLockCoreEvent(
+    ToggleHabitLockCoreEvent event,
+    Emitter<CoreState> emit,
+  ) async {
+    emit(
+      state.copyWith(),
+    );
+    var result = await toggleHabitLockUseCase(
+      ToggleHabitLockUseCaseParams(
+        habit: event.habit,
+      ),
+    );
     result.fold(
       (error) {
         if (error is ServerFailure) {

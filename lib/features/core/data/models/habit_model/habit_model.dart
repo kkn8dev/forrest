@@ -8,6 +8,7 @@ class HabitModel with _$HabitModel {
   const factory HabitModel({
     required String uuid,
     required bool isCompleted,
+    required bool isLocked,
     required String text,
     required DateTime createdAt,
   }) = _HabitModel;
