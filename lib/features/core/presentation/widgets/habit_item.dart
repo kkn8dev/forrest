@@ -9,13 +9,13 @@ class HabitItem extends StatefulWidget {
     Key? key,
     required this.habit,
     required this.onHabitTap,
-    required this.onDeleteHabit,
+    required this.onHabitDoubleTap,
     required this.onHabitLongTap,
   }) : super(key: key);
 
   final HabitEntity habit;
   final Function(HabitEntity habitEntity) onHabitTap;
-  final Function(HabitEntity habitEntity) onDeleteHabit;
+  final Function(HabitEntity habitEntity) onHabitDoubleTap;
   final Function(HabitEntity habitEntity) onHabitLongTap;
 
   @override
@@ -33,7 +33,7 @@ class _HabitItemState extends State<HabitItem> {
         widget.onHabitTap(widget.habit);
       },
       onDoubleTap: () {
-        widget.onDeleteHabit(widget.habit);
+        widget.onHabitDoubleTap(widget.habit);
       },
       onLongPress: () {
         widget.onHabitLongTap(widget.habit);

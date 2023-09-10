@@ -19,8 +19,8 @@ class Calendar extends StatefulWidget {
 class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
-    var appColors = Theme.of(context).extension<AppColors>()!;
-    var textStyles = Theme.of(context).extension<AppTextStyles>()!;
+    var appColors = Theme.of(context).extension<AppColors>();
+    var textStyles = Theme.of(context).extension<AppTextStyles>();
 
     return GestureDetector(
       onTap: () {},
@@ -28,7 +28,7 @@ class _CalendarState extends State<Calendar> {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(32),
-          color: appColors.primary,
+          color: appColors?.primary,
         ),
         child: Column(
           children: [
@@ -37,14 +37,14 @@ class _CalendarState extends State<Calendar> {
               children: [
                 Text(
                   'September',
-                  style: textStyles.button1.copyWith(
-                    color: appColors.white,
+                  style: textStyles?.button1.copyWith(
+                    color: appColors?.white,
                   ),
                 ),
                 Text(
                   '2023',
-                  style: textStyles.button1.copyWith(
-                    color: appColors.white,
+                  style: textStyles?.button1.copyWith(
+                    color: appColors?.white,
                   ),
                 ),
               ],
@@ -62,16 +62,16 @@ class _CalendarState extends State<Calendar> {
                     },
                     child: Text(
                       i.toString(),
-                      style: textStyles.h1.copyWith(
+                      style: textStyles?.h1.copyWith(
                         color: widget.currentDay == i
-                            ? appColors.black
-                            : appColors.white,
+                            ? appColors?.black
+                            : appColors?.white,
                       ),
                     ),
                   );
                 },
                 itemCount: 31,
-                separatorBuilder: (BuildContext context, int index) {
+                separatorBuilder: (_, __) {
                   return const SizedBox(width: 16);
                 },
               ),

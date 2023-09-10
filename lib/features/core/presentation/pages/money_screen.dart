@@ -17,7 +17,6 @@ class MoneyScreen extends StatefulWidget {
 
 class _MoneyScreenState extends State<MoneyScreen> {
   onTap() {
-    print(12);
     NotificationService().showNotification(
       title: 'Hello friend',
       body: 'Get some active work',
@@ -31,7 +30,7 @@ class _MoneyScreenState extends State<MoneyScreen> {
         return ScreenBox(
           backgroundColor: const Color(0xFF833991),
           child: Center(
-            child: Button2(
+            child: Button1(
               label: "show notification",
               onTap: onTap,
             ),

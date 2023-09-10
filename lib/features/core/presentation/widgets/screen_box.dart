@@ -27,7 +27,7 @@ class ScreenBox extends StatelessWidget {
                     onTap: () =>
                         FocusScope.of(context).requestFocus(FocusNode()),
                     child: Padding(
-                      padding: padding ?? const EdgeInsets.all(20),
+                      padding: padding ?? const EdgeInsets.all(16),
                       child: child,
                     ),
                   ),

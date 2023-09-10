@@ -1,8 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import 'auto_router.dart';
-
 class ForrestRouter {
   late BuildContext context;
 
@@ -19,12 +17,12 @@ class ForrestRouter {
 
   NavigatorState get navigator => key.currentState!;
 
-  goToDevelop() {
-    context.router.pushNamed(Routes.develop);
-  }
-
   openUpdateModal() {
     context.router.navigateNamed('/updateModal');
+  }
+
+  goToDevelop() {
+    context.router.navigateNamed('/develop');
   }
 
   pop() {
