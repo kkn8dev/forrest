@@ -6,6 +6,8 @@ class InitCoreEvent extends CoreEvent {}
 
 class LoadHabitsCoreEvent extends CoreEvent {}
 
+class ToggleMoneyTrackerFeatureCoreEvent extends CoreEvent {}
+
 class ToggleHabitStatusCoreEvent extends CoreEvent {
   ToggleHabitStatusCoreEvent({required this.habit});
 

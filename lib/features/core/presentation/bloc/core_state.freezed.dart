@@ -19,6 +19,7 @@ mixin _$CoreState {
   String? get id => throw _privateConstructorUsedError;
   String? get locale => throw _privateConstructorUsedError;
   Failure? get unknownError => throw _privateConstructorUsedError;
+  bool get isMoneyTrackerAvailable => throw _privateConstructorUsedError;
   List<HabitEntity> get habits => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -35,6 +36,7 @@ abstract class $CoreStateCopyWith<$Res> {
       {String? id,
       String? locale,
       Failure? unknownError,
+      bool isMoneyTrackerAvailable,
       List<HabitEntity> habits});
 }
 
@@ -54,6 +56,7 @@ class _$CoreStateCopyWithImpl<$Res, $Val extends CoreState>
     Object? id = freezed,
     Object? locale = freezed,
     Object? unknownError = freezed,
+    Object? isMoneyTrackerAvailable = null,
     Object? habits = null,
   }) {
     return _then(_value.copyWith(
@@ -69,6 +72,10 @@ class _$CoreStateCopyWithImpl<$Res, $Val extends CoreState>
           ? _value.unknownError
           : unknownError // ignore: cast_nullable_to_non_nullable
               as Failure?,
+      isMoneyTrackerAvailable: null == isMoneyTrackerAvailable
+          ? _value.isMoneyTrackerAvailable
+          : isMoneyTrackerAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
       habits: null == habits
           ? _value.habits
           : habits // ignore: cast_nullable_to_non_nullable
@@ -88,6 +95,7 @@ abstract class _$$_CoreStateCopyWith<$Res> implements $CoreStateCopyWith<$Res> {
       {String? id,
       String? locale,
       Failure? unknownError,
+      bool isMoneyTrackerAvailable,
       List<HabitEntity> habits});
 }
 
@@ -105,6 +113,7 @@ class __$$_CoreStateCopyWithImpl<$Res>
     Object? id = freezed,
     Object? locale = freezed,
     Object? unknownError = freezed,
+    Object? isMoneyTrackerAvailable = null,
     Object? habits = null,
   }) {
     return _then(_$_CoreState(
@@ -120,6 +129,10 @@ class __$$_CoreStateCopyWithImpl<$Res>
           ? _value.unknownError
           : unknownError // ignore: cast_nullable_to_non_nullable
               as Failure?,
+      null == isMoneyTrackerAvailable
+          ? _value.isMoneyTrackerAvailable
+          : isMoneyTrackerAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
       null == habits
           ? _value._habits
           : habits // ignore: cast_nullable_to_non_nullable
@@ -135,6 +148,7 @@ class _$_CoreState implements _CoreState {
       [this.id,
       this.locale,
       this.unknownError,
+      this.isMoneyTrackerAvailable = true,
       final List<HabitEntity> habits = const []])
       : _habits = habits;
 
@@ -144,6 +158,9 @@ class _$_CoreState implements _CoreState {
   final String? locale;
   @override
   final Failure? unknownError;
+  @override
+  @JsonKey()
+  final bool isMoneyTrackerAvailable;
   final List<HabitEntity> _habits;
   @override
   @JsonKey()
@@ -155,7 +172,7 @@ class _$_CoreState implements _CoreState {
 
   @override
   String toString() {
-    return 'CoreState(id: $id, locale: $locale, unknownError: $unknownError, habits: $habits)';
+    return 'CoreState(id: $id, locale: $locale, unknownError: $unknownError, isMoneyTrackerAvailable: $isMoneyTrackerAvailable, habits: $habits)';
   }
 
   @override
@@ -167,12 +184,15 @@ class _$_CoreState implements _CoreState {
             (identical(other.locale, locale) || other.locale == locale) &&
             (identical(other.unknownError, unknownError) ||
                 other.unknownError == unknownError) &&
+            (identical(
+                    other.isMoneyTrackerAvailable, isMoneyTrackerAvailable) ||
+                other.isMoneyTrackerAvailable == isMoneyTrackerAvailable) &&
             const DeepCollectionEquality().equals(other._habits, _habits));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, id, locale, unknownError,
-      const DeepCollectionEquality().hash(_habits));
+      isMoneyTrackerAvailable, const DeepCollectionEquality().hash(_habits));
 
   @JsonKey(ignore: true)
   @override
@@ -186,6 +206,7 @@ abstract class _CoreState implements CoreState {
       [final String? id,
       final String? locale,
       final Failure? unknownError,
+      final bool isMoneyTrackerAvailable,
       final List<HabitEntity> habits]) = _$_CoreState;
 
   @override
@@ -194,6 +215,8 @@ abstract class _CoreState implements CoreState {
   String? get locale;
   @override
   Failure? get unknownError;
+  @override
+  bool get isMoneyTrackerAvailable;
   @override
   List<HabitEntity> get habits;
   @override

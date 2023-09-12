@@ -65,6 +65,15 @@ class RootRouter extends $RootRouter {
           page: UpdateModalRoute.page,
           fullscreenDialog: true,
         ),
+        CustomRoute(
+          durationInMilliseconds: 0,
+          reverseDurationInMilliseconds: 0,
+          barrierDismissible: true,
+          opaque: false,
+          path: Routes.addTransactionModal,
+          page: AddTransactionModalRoute.page,
+          fullscreenDialog: true,
+        ),
       ],
     ),
     RedirectRoute(path: '*', redirectTo: '/'),
@@ -103,4 +112,5 @@ class Routes {
   static const profile = 'profile';
   static const settings = 'settings';
   static const updateModal = 'updateModal';
+  static const addTransactionModal = 'addTransactionModal';
 }

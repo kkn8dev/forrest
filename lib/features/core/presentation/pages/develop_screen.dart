@@ -23,6 +23,7 @@ class _DevelopScreenState extends State<DevelopScreen> {
   @override
   Widget build(BuildContext context) {
     var textStyles = Theme.of(context).extension<AppTextStyles>();
+    late CoreBloc coreBloc = context.read<CoreBloc>();
 
     return BlocBuilder<CoreBloc, CoreState>(
       builder: (context, state) {
@@ -110,6 +111,30 @@ class _DevelopScreenState extends State<DevelopScreen> {
                       ),
                     );
                   },
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  coreBloc.add(ToggleMoneyTrackerFeatureCoreEvent());
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  color: Colors.transparent,
+                  child: Row(
+                    children: [
+                      CupertinoSwitch(
+                        value: state.isMoneyTrackerAvailable,
+                        onChanged: (bool value) {
+                          coreBloc.add(ToggleMoneyTrackerFeatureCoreEvent());
+                        },
+                      ),
+                      const SizedBox(width: 16),
+                      Text(
+                        'Money Tracker Feature',
+                        style: textStyles?.button1,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

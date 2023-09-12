@@ -9,6 +9,7 @@ import 'features/core/data/data_sources/data_sources.dart';
 import 'features/core/helpers/notification_service.dart';
 import 'features/core/presentation/bloc/bloc.dart';
 import 'features/core/presentation/pages/root_screen.dart';
+import 'features/money_tracker/presentation/bloc/bloc.dart';
 import 'injection_container.dart';
 import 'injection_container.dart' as di;
 
@@ -51,6 +52,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider.value(
           value: sl<CoreBloc>(),
+        ),
+        BlocProvider.value(
+          value: sl<MoneyTrackerBloc>(),
         ),
       ],
       child: RootScreen(

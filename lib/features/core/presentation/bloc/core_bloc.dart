@@ -27,6 +27,11 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
       );
       initAppUseCase(NoParams());
     });
+    on<ToggleMoneyTrackerFeatureCoreEvent>((event, emit) async {
+      emit(
+        state.copyWith(isMoneyTrackerAvailable: !state.isMoneyTrackerAvailable),
+      );
+    });
     on<LoadHabitsCoreEvent>(_onLoadHabitsCoreEvent);
     on<ToggleHabitStatusCoreEvent>(_onToggleHabitStatusCoreEvent);
     on<ToggleHabitLockCoreEvent>(_onToggleHabitLockCoreEvent);

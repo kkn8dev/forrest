@@ -7,7 +7,12 @@ import 'features/core/data/repositories/core_repository_impl.dart';
 import 'features/core/domain/repositories/core_repository.dart';
 import 'features/core/domain/usecases/usecases.dart';
 import 'features/core/presentation/bloc/bloc.dart';
-// core dependencies
+// money tracker feature
+import 'features/money_tracker/data/data_sources/data_sources.dart';
+import 'features/money_tracker/data/repositories/money_tracker_repository_impl.dart';
+import 'features/money_tracker/domain/repositories/money_tracker_repository.dart';
+import 'features/money_tracker/domain/usecases/usecases.dart';
+import 'features/money_tracker/presentation/bloc/bloc.dart';
 import 'utils/dio_client.dart';
 
 final sl = GetIt.instance;
@@ -43,6 +48,37 @@ Future<void> init() async {
   sl.registerLazySingleton<CoreLocalDataSource>(
     // () => AuthRemoteDataSourceMock(
     () => CoreLocalDataSourceImpl(
+      storage: sl(),
+    ),
+  );
+  //----------------------------------------------------------------------------
+
+  // Money Tracker feature --------------------------------------------------------------
+  sl.registerLazySingleton(
+    () => MoneyTrackerBloc(
+      loadTransactionsUseCase: sl(),
+      createTransactionUseCase: sl(),
+      deleteTransactionUseCase: sl(),
+      editTransactionUseCase: sl(),
+    ),
+  );
+  sl.registerLazySingleton(() => LoadTransactionsUseCase(sl()));
+  sl.registerLazySingleton(() => CreateTransactionUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteTransactionUseCase(sl()));
+  sl.registerLazySingleton(() => EditTransactionUseCase(sl()));
+  sl.registerLazySingleton<MoneyTrackerRepository>(
+    () => MoneyTrackerRepositoryImpl(
+      remoteDataSource: sl(),
+      localDataSource: sl(),
+    ),
+  );
+  sl.registerLazySingleton<MoneyTrackerRemoteDataSource>(
+    // () => MoneyTrackerRemoteDataSourceMock(),
+    () => MoneyTrackerRemoteDataSourceImpl(client: sl()),
+  );
+  sl.registerLazySingleton<MoneyTrackerLocalDataSource>(
+    // () => MoneyTrackerRemoteDataSourceMock(
+    () => MoneyTrackerLocalDataSourceImpl(
       storage: sl(),
     ),
   );
