@@ -21,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
           child: Center(
             child: GestureDetector(
               onTap: () {
-                ForrestRouter.inst.openUpdateModal();
+                ForrestRouter.inst.goToDevelop();
               },
               child: Image.asset(
                 AppImages.logoPng,

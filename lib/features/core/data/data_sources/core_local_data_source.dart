@@ -15,5 +15,6 @@ abstract class CoreLocalDataSource {
 }
 
 const String coreBox = 'coreBox';
+const String environment = 'environment';
 const String userId = 'userId';
 const String locale = 'locale';

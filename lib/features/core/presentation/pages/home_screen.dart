@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 controller: newHabitTextController,
               ),
               const SizedBox(height: 32),
-              Button2(
+              Button1(
                 label: "Add habit",
                 onTap: createHabit,
               ),
@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (_, i) {
                     return HabitItem(
                       habit: habits[i],
-                      onDeleteHabit: onDeleteHabit,
+                      onHabitDoubleTap: onDeleteHabit,
                       onHabitTap: onHabitTap,
                       onHabitLongTap: onHabitLongTap,
                     );

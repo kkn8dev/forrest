@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CoreState {
   String? get id => throw _privateConstructorUsedError;
   String? get locale => throw _privateConstructorUsedError;
+  String get theme => throw _privateConstructorUsedError;
   Failure? get unknownError => throw _privateConstructorUsedError;
+  bool get isMoneyTrackerAvailable => throw _privateConstructorUsedError;
   List<HabitEntity> get habits => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -34,7 +36,9 @@ abstract class $CoreStateCopyWith<$Res> {
   $Res call(
       {String? id,
       String? locale,
+      String theme,
       Failure? unknownError,
+      bool isMoneyTrackerAvailable,
       List<HabitEntity> habits});
 }
 
@@ -53,7 +57,9 @@ class _$CoreStateCopyWithImpl<$Res, $Val extends CoreState>
   $Res call({
     Object? id = freezed,
     Object? locale = freezed,
+    Object? theme = null,
     Object? unknownError = freezed,
+    Object? isMoneyTrackerAvailable = null,
     Object? habits = null,
   }) {
     return _then(_value.copyWith(
@@ -65,10 +71,18 @@ class _$CoreStateCopyWithImpl<$Res, $Val extends CoreState>
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
               as String?,
+      theme: null == theme
+          ? _value.theme
+          : theme // ignore: cast_nullable_to_non_nullable
+              as String,
       unknownError: freezed == unknownError
           ? _value.unknownError
           : unknownError // ignore: cast_nullable_to_non_nullable
               as Failure?,
+      isMoneyTrackerAvailable: null == isMoneyTrackerAvailable
+          ? _value.isMoneyTrackerAvailable
+          : isMoneyTrackerAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
       habits: null == habits
           ? _value.habits
           : habits // ignore: cast_nullable_to_non_nullable
@@ -87,7 +101,9 @@ abstract class _$$_CoreStateCopyWith<$Res> implements $CoreStateCopyWith<$Res> {
   $Res call(
       {String? id,
       String? locale,
+      String theme,
       Failure? unknownError,
+      bool isMoneyTrackerAvailable,
       List<HabitEntity> habits});
 }
 
@@ -104,7 +120,9 @@ class __$$_CoreStateCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? locale = freezed,
+    Object? theme = null,
     Object? unknownError = freezed,
+    Object? isMoneyTrackerAvailable = null,
     Object? habits = null,
   }) {
     return _then(_$_CoreState(
@@ -116,10 +134,18 @@ class __$$_CoreStateCopyWithImpl<$Res>
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
               as String?,
+      null == theme
+          ? _value.theme
+          : theme // ignore: cast_nullable_to_non_nullable
+              as String,
       freezed == unknownError
           ? _value.unknownError
           : unknownError // ignore: cast_nullable_to_non_nullable
               as Failure?,
+      null == isMoneyTrackerAvailable
+          ? _value.isMoneyTrackerAvailable
+          : isMoneyTrackerAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
       null == habits
           ? _value._habits
           : habits // ignore: cast_nullable_to_non_nullable
@@ -134,7 +160,9 @@ class _$_CoreState implements _CoreState {
   _$_CoreState(
       [this.id,
       this.locale,
+      this.theme = 'light',
       this.unknownError,
+      this.isMoneyTrackerAvailable = true,
       final List<HabitEntity> habits = const []])
       : _habits = habits;
 
@@ -143,7 +171,13 @@ class _$_CoreState implements _CoreState {
   @override
   final String? locale;
   @override
+  @JsonKey()
+  final String theme;
+  @override
   final Failure? unknownError;
+  @override
+  @JsonKey()
+  final bool isMoneyTrackerAvailable;
   final List<HabitEntity> _habits;
   @override
   @JsonKey()
@@ -155,7 +189,7 @@ class _$_CoreState implements _CoreState {
 
   @override
   String toString() {
-    return 'CoreState(id: $id, locale: $locale, unknownError: $unknownError, habits: $habits)';
+    return 'CoreState(id: $id, locale: $locale, theme: $theme, unknownError: $unknownError, isMoneyTrackerAvailable: $isMoneyTrackerAvailable, habits: $habits)';
   }
 
   @override
@@ -165,14 +199,18 @@ class _$_CoreState implements _CoreState {
             other is _$_CoreState &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.locale, locale) || other.locale == locale) &&
+            (identical(other.theme, theme) || other.theme == theme) &&
             (identical(other.unknownError, unknownError) ||
                 other.unknownError == unknownError) &&
+            (identical(
+                    other.isMoneyTrackerAvailable, isMoneyTrackerAvailable) ||
+                other.isMoneyTrackerAvailable == isMoneyTrackerAvailable) &&
             const DeepCollectionEquality().equals(other._habits, _habits));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, locale, unknownError,
-      const DeepCollectionEquality().hash(_habits));
+  int get hashCode => Object.hash(runtimeType, id, locale, theme, unknownError,
+      isMoneyTrackerAvailable, const DeepCollectionEquality().hash(_habits));
 
   @JsonKey(ignore: true)
   @override
@@ -185,7 +223,9 @@ abstract class _CoreState implements CoreState {
   factory _CoreState(
       [final String? id,
       final String? locale,
+      final String theme,
       final Failure? unknownError,
+      final bool isMoneyTrackerAvailable,
       final List<HabitEntity> habits]) = _$_CoreState;
 
   @override
@@ -193,7 +233,11 @@ abstract class _CoreState implements CoreState {
   @override
   String? get locale;
   @override
+  String get theme;
+  @override
   Failure? get unknownError;
+  @override
+  bool get isMoneyTrackerAvailable;
   @override
   List<HabitEntity> get habits;
   @override

@@ -9,8 +9,9 @@ import 'features/core/data/data_sources/data_sources.dart';
 import 'features/core/helpers/notification_service.dart';
 import 'features/core/presentation/bloc/bloc.dart';
 import 'features/core/presentation/pages/root_screen.dart';
-import 'injection_container.dart';
+import 'features/money_tracker/presentation/bloc/bloc.dart';
 import 'injection_container.dart' as di;
+import 'injection_container.dart';
 
 final logger = Logger(
   printer: PrettyPrinter(stackTraceBeginIndex: 20),
@@ -21,11 +22,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter('Forrest');
   await di.init();
-  await dotenv.load(fileName: ".env.dev");
   NotificationService().initNotification();
   var box = await Hive.openBox(coreBox);
   String? id = box.get(userId);
-
+  String? env = box.get(environment);
+  if (env == 'develop') {
+    await dotenv.load(fileName: ".env.dev");
+  } else {
+    await dotenv.load(fileName: ".env");
+  }
   runApp(
     MyApp(
       id: id,
@@ -47,6 +52,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider.value(
           value: sl<CoreBloc>(),
+        ),
+        BlocProvider.value(
+          value: sl<MoneyTrackerBloc>(),
         ),
       ],
       child: RootScreen(

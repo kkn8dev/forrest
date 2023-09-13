@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-
-import 'auto_router.dart';
+import 'package:forrest/features/money_tracker/domain/entity/entity.dart';
+import 'package:forrest/navigation/auto_router.gr.dart';
 
 class ForrestRouter {
   late BuildContext context;
@@ -19,12 +19,17 @@ class ForrestRouter {
 
   NavigatorState get navigator => key.currentState!;
 
-  goToDevelop() {
-    context.router.pushNamed(Routes.develop);
-  }
-
   openUpdateModal() {
     context.router.navigateNamed('/updateModal');
+  }
+
+  openAddTransactionModal(TransactionEntity? transactionEntity) {
+    context.router
+        .navigate(AddTransactionModalRoute(transaction: transactionEntity));
+  }
+
+  goToDevelop() {
+    context.router.navigateNamed('/develop');
   }
 
   pop() {
