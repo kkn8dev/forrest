@@ -1,3 +1,12 @@
 {
-  "chooseLanguage":"Choose language"
+  "errorModal_title": "Please try again later",
+  "calendar_september": "September",
+  "@calendar": {
+    "description": "A message with a date parameter"
+  },
+  "habitScreen_addHabitButton": "Add habit",
+  "moneyTracker_deleteTransactionButton": "Delete",
+  "moneyTracker_addTransactionButton": "Add",
+  "moneyTrackerScreen_addTransactionButton": "Add transaction",
+  "setting_darkTheme": "Dark theme"
 }

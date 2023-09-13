@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../extensions/extensions.dart';
 
@@ -21,6 +22,7 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     var appColors = Theme.of(context).extension<AppColors>();
     var textStyles = Theme.of(context).extension<AppTextStyles>();
+    var t = AppLocalizations.of(context)!;
 
     return GestureDetector(
       onTap: () {},
@@ -36,7 +38,7 @@ class _CalendarState extends State<Calendar> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'September',
+                  t.calendar_september,
                   style: textStyles?.button1.copyWith(
                     color: appColors?.white,
                   ),

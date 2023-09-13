@@ -1,0 +1,9 @@
+{
+  "errorModal_title": "Пожалуйста повторите позже",
+  "calendar_september": "Сентябрь",
+  "habitScreen_addHabitButton": "Добавить привычку",
+  "moneyTracker_deleteTransactionButton": "Удалить",
+  "moneyTracker_addTransactionButton": "Добавить",
+  "moneyTrackerScreen_addTransactionButton": "Добавить транзакцию",
+  "setting_darkTheme": "Тёмная тема"
+}

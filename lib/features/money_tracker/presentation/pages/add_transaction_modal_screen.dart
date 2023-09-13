@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:forrest/features/core/presentation/widgets/button_1.dart';
-import 'package:forrest/features/money_tracker/domain/entity/entity.dart';
-import 'package:forrest/navigation/forrest_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../navigation/forrest_router.dart';
+import '../../../core/presentation/widgets/widgets.dart';
+import '../../domain/entity/entity.dart';
 import '../bloc/bloc.dart';
 
 @RoutePage()
@@ -86,6 +87,8 @@ class _AddTransactionModalScreenState extends State<AddTransactionModalScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var t = AppLocalizations.of(context)!;
+
     return GestureDetector(
       onTap: () {
         ForrestRouter.inst.pop();
@@ -118,14 +121,14 @@ class _AddTransactionModalScreenState extends State<AddTransactionModalScreen> {
                       ),
                       const SizedBox(height: 32),
                       Button1(
-                        label: 'Add',
+                        label: t.moneyTracker_addTransactionButton,
                         onTap: onTap,
                       ),
                       if (widget.transaction != null)
                         Padding(
                           padding: const EdgeInsets.only(top: 32),
                           child: Button1(
-                            label: 'Delete',
+                            label: t.moneyTracker_deleteTransactionButton,
                             onTap: onDelete,
                           ),
                         ),
