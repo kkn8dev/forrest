@@ -9,6 +9,7 @@ class CoreState with _$CoreState {
   factory CoreState([
     String? id,
     String? locale,
+    @Default('light') String theme,
     Failure? unknownError,
     @Default(true) bool isMoneyTrackerAvailable,
     @Default([]) List<HabitEntity> habits,

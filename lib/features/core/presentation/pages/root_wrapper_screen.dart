@@ -67,7 +67,11 @@ class _RootWrapperScreenState extends State<RootWrapperScreen>
     return MultiBlocListener(
       listeners: [
         BlocListener<CoreBloc, CoreState>(
-          listener: (context, state) async {},
+          listener: (context, state) async {
+            showAboutDialog(
+              context: context,
+            );
+          },
           listenWhen: (prev, cur) => prev.unknownError != cur.unknownError,
         ),
       ],

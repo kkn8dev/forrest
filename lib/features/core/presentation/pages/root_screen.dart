@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../main.dart';
 import '../../../../navigation/auto_router.dart';
+import '../../../../styles/dark_theme.dart';
 import '../../../../styles/light_theme.dart';
 import '../../../../utils/dio_client.dart';
 import '../bloc/bloc.dart';
@@ -32,10 +33,8 @@ class _RootScreenState extends State<RootScreen> {
   }
 
   Locale? getLanguage(String? language) {
-    if (language == 'es') {
-      return const Locale('es', '');
-    } else if (language == 'en') {
-      return const Locale('en', '');
+    if (language != null) {
+      return Locale(language, '');
     }
     return null;
   }
@@ -44,7 +43,7 @@ class _RootScreenState extends State<RootScreen> {
     if (theme == 'light') {
       return lightTheme;
     }
-    return lightTheme;
+    return darkTheme;
   }
 
   @override
@@ -54,7 +53,7 @@ class _RootScreenState extends State<RootScreen> {
       builder: (context, state) {
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
-          theme: getTheme('state.theme'),
+          theme: getTheme(state.theme),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           locale: getLanguage(state.locale),

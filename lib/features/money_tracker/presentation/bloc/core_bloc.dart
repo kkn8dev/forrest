@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../main.dart';
 import '../../../core/domain/usecases/usecases.dart';
 import '../../domain/usecases/usecases.dart';
 import 'core_event.dart';
@@ -17,6 +18,9 @@ class MoneyTrackerBloc extends Bloc<MoneyTrackerEvent, MoneyTrackerState> {
     required this.deleteTransactionUseCase,
     required this.editTransactionUseCase,
   }) : super(MoneyTrackerState()) {
+    on<MoneyTrackerEvent>((event, emit) async {
+      logger.i(event);
+    });
     on<LoadMoneyTrackerEvent>(_onLoadMoneyTrackerEvent);
     on<CreateTransactionCoreEvent>(_onCreateTransactionCoreEvent);
     on<DeleteTransactionCoreEvent>(_onDeleteTransactionCoreEvent);

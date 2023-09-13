@@ -13,6 +13,7 @@ import 'features/money_tracker/data/repositories/money_tracker_repository_impl.d
 import 'features/money_tracker/domain/repositories/money_tracker_repository.dart';
 import 'features/money_tracker/domain/usecases/usecases.dart';
 import 'features/money_tracker/presentation/bloc/bloc.dart';
+// external
 import 'utils/dio_client.dart';
 
 final sl = GetIt.instance;
@@ -42,11 +43,9 @@ Future<void> init() async {
     ),
   );
   sl.registerLazySingleton<CoreRemoteDataSource>(
-    // () => CoreRemoteDataSourceMock(),
     () => CoreRemoteDataSourceImpl(client: sl()),
   );
   sl.registerLazySingleton<CoreLocalDataSource>(
-    // () => AuthRemoteDataSourceMock(
     () => CoreLocalDataSourceImpl(
       storage: sl(),
     ),
@@ -73,11 +72,9 @@ Future<void> init() async {
     ),
   );
   sl.registerLazySingleton<MoneyTrackerRemoteDataSource>(
-    // () => MoneyTrackerRemoteDataSourceMock(),
     () => MoneyTrackerRemoteDataSourceImpl(client: sl()),
   );
   sl.registerLazySingleton<MoneyTrackerLocalDataSource>(
-    // () => MoneyTrackerRemoteDataSourceMock(
     () => MoneyTrackerLocalDataSourceImpl(
       storage: sl(),
     ),

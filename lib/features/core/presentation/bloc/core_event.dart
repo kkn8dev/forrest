@@ -1,8 +1,15 @@
+import '../../../../main.dart';
 import '../../domain/entity/entity.dart';
 
-abstract class CoreEvent {}
+abstract class CoreEvent {
+  void call() {
+    logger.i('event');
+  }
+}
 
 class InitCoreEvent extends CoreEvent {}
+
+class ToggleThemeCoreEvent extends CoreEvent {}
 
 class LoadHabitsCoreEvent extends CoreEvent {}
 

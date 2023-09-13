@@ -31,6 +31,7 @@ class _AddTransactionModalScreenState extends State<AddTransactionModalScreen> {
   void initState() {
     if (widget.transaction != null) {
       textController.text = widget.transaction!.text;
+      amountTextController.text = widget.transaction!.amount.toString();
     }
     super.initState();
   }

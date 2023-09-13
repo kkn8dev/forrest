@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../main.dart';
 import '../../domain/entity/entity.dart';
 import '../../domain/usecases/usecases.dart';
 import 'core_event.dart';
@@ -21,6 +22,9 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
     required this.createHabitUseCase,
     required this.deleteHabitUseCase,
   }) : super(CoreState()) {
+    on<CoreEvent>((event, emit) async {
+      logger.i(event);
+    });
     on<InitCoreEvent>((event, emit) async {
       emit(
         state.copyWith(),
@@ -30,6 +34,11 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
     on<ToggleMoneyTrackerFeatureCoreEvent>((event, emit) async {
       emit(
         state.copyWith(isMoneyTrackerAvailable: !state.isMoneyTrackerAvailable),
+      );
+    });
+    on<ToggleThemeCoreEvent>((event, emit) async {
+      emit(
+        state.copyWith(theme: state.theme == 'light' ? 'dark' : 'light'),
       );
     });
     on<LoadHabitsCoreEvent>(_onLoadHabitsCoreEvent);
