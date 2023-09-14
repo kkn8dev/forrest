@@ -26,6 +26,8 @@ void main() async {
   var box = await Hive.openBox(coreBox);
   String? id = box.get(userId);
   String? env = box.get(environment);
+  String? userLocale = box.get(locale);
+
   if (env == 'develop') {
     await dotenv.load(fileName: ".env.dev");
   } else {
@@ -34,6 +36,7 @@ void main() async {
   runApp(
     MyApp(
       id: id,
+      locale: userLocale,
     ),
   );
 }
@@ -42,16 +45,23 @@ class MyApp extends StatelessWidget {
   const MyApp({
     super.key,
     required this.id,
+    required this.locale,
   });
 
   final String? id;
+  final String? locale;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(
-          value: sl<CoreBloc>(),
+          value: sl<CoreBloc>()
+            ..add(
+              UpdateUserLocaleCoreEvent(
+                locale: locale,
+              ),
+            ),
         ),
         BlocProvider.value(
           value: sl<MoneyTrackerBloc>(),

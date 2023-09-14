@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../extensions/extensions.dart';
 
 void showErrorDialog(BuildContext context) {
+  var t = AppLocalizations.of(context)!;
+
   showDialog(
       context: context,
       barrierDismissible: false,
@@ -13,8 +16,8 @@ void showErrorDialog(BuildContext context) {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(16.0)),
           ),
-          title: const Text(
-            'translation.pleaseTryAgainLater',
+          title: Text(
+            t.errorModal_title,
             textAlign: TextAlign.center,
           ),
           titleTextStyle: textStyles.h4,

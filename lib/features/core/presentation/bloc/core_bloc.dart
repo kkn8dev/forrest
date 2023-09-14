@@ -41,6 +41,13 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
         state.copyWith(theme: state.theme == 'light' ? 'dark' : 'light'),
       );
     });
+    on<UpdateUserLocaleCoreEvent>((event, emit) async {
+      if (event.locale != null) {
+        emit(state.copyWith(
+          locale: event.locale,
+        ));
+      }
+    });
     on<LoadHabitsCoreEvent>(_onLoadHabitsCoreEvent);
     on<ToggleHabitStatusCoreEvent>(_onToggleHabitStatusCoreEvent);
     on<ToggleHabitLockCoreEvent>(_onToggleHabitLockCoreEvent);

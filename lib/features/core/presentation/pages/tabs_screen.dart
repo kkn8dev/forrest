@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:forrest/styles/app_images.dart';
 
 import '../../../../extensions/extensions.dart';
 import '../../../../navigation/auto_router.gr.dart';
+import '../../../../styles/app_images.dart';
 import '../../../money_tracker/presentation/components/components.dart';
 import '../bloc/bloc.dart';
 

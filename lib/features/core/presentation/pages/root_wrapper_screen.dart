@@ -53,6 +53,7 @@ class _RootWrapperScreenState extends State<RootWrapperScreen>
 
     if (oldLocale == null) {
       box.put(locale, userLocale.languageCode);
+      coreBloc.add(UpdateUserLocaleCoreEvent(locale: userLocale.languageCode));
     }
     super.didChangeDependencies();
   }

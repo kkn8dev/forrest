@@ -38,3 +38,11 @@ class DeleteHabitCoreEvent extends CoreEvent {
 
   final HabitEntity habit;
 }
+
+class UpdateUserLocaleCoreEvent extends CoreEvent {
+  UpdateUserLocaleCoreEvent({
+    required this.locale,
+  });
+
+  final String? locale;
+}

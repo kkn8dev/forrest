@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../extensions/extensions.dart';
@@ -71,6 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var appColors = Theme.of(context).extension<AppColors>()!;
+    var t = AppLocalizations.of(context)!;
 
     return BlocBuilder<CoreBloc, CoreState>(
       builder: (context, state) {
@@ -98,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 32),
               Button1(
-                label: "Add habit",
+                label: t.habitScreen_addHabitButton,
                 onTap: createHabit,
               ),
               const SizedBox(height: 32),
