@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hive/hive.dart';
 
 import '../../../../extensions/extensions.dart';
+import '../../data/data_sources/data_sources.dart';
 import '../bloc/bloc.dart';
 import '../widgets/widgets.dart';
 
@@ -18,6 +20,12 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   late CoreBloc coreBloc = context.read<CoreBloc>();
+
+  onSelectLanguage(String language) async {
+    coreBloc.add(UpdateUserLocaleCoreEvent(locale: language));
+    var box = await Hive.openBox(coreBox);
+    box.put(locale, language);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +68,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
               ),
+              ...languages.map(
+                (e) => LanguageItem(
+                  language: e.language,
+                  translate: e.translate,
+                  isActive: state.locale == e.locale,
+                  onTap: () => onSelectLanguage(e.locale),
+                ),
+              ),
             ],
           ),
         );
@@ -67,3 +83,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
+
+class Language {
+  Language({
+    required this.language,
+    required this.translate,
+    required this.locale,
+  });
+
+  final String language;
+  final String translate;
+  final String locale;
+}
+
+var languages = [
+  Language(language: 'English', translate: 'English', locale: 'en'),
+  Language(language: 'Russian', translate: 'Русский', locale: 'ru'),
+];

@@ -32,7 +32,7 @@ class _RootScreenState extends State<RootScreen> {
     super.initState();
   }
 
-  Locale? getLanguage(String? language) {
+  Locale? getLocale(String? language) {
     if (language != null) {
       return Locale(language, '');
     }
@@ -56,7 +56,7 @@ class _RootScreenState extends State<RootScreen> {
           theme: getTheme(state.theme),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          locale: getLanguage(state.locale),
+          locale: getLocale(state.locale),
           routeInformationParser: _appRouter.defaultRouteParser(),
           localeResolutionCallback: (deviceLocale, supportedLocales) {
             for (var locale in supportedLocales) {
