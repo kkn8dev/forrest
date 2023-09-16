@@ -8,5 +8,6 @@ part 'core_state.freezed.dart';
 class MoneyTrackerState with _$MoneyTrackerState {
   factory MoneyTrackerState([
     @Default([]) List<TransactionEntity> transactions,
+    @Default([]) List<TransactionCategoryEntity> transactionCategories,
   ]) = _MoneyTrackerState;
 }

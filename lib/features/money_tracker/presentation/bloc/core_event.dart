@@ -23,3 +23,21 @@ class EditTransactionCoreEvent extends MoneyTrackerEvent {
 
   final TransactionEntity transactionEntity;
 }
+
+class CreateTransactionCategoryCoreEvent extends MoneyTrackerEvent {
+  CreateTransactionCategoryCoreEvent({required this.transactionEntity});
+
+  final TransactionCategoryEntity transactionEntity;
+}
+
+class DeleteTransactionCategoryCoreEvent extends MoneyTrackerEvent {
+  DeleteTransactionCategoryCoreEvent({required this.transactionEntity});
+
+  final TransactionCategoryEntity transactionEntity;
+}
+
+class EditTransactionCategoryCoreEvent extends MoneyTrackerEvent {
+  EditTransactionCategoryCoreEvent({required this.transactionEntity});
+
+  final TransactionCategoryEntity transactionEntity;
+}

@@ -28,8 +28,21 @@ class ForrestRouter {
         .navigate(AddTransactionModalRoute(transaction: transactionEntity));
   }
 
+  openAddTransactionCategoryModal(
+      TransactionCategoryEntity? transactionEntity) {
+    context.router.navigate(
+      AddTransactionCategoryModalRoute(
+        transaction: transactionEntity,
+      ),
+    );
+  }
+
   goToDevelop() {
     context.router.navigateNamed('/develop');
+  }
+
+  goToTransactionCategories() {
+    context.router.navigateNamed('/transactionCategories');
   }
 
   pop() {

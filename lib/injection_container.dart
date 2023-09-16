@@ -56,15 +56,23 @@ Future<void> init() async {
   sl.registerLazySingleton(
     () => MoneyTrackerBloc(
       loadTransactionsUseCase: sl(),
+      loadTransactionCategoriesUseCase: sl(),
       createTransactionUseCase: sl(),
       deleteTransactionUseCase: sl(),
       editTransactionUseCase: sl(),
+      createTransactionCategoryUseCase: sl(),
+      deleteTransactionCategoryUseCase: sl(),
+      editTransactionCategoryUseCase: sl(),
     ),
   );
   sl.registerLazySingleton(() => LoadTransactionsUseCase(sl()));
+  sl.registerLazySingleton(() => LoadTransactionCategoriesUseCase(sl()));
   sl.registerLazySingleton(() => CreateTransactionUseCase(sl()));
   sl.registerLazySingleton(() => DeleteTransactionUseCase(sl()));
   sl.registerLazySingleton(() => EditTransactionUseCase(sl()));
+  sl.registerLazySingleton(() => CreateTransactionCategoryUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteTransactionCategoryUseCase(sl()));
+  sl.registerLazySingleton(() => EditTransactionCategoryUseCase(sl()));
   sl.registerLazySingleton<MoneyTrackerRepository>(
     () => MoneyTrackerRepositoryImpl(
       remoteDataSource: sl(),

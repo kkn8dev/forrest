@@ -22,6 +22,7 @@ mixin _$TransactionEntity {
   String get description => throw _privateConstructorUsedError;
   String get source => throw _privateConstructorUsedError;
   TransactionType get transactionType => throw _privateConstructorUsedError;
+  TransactionCategoryEntity? get category => throw _privateConstructorUsedError;
   int get year => throw _privateConstructorUsedError;
   int get month => throw _privateConstructorUsedError;
   int get day => throw _privateConstructorUsedError;
@@ -44,9 +45,12 @@ abstract class $TransactionEntityCopyWith<$Res> {
       String description,
       String source,
       TransactionType transactionType,
+      TransactionCategoryEntity? category,
       int year,
       int month,
       int day});
+
+  $TransactionCategoryEntityCopyWith<$Res>? get category;
 }
 
 /// @nodoc
@@ -68,6 +72,7 @@ class _$TransactionEntityCopyWithImpl<$Res, $Val extends TransactionEntity>
     Object? description = null,
     Object? source = null,
     Object? transactionType = null,
+    Object? category = freezed,
     Object? year = null,
     Object? month = null,
     Object? day = null,
@@ -97,6 +102,10 @@ class _$TransactionEntityCopyWithImpl<$Res, $Val extends TransactionEntity>
           ? _value.transactionType
           : transactionType // ignore: cast_nullable_to_non_nullable
               as TransactionType,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as TransactionCategoryEntity?,
       year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
@@ -110,6 +119,18 @@ class _$TransactionEntityCopyWithImpl<$Res, $Val extends TransactionEntity>
           : day // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TransactionCategoryEntityCopyWith<$Res>? get category {
+    if (_value.category == null) {
+      return null;
+    }
+
+    return $TransactionCategoryEntityCopyWith<$Res>(_value.category!, (value) {
+      return _then(_value.copyWith(category: value) as $Val);
+    });
   }
 }
 
@@ -128,9 +149,13 @@ abstract class _$$_TransactionEntityCopyWith<$Res>
       String description,
       String source,
       TransactionType transactionType,
+      TransactionCategoryEntity? category,
       int year,
       int month,
       int day});
+
+  @override
+  $TransactionCategoryEntityCopyWith<$Res>? get category;
 }
 
 /// @nodoc
@@ -150,6 +175,7 @@ class __$$_TransactionEntityCopyWithImpl<$Res>
     Object? description = null,
     Object? source = null,
     Object? transactionType = null,
+    Object? category = freezed,
     Object? year = null,
     Object? month = null,
     Object? day = null,
@@ -179,6 +205,10 @@ class __$$_TransactionEntityCopyWithImpl<$Res>
           ? _value.transactionType
           : transactionType // ignore: cast_nullable_to_non_nullable
               as TransactionType,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as TransactionCategoryEntity?,
       year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
@@ -205,6 +235,7 @@ class _$_TransactionEntity extends _TransactionEntity {
       required this.description,
       required this.source,
       required this.transactionType,
+      this.category,
       required this.year,
       required this.month,
       required this.day})
@@ -223,6 +254,8 @@ class _$_TransactionEntity extends _TransactionEntity {
   @override
   final TransactionType transactionType;
   @override
+  final TransactionCategoryEntity? category;
+  @override
   final int year;
   @override
   final int month;
@@ -231,7 +264,7 @@ class _$_TransactionEntity extends _TransactionEntity {
 
   @override
   String toString() {
-    return 'TransactionEntity(uuid: $uuid, amount: $amount, text: $text, description: $description, source: $source, transactionType: $transactionType, year: $year, month: $month, day: $day)';
+    return 'TransactionEntity(uuid: $uuid, amount: $amount, text: $text, description: $description, source: $source, transactionType: $transactionType, category: $category, year: $year, month: $month, day: $day)';
   }
 
   @override
@@ -247,6 +280,8 @@ class _$_TransactionEntity extends _TransactionEntity {
             (identical(other.source, source) || other.source == source) &&
             (identical(other.transactionType, transactionType) ||
                 other.transactionType == transactionType) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             (identical(other.year, year) || other.year == year) &&
             (identical(other.month, month) || other.month == month) &&
             (identical(other.day, day) || other.day == day));
@@ -254,7 +289,7 @@ class _$_TransactionEntity extends _TransactionEntity {
 
   @override
   int get hashCode => Object.hash(runtimeType, uuid, amount, text, description,
-      source, transactionType, year, month, day);
+      source, transactionType, category, year, month, day);
 
   @JsonKey(ignore: true)
   @override
@@ -272,6 +307,7 @@ abstract class _TransactionEntity extends TransactionEntity {
       required final String description,
       required final String source,
       required final TransactionType transactionType,
+      final TransactionCategoryEntity? category,
       required final int year,
       required final int month,
       required final int day}) = _$_TransactionEntity;
@@ -289,6 +325,8 @@ abstract class _TransactionEntity extends TransactionEntity {
   String get source;
   @override
   TransactionType get transactionType;
+  @override
+  TransactionCategoryEntity? get category;
   @override
   int get year;
   @override

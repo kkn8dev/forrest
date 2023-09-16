@@ -16,4 +16,16 @@ abstract class MoneyTrackerRepository {
 
   Future<Either<Failure, List<TransactionEntity>>> editTransaction(
       TransactionEntity transactionEntity);
+
+  Future<Either<Failure, List<TransactionCategoryEntity>>>
+      loadTransactionCategories();
+
+  Future<Either<Failure, List<TransactionCategoryEntity>>>
+      createTransactionCategory(TransactionCategoryEntity transactionEntity);
+
+  Future<Either<Failure, List<TransactionCategoryEntity>>>
+      deleteTransactionCategory(TransactionCategoryEntity transactionEntity);
+
+  Future<Either<Failure, List<TransactionCategoryEntity>>>
+      editTransactionCategory(TransactionCategoryEntity transactionEntity);
 }

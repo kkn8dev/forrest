@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MoneyTrackerState {
   List<TransactionEntity> get transactions =>
       throw _privateConstructorUsedError;
+  List<TransactionCategoryEntity> get transactionCategories =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MoneyTrackerStateCopyWith<MoneyTrackerState> get copyWith =>
@@ -30,7 +32,9 @@ abstract class $MoneyTrackerStateCopyWith<$Res> {
           MoneyTrackerState value, $Res Function(MoneyTrackerState) then) =
       _$MoneyTrackerStateCopyWithImpl<$Res, MoneyTrackerState>;
   @useResult
-  $Res call({List<TransactionEntity> transactions});
+  $Res call(
+      {List<TransactionEntity> transactions,
+      List<TransactionCategoryEntity> transactionCategories});
 }
 
 /// @nodoc
@@ -47,12 +51,17 @@ class _$MoneyTrackerStateCopyWithImpl<$Res, $Val extends MoneyTrackerState>
   @override
   $Res call({
     Object? transactions = null,
+    Object? transactionCategories = null,
   }) {
     return _then(_value.copyWith(
       transactions: null == transactions
           ? _value.transactions
           : transactions // ignore: cast_nullable_to_non_nullable
               as List<TransactionEntity>,
+      transactionCategories: null == transactionCategories
+          ? _value.transactionCategories
+          : transactionCategories // ignore: cast_nullable_to_non_nullable
+              as List<TransactionCategoryEntity>,
     ) as $Val);
   }
 }
@@ -65,7 +74,9 @@ abstract class _$$_MoneyTrackerStateCopyWith<$Res>
       __$$_MoneyTrackerStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<TransactionEntity> transactions});
+  $Res call(
+      {List<TransactionEntity> transactions,
+      List<TransactionCategoryEntity> transactionCategories});
 }
 
 /// @nodoc
@@ -80,12 +91,17 @@ class __$$_MoneyTrackerStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? transactions = null,
+    Object? transactionCategories = null,
   }) {
     return _then(_$_MoneyTrackerState(
       null == transactions
           ? _value._transactions
           : transactions // ignore: cast_nullable_to_non_nullable
               as List<TransactionEntity>,
+      null == transactionCategories
+          ? _value._transactionCategories
+          : transactionCategories // ignore: cast_nullable_to_non_nullable
+              as List<TransactionCategoryEntity>,
     ));
   }
 }
@@ -93,8 +109,11 @@ class __$$_MoneyTrackerStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_MoneyTrackerState implements _MoneyTrackerState {
-  _$_MoneyTrackerState([final List<TransactionEntity> transactions = const []])
-      : _transactions = transactions;
+  _$_MoneyTrackerState(
+      [final List<TransactionEntity> transactions = const [],
+      final List<TransactionCategoryEntity> transactionCategories = const []])
+      : _transactions = transactions,
+        _transactionCategories = transactionCategories;
 
   final List<TransactionEntity> _transactions;
   @override
@@ -105,9 +124,19 @@ class _$_MoneyTrackerState implements _MoneyTrackerState {
     return EqualUnmodifiableListView(_transactions);
   }
 
+  final List<TransactionCategoryEntity> _transactionCategories;
+  @override
+  @JsonKey()
+  List<TransactionCategoryEntity> get transactionCategories {
+    if (_transactionCategories is EqualUnmodifiableListView)
+      return _transactionCategories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_transactionCategories);
+  }
+
   @override
   String toString() {
-    return 'MoneyTrackerState(transactions: $transactions)';
+    return 'MoneyTrackerState(transactions: $transactions, transactionCategories: $transactionCategories)';
   }
 
   @override
@@ -116,12 +145,16 @@ class _$_MoneyTrackerState implements _MoneyTrackerState {
         (other.runtimeType == runtimeType &&
             other is _$_MoneyTrackerState &&
             const DeepCollectionEquality()
-                .equals(other._transactions, _transactions));
+                .equals(other._transactions, _transactions) &&
+            const DeepCollectionEquality()
+                .equals(other._transactionCategories, _transactionCategories));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_transactions));
+      runtimeType,
+      const DeepCollectionEquality().hash(_transactions),
+      const DeepCollectionEquality().hash(_transactionCategories));
 
   @JsonKey(ignore: true)
   @override
@@ -132,11 +165,15 @@ class _$_MoneyTrackerState implements _MoneyTrackerState {
 }
 
 abstract class _MoneyTrackerState implements MoneyTrackerState {
-  factory _MoneyTrackerState([final List<TransactionEntity> transactions]) =
+  factory _MoneyTrackerState(
+          [final List<TransactionEntity> transactions,
+          final List<TransactionCategoryEntity> transactionCategories]) =
       _$_MoneyTrackerState;
 
   @override
   List<TransactionEntity> get transactions;
+  @override
+  List<TransactionCategoryEntity> get transactionCategories;
   @override
   @JsonKey(ignore: true)
   _$$_MoneyTrackerStateCopyWith<_$_MoneyTrackerState> get copyWith =>

@@ -115,4 +115,80 @@ class MoneyTrackerRepositoryImpl implements MoneyTrackerRepository {
       return Left(ServerFailure(code: 500, message: 'Server Error'));
     }
   }
+
+  @override
+  Future<Either<Failure, List<TransactionCategoryEntity>>>
+      createTransactionCategory(
+    TransactionCategoryEntity transactionEntity,
+  ) async {
+    try {
+      var transactionModel = TransactionCategoryModel(
+        uuid: transactionEntity.uuid,
+        color: transactionEntity.color.toHex(),
+        label: transactionEntity.label,
+      );
+      var result =
+          await localDataSource.createTransactionCategory(transactionModel);
+      return Right(result.map((e) => transactionCategoryMapper(e)).toList());
+    } on UserException catch (e) {
+      return Left(UserFailure(code: e.code, message: e.message));
+    } on ServerException {
+      return Left(ServerFailure(code: 500, message: 'Server Error'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TransactionCategoryEntity>>>
+      deleteTransactionCategory(
+    TransactionCategoryEntity transactionEntity,
+  ) async {
+    try {
+      var transactionModel = TransactionCategoryModel(
+        uuid: transactionEntity.uuid,
+        color: transactionEntity.color.toHex(),
+        label: transactionEntity.label,
+      );
+      var result =
+          await localDataSource.deleteTransactionCategory(transactionModel);
+      return Right(result.map((e) => transactionCategoryMapper(e)).toList());
+    } on UserException catch (e) {
+      return Left(UserFailure(code: e.code, message: e.message));
+    } on ServerException {
+      return Left(ServerFailure(code: 500, message: 'Server Error'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TransactionCategoryEntity>>>
+      editTransactionCategory(
+    TransactionCategoryEntity transactionEntity,
+  ) async {
+    try {
+      var transactionModel = TransactionCategoryModel(
+        uuid: transactionEntity.uuid,
+        color: transactionEntity.color.toHex(),
+        label: transactionEntity.label,
+      );
+      var result =
+          await localDataSource.editTransactionCategory(transactionModel);
+      return Right(result.map((e) => transactionCategoryMapper(e)).toList());
+    } on UserException catch (e) {
+      return Left(UserFailure(code: e.code, message: e.message));
+    } on ServerException {
+      return Left(ServerFailure(code: 500, message: 'Server Error'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TransactionCategoryEntity>>>
+      loadTransactionCategories() async {
+    try {
+      var result = await localDataSource.loadTransactionCategories();
+      return Right(result.map((e) => transactionCategoryMapper(e)).toList());
+    } on UserException catch (e) {
+      return Left(UserFailure(code: e.code, message: e.message));
+    } on ServerException {
+      return Left(ServerFailure(code: 500, message: 'Server Error'));
+    }
+  }
 }

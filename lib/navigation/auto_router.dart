@@ -56,6 +56,10 @@ class RootRouter extends $RootRouter {
           path: Routes.develop,
           page: DevelopRoute.page,
         ),
+        AutoRoute(
+          path: Routes.transactionCategories,
+          page: TransactionCategoriesRoute.page,
+        ),
         CustomRoute(
           durationInMilliseconds: 0,
           reverseDurationInMilliseconds: 0,
@@ -72,6 +76,15 @@ class RootRouter extends $RootRouter {
           opaque: false,
           path: Routes.addTransactionModal,
           page: AddTransactionModalRoute.page,
+          fullscreenDialog: true,
+        ),
+        CustomRoute(
+          durationInMilliseconds: 0,
+          reverseDurationInMilliseconds: 0,
+          barrierDismissible: true,
+          opaque: false,
+          path: Routes.addTransactionCategoryModal,
+          page: AddTransactionCategoryModalRoute.page,
           fullscreenDialog: true,
         ),
       ],
@@ -108,9 +121,11 @@ class Routes {
   static const tabs = 'tabs';
   static const home = 'home';
   static const develop = 'develop';
+  static const transactionCategories = 'transactionCategories';
   static const money = 'money';
   static const profile = 'profile';
   static const settings = 'settings';
   static const updateModal = 'updateModal';
   static const addTransactionModal = 'addTransactionModal';
+  static const addTransactionCategoryModal = 'addTransactionCategoryModal';
 }
