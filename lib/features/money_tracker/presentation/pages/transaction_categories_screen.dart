@@ -10,14 +10,16 @@ import '../bloc/bloc.dart';
 import '../widgets/widgets.dart';
 
 @RoutePage()
-class MoneyScreen extends StatefulWidget {
-  const MoneyScreen({Key? key}) : super(key: key);
+class TransactionCategoriesScreen extends StatefulWidget {
+  const TransactionCategoriesScreen({Key? key}) : super(key: key);
 
   @override
-  State<MoneyScreen> createState() => _MoneyScreenState();
+  State<TransactionCategoriesScreen> createState() =>
+      _TransactionCategoriesScreenState();
 }
 
-class _MoneyScreenState extends State<MoneyScreen> {
+class _TransactionCategoriesScreenState
+    extends State<TransactionCategoriesScreen> {
   int currentDay = 1;
   late MoneyTrackerBloc moneyTrackerBloc = context.read<MoneyTrackerBloc>();
 
@@ -32,15 +34,17 @@ class _MoneyScreenState extends State<MoneyScreen> {
   }
 
   onTap() {
-    ForrestRouter.inst.openAddTransactionModal(null);
+    ForrestRouter.inst.openAddTransactionCategoryModal(null);
   }
 
-  goToCategoriesScreen() {
-    ForrestRouter.inst.goToTransactionCategories();
+  onDeleteTransaction(TransactionEntity transactionEntity) {
+    moneyTrackerBloc.add(
+      DeleteTransactionCoreEvent(transactionEntity: transactionEntity),
+    );
   }
 
-  onEditTransaction(TransactionEntity transactionEntity) {
-    ForrestRouter.inst.openAddTransactionModal(transactionEntity);
+  onEditTransactionCategory(TransactionCategoryEntity transactionEntity) {
+    ForrestRouter.inst.openAddTransactionCategoryModal(transactionEntity);
   }
 
   @override
@@ -58,33 +62,20 @@ class _MoneyScreenState extends State<MoneyScreen> {
           backgroundColor: Colors.amber,
           child: Column(
             children: [
-              Calendar(
-                currentDay: currentDay,
-                onDayPressed: (day) {
-                  setState(() {
-                    currentDay = day;
-                  });
-                },
-              ),
-              const SizedBox(height: 32),
-              Button1(
-                label: 'open categories screen',
-                onTap: goToCategoriesScreen,
-              ),
-              const SizedBox(height: 32),
               SizedBox(
                 height: 380,
-                child: ListView.separated(
-                  itemBuilder: (_, i) {
-                    return TransactionItem(
-                      transaction: transactions[i],
-                      onTransactionTap: onEditTransaction,
-                    );
-                  },
-                  itemCount: transactions.length,
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(height: 16);
-                  },
+                child: GridView.count(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 8.0,
+                  mainAxisSpacing: 8.0,
+                  children: state.transactionCategories
+                      .map(
+                        (e) => TransactionCategoryItem(
+                          category: e,
+                          onTransactionCategoryTap: onEditTransactionCategory,
+                        ),
+                      )
+                      .toList(),
                 ),
               ),
               Button1(

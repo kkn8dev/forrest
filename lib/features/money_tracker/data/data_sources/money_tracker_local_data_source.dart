@@ -13,4 +13,15 @@ abstract class MoneyTrackerLocalDataSource {
 
   Future<List<TransactionModel>> editTransaction(
       TransactionModel transactionModel);
+
+  Future<List<TransactionCategoryModel>> loadTransactionCategories();
+
+  Future<List<TransactionCategoryModel>> createTransactionCategory(
+      TransactionCategoryModel transactionModel);
+
+  Future<List<TransactionCategoryModel>> deleteTransactionCategory(
+      TransactionCategoryModel transactionModel);
+
+  Future<List<TransactionCategoryModel>> editTransactionCategory(
+      TransactionCategoryModel transactionModel);
 }

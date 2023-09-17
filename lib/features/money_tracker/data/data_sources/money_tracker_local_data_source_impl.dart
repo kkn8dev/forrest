@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import '../../../core/data/data_sources/data_sources.dart';
 import '../../../core/data/models/models.dart';
 import '../models/models.dart';
-import 'core_local_data_source.dart';
+import 'money_tracker_local_data_source.dart';
 
 class MoneyTrackerLocalDataSourceImpl implements MoneyTrackerLocalDataSource {
   final HiveInterface storage;
@@ -31,6 +31,12 @@ class MoneyTrackerLocalDataSourceImpl implements MoneyTrackerLocalDataSource {
   Future<List<TransactionModel>> loadTransactions() async {
     var transactions = readTransactions();
     return transactions;
+  }
+
+  @override
+  Future<List<TransactionCategoryModel>> loadTransactionCategories() async {
+    var categories = readTransactionCategories();
+    return categories;
   }
 
   @override
@@ -70,6 +76,44 @@ class MoneyTrackerLocalDataSourceImpl implements MoneyTrackerLocalDataSource {
     writeTransactions(newTransactions);
     return newTransactions;
   }
+
+  @override
+  Future<List<TransactionCategoryModel>> editTransactionCategory(
+    TransactionCategoryModel transactionModel,
+  ) async {
+    var transactions = await readTransactionCategories();
+    var oldTransaction = transactions
+        .firstWhere((element) => element.uuid == transactionModel.uuid);
+    var index = transactions.indexOf(oldTransaction);
+    var updatedTransaction = transactionModel;
+    var a = [
+      ...transactions.sublist(0, index),
+      updatedTransaction,
+      ...transactions.sublist(index + 1)
+    ];
+    writeTransactionCategories(a);
+    return a;
+  }
+
+  @override
+  Future<List<TransactionCategoryModel>> createTransactionCategory(
+      TransactionCategoryModel transactionModel) async {
+    var transactions = await readTransactionCategories();
+    transactions.add(transactionModel);
+    writeTransactionCategories(transactions);
+    return transactions;
+  }
+
+  @override
+  Future<List<TransactionCategoryModel>> deleteTransactionCategory(
+      TransactionCategoryModel transactionModel) async {
+    var transactions = await readTransactionCategories();
+    var newTransactions = transactions
+        .where((element) => element.uuid != transactionModel.uuid)
+        .toList();
+    writeTransactionCategories(newTransactions);
+    return newTransactions;
+  }
 }
 
 Future<String> get _localPath async {
@@ -100,6 +144,34 @@ Future<List<TransactionModel>> readTransactions() async {
 
 Future<File> writeTransactions(List<TransactionModel> transactions) async {
   final file = await _localFile;
+  var result = jsonEncode(transactions);
+
+  return file.writeAsString(result);
+}
+
+Future<File> get _categoriesLocalFile async {
+  final path = await _localPath;
+  return File('$path/categories_db.txt');
+}
+
+Future<List<TransactionCategoryModel>> readTransactionCategories() async {
+  try {
+    final file = await _categoriesLocalFile;
+
+    final content = await file.readAsString();
+    var result = jsonDecode(content);
+    final jsonMap = result;
+    return (jsonMap as List)
+        .map((element) => TransactionCategoryModel.fromJson(element))
+        .toList();
+  } catch (e) {
+    return [];
+  }
+}
+
+Future<File> writeTransactionCategories(
+    List<TransactionCategoryModel> transactions) async {
+  final file = await _categoriesLocalFile;
   var result = jsonEncode(transactions);
 
   return file.writeAsString(result);

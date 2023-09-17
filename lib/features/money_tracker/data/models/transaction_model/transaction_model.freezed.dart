@@ -26,6 +26,7 @@ mixin _$TransactionModel {
   String get description => throw _privateConstructorUsedError;
   String get source => throw _privateConstructorUsedError;
   String get transactionType => throw _privateConstructorUsedError;
+  TransactionCategoryModel? get category => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,7 +48,10 @@ abstract class $TransactionModelCopyWith<$Res> {
       String description,
       String source,
       String transactionType,
+      TransactionCategoryModel? category,
       DateTime createdAt});
+
+  $TransactionCategoryModelCopyWith<$Res>? get category;
 }
 
 /// @nodoc
@@ -69,6 +73,7 @@ class _$TransactionModelCopyWithImpl<$Res, $Val extends TransactionModel>
     Object? description = null,
     Object? source = null,
     Object? transactionType = null,
+    Object? category = freezed,
     Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
@@ -96,11 +101,27 @@ class _$TransactionModelCopyWithImpl<$Res, $Val extends TransactionModel>
           ? _value.transactionType
           : transactionType // ignore: cast_nullable_to_non_nullable
               as String,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as TransactionCategoryModel?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TransactionCategoryModelCopyWith<$Res>? get category {
+    if (_value.category == null) {
+      return null;
+    }
+
+    return $TransactionCategoryModelCopyWith<$Res>(_value.category!, (value) {
+      return _then(_value.copyWith(category: value) as $Val);
+    });
   }
 }
 
@@ -119,7 +140,11 @@ abstract class _$$_TransactionModelCopyWith<$Res>
       String description,
       String source,
       String transactionType,
+      TransactionCategoryModel? category,
       DateTime createdAt});
+
+  @override
+  $TransactionCategoryModelCopyWith<$Res>? get category;
 }
 
 /// @nodoc
@@ -139,6 +164,7 @@ class __$$_TransactionModelCopyWithImpl<$Res>
     Object? description = null,
     Object? source = null,
     Object? transactionType = null,
+    Object? category = freezed,
     Object? createdAt = null,
   }) {
     return _then(_$_TransactionModel(
@@ -166,6 +192,10 @@ class __$$_TransactionModelCopyWithImpl<$Res>
           ? _value.transactionType
           : transactionType // ignore: cast_nullable_to_non_nullable
               as String,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as TransactionCategoryModel?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -184,6 +214,7 @@ class _$_TransactionModel implements _TransactionModel {
       required this.description,
       required this.source,
       required this.transactionType,
+      this.category,
       required this.createdAt});
 
   factory _$_TransactionModel.fromJson(Map<String, dynamic> json) =>
@@ -202,11 +233,13 @@ class _$_TransactionModel implements _TransactionModel {
   @override
   final String transactionType;
   @override
+  final TransactionCategoryModel? category;
+  @override
   final DateTime createdAt;
 
   @override
   String toString() {
-    return 'TransactionModel(uuid: $uuid, amount: $amount, text: $text, description: $description, source: $source, transactionType: $transactionType, createdAt: $createdAt)';
+    return 'TransactionModel(uuid: $uuid, amount: $amount, text: $text, description: $description, source: $source, transactionType: $transactionType, category: $category, createdAt: $createdAt)';
   }
 
   @override
@@ -222,6 +255,8 @@ class _$_TransactionModel implements _TransactionModel {
             (identical(other.source, source) || other.source == source) &&
             (identical(other.transactionType, transactionType) ||
                 other.transactionType == transactionType) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
@@ -229,7 +264,7 @@ class _$_TransactionModel implements _TransactionModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, uuid, amount, text, description,
-      source, transactionType, createdAt);
+      source, transactionType, category, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -253,6 +288,7 @@ abstract class _TransactionModel implements TransactionModel {
       required final String description,
       required final String source,
       required final String transactionType,
+      final TransactionCategoryModel? category,
       required final DateTime createdAt}) = _$_TransactionModel;
 
   factory _TransactionModel.fromJson(Map<String, dynamic> json) =
@@ -270,6 +306,8 @@ abstract class _TransactionModel implements TransactionModel {
   String get source;
   @override
   String get transactionType;
+  @override
+  TransactionCategoryModel? get category;
   @override
   DateTime get createdAt;
   @override

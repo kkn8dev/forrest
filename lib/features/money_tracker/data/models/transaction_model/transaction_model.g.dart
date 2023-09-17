@@ -14,6 +14,10 @@ _$_TransactionModel _$$_TransactionModelFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String,
       source: json['source'] as String,
       transactionType: json['transactionType'] as String,
+      category: json['category'] == null
+          ? null
+          : TransactionCategoryModel.fromJson(
+              json['category'] as Map<String, dynamic>),
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
@@ -25,5 +29,6 @@ Map<String, dynamic> _$$_TransactionModelToJson(_$_TransactionModel instance) =>
       'description': instance.description,
       'source': instance.source,
       'transactionType': instance.transactionType,
+      'category': instance.category,
       'createdAt': instance.createdAt.toIso8601String(),
     };

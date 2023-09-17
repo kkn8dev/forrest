@@ -1,3 +1,4 @@
+import 'package:forrest/features/money_tracker/data/models/models.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'transaction_model.freezed.dart';
@@ -12,6 +13,7 @@ class TransactionModel with _$TransactionModel {
     required String description,
     required String source,
     required String transactionType,
+    TransactionCategoryModel? category,
     required DateTime createdAt,
   }) = _TransactionModel;
 

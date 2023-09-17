@@ -6,7 +6,6 @@ import '../../domain/entity/entity.dart';
 import '../../domain/repositories/money_tracker_repository.dart';
 import '../data_sources/data_sources.dart';
 import '../mappers/mappers.dart';
-import '../models/models.dart';
 
 class MoneyTrackerRepositoryImpl implements MoneyTrackerRepository {
   final MoneyTrackerRemoteDataSource remoteDataSource;
@@ -40,20 +39,9 @@ class MoneyTrackerRepositoryImpl implements MoneyTrackerRepository {
     TransactionEntity transactionEntity,
   ) async {
     try {
-      var transactionModel = TransactionModel(
-        uuid: transactionEntity.uuid,
-        text: transactionEntity.text,
-        amount: transactionEntity.amount,
-        description: transactionEntity.description,
-        source: transactionEntity.source,
-        transactionType:
-            transactionEntity.transactionType == TransactionType.income
-                ? 'income'
-                : 'outcome',
-        createdAt: DateTime(transactionEntity.year, transactionEntity.month,
-            transactionEntity.day),
+      var result = await localDataSource.createTransaction(
+        transactionToModel(transactionEntity),
       );
-      var result = await localDataSource.createTransaction(transactionModel);
       return Right(result.map((e) => transactionMapper(e)).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
@@ -67,20 +55,9 @@ class MoneyTrackerRepositoryImpl implements MoneyTrackerRepository {
     TransactionEntity transactionEntity,
   ) async {
     try {
-      var transactionModel = TransactionModel(
-        uuid: transactionEntity.uuid,
-        text: transactionEntity.text,
-        amount: transactionEntity.amount,
-        description: transactionEntity.description,
-        transactionType:
-            transactionEntity.transactionType == TransactionType.income
-                ? 'income'
-                : 'outcome',
-        source: transactionEntity.source,
-        createdAt: DateTime(transactionEntity.year, transactionEntity.month,
-            transactionEntity.day),
+      var result = await localDataSource.deleteTransaction(
+        transactionToModel(transactionEntity),
       );
-      var result = await localDataSource.deleteTransaction(transactionModel);
       return Right(result.map((e) => transactionMapper(e)).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
@@ -94,21 +71,74 @@ class MoneyTrackerRepositoryImpl implements MoneyTrackerRepository {
     TransactionEntity transactionEntity,
   ) async {
     try {
-      var transactionModel = TransactionModel(
-        uuid: transactionEntity.uuid,
-        text: transactionEntity.text,
-        amount: transactionEntity.amount,
-        description: transactionEntity.description,
-        source: transactionEntity.source,
-        transactionType:
-            transactionEntity.transactionType == TransactionType.income
-                ? 'income'
-                : 'outcome',
-        createdAt: DateTime(transactionEntity.year, transactionEntity.month,
-            transactionEntity.day),
+      var result = await localDataSource.editTransaction(
+        transactionToModel(transactionEntity),
       );
-      var result = await localDataSource.editTransaction(transactionModel);
       return Right(result.map((e) => transactionMapper(e)).toList());
+    } on UserException catch (e) {
+      return Left(UserFailure(code: e.code, message: e.message));
+    } on ServerException {
+      return Left(ServerFailure(code: 500, message: 'Server Error'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TransactionCategoryEntity>>>
+      createTransactionCategory(
+    TransactionCategoryEntity categoryEntity,
+  ) async {
+    try {
+      var result = await localDataSource.createTransactionCategory(
+        transactionCategoryToModel(categoryEntity),
+      );
+      return Right(result.map((e) => transactionCategoryMapper(e)).toList());
+    } on UserException catch (e) {
+      return Left(UserFailure(code: e.code, message: e.message));
+    } on ServerException {
+      return Left(ServerFailure(code: 500, message: 'Server Error'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TransactionCategoryEntity>>>
+      deleteTransactionCategory(
+    TransactionCategoryEntity categoryEntity,
+  ) async {
+    try {
+      var result = await localDataSource.deleteTransactionCategory(
+        transactionCategoryToModel(categoryEntity),
+      );
+      return Right(result.map((e) => transactionCategoryMapper(e)).toList());
+    } on UserException catch (e) {
+      return Left(UserFailure(code: e.code, message: e.message));
+    } on ServerException {
+      return Left(ServerFailure(code: 500, message: 'Server Error'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TransactionCategoryEntity>>>
+      editTransactionCategory(
+    TransactionCategoryEntity categoryEntity,
+  ) async {
+    try {
+      var result = await localDataSource.editTransactionCategory(
+        transactionCategoryToModel(categoryEntity),
+      );
+      return Right(result.map((e) => transactionCategoryMapper(e)).toList());
+    } on UserException catch (e) {
+      return Left(UserFailure(code: e.code, message: e.message));
+    } on ServerException {
+      return Left(ServerFailure(code: 500, message: 'Server Error'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TransactionCategoryEntity>>>
+      loadTransactionCategories() async {
+    try {
+      var result = await localDataSource.loadTransactionCategories();
+      return Right(result.map((e) => transactionCategoryMapper(e)).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {

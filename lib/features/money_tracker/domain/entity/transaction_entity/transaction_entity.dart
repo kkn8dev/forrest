@@ -1,3 +1,4 @@
+import 'package:forrest/features/money_tracker/domain/entity/entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'transaction_entity.freezed.dart';
@@ -13,6 +14,7 @@ class TransactionEntity with _$TransactionEntity {
     required String description,
     required String source,
     required TransactionType transactionType,
+    TransactionCategoryEntity? category,
     required int year,
     required int month,
     required int day,

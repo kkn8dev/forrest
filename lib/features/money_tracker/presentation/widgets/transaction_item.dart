@@ -3,89 +3,95 @@ import 'package:flutter/material.dart';
 import '../../../../extensions/extensions.dart';
 import '../../domain/entity/entity.dart';
 
-class TransactionItem extends StatefulWidget {
+class TransactionItem extends StatelessWidget {
   const TransactionItem({
     Key? key,
     required this.transaction,
     required this.onTransactionTap,
-    required this.onTransactionDoubleTap,
-    required this.onTransactionLongTap,
   }) : super(key: key);
 
   final TransactionEntity transaction;
   final Function(TransactionEntity transactionEntity) onTransactionTap;
-  final Function(TransactionEntity transactionEntity) onTransactionDoubleTap;
-  final Function(TransactionEntity transactionEntity) onTransactionLongTap;
 
-  @override
-  State<TransactionItem> createState() => _TransactionItemState();
-}
-
-class _TransactionItemState extends State<TransactionItem> {
   @override
   Widget build(BuildContext context) {
     var appColors = Theme.of(context).extension<AppColors>()!;
     var textStyles = Theme.of(context).extension<AppTextStyles>()!;
-
     return GestureDetector(
       onTap: () {
-        widget.onTransactionTap(widget.transaction);
+        onTransactionTap(transaction);
       },
-      // onDoubleTap: () {
-      //   widget.onTransactionDoubleTap(widget.transaction);
-      // },
-      // onLongPress: () {
-      //   widget.onTransactionLongTap(widget.transaction);
-      // },
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(32),
-          color: appColors.black,
-        ),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Text(
-                  '${widget.transaction.transactionType == TransactionType.income ? '+' : '-'}${widget.transaction.amount.toString()}',
-                  style: textStyles.h1.copyWith(
-                    color: widget.transaction.transactionType ==
-                            TransactionType.income
-                        ? appColors.success
-                        : appColors.error,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Text(
-                  widget.transaction.text,
-                  style: textStyles.button1.copyWith(
-                    color: appColors.white,
-                  ),
-                ),
-              ],
+      child: Stack(
+        children: [
+          Container(
+            padding: const EdgeInsets.fromLTRB(16, 16, 64, 16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: appColors.black,
             ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
               children: [
-                Text(
-                  widget.transaction.description,
-                  style: textStyles.h2.copyWith(
-                    color: appColors.white,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      '${transaction.transactionType == TransactionType.income ? '+' : '-'}${transaction.amount.toString()}',
+                      style: textStyles.h1.copyWith(
+                        color: transaction.transactionType ==
+                                TransactionType.income
+                            ? appColors.success
+                            : appColors.error,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        transaction.text,
+                        style: textStyles.h2.copyWith(
+                          color: appColors.white,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(height: 8),
                 Text(
-                  widget.transaction.source,
+                  transaction.description,
                   style: textStyles.h3.copyWith(
                     color: appColors.white,
                   ),
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+          if (transaction.category != null)
+            Positioned(
+              top: 0,
+              right: 0,
+              child: Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  color: transaction.category!.color,
+                ),
+                child: Center(
+                  child: Text(transaction.category!.label),
+                ),
+              ),
+            ),
+          Positioned(
+            bottom: 8,
+            right: 16,
+            child: Text(
+              '${transaction.day}/${transaction.month}',
+              style: textStyles.button1.copyWith(
+                color: appColors.white,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:forrest/features/money_tracker/presentation/widgets/transaction_category_item.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../navigation/forrest_router.dart';
@@ -27,12 +28,14 @@ class _AddTransactionModalScreenState extends State<AddTransactionModalScreen> {
   late MoneyTrackerBloc moneyTrackerBloc = context.read<MoneyTrackerBloc>();
   TextEditingController textController = TextEditingController();
   TextEditingController amountTextController = TextEditingController();
+  TransactionCategoryEntity? category;
 
   @override
   void initState() {
     if (widget.transaction != null) {
       textController.text = widget.transaction!.text;
       amountTextController.text = widget.transaction!.amount.toString();
+      category = widget.transaction!.category;
     }
     super.initState();
   }
@@ -48,7 +51,10 @@ class _AddTransactionModalScreenState extends State<AddTransactionModalScreen> {
 
   onTap() {
     var uuid = const Uuid();
-    var currentDay = DateTime.now().day;
+    var now = DateTime.now();
+    var currentDay = now.day;
+    var currentMonth = now.month;
+    var currentYear = now.year;
     if (widget.transaction == null) {
       moneyTrackerBloc.add(
         CreateTransactionCoreEvent(
@@ -59,9 +65,10 @@ class _AddTransactionModalScreenState extends State<AddTransactionModalScreen> {
             source: textController.value.text,
             transactionType: TransactionType.income,
             amount: int.parse(amountTextController.value.text),
-            year: 2023,
-            month: 9,
+            year: currentYear,
+            month: currentMonth,
             day: currentDay,
+            category: category,
           ),
         ),
       );
@@ -75,8 +82,9 @@ class _AddTransactionModalScreenState extends State<AddTransactionModalScreen> {
             source: textController.value.text,
             transactionType: widget.transaction!.transactionType,
             amount: int.tryParse(amountTextController.value.text) ?? 0,
-            year: 2023,
-            month: 9,
+            category: category,
+            year: currentYear,
+            month: currentMonth,
             day: currentDay,
           ),
         ),
@@ -88,58 +96,75 @@ class _AddTransactionModalScreenState extends State<AddTransactionModalScreen> {
   @override
   Widget build(BuildContext context) {
     var t = AppLocalizations.of(context)!;
-
-    return GestureDetector(
-      onTap: () {
-        ForrestRouter.inst.pop();
-      },
-      child: Scaffold(
-        backgroundColor: const Color(0xFF000000).withOpacity(0.5),
-        body: GestureDetector(
-          onTap: () {},
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                margin: const EdgeInsets.all(32),
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
-                  color: const Color(0xFF833991),
-                ),
-                width: double.infinity,
-                height: 400,
-                child: Center(
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: textController,
-                      ),
-                      const SizedBox(height: 32),
-                      TextField(
-                        controller: amountTextController,
-                      ),
-                      const SizedBox(height: 32),
-                      Button1(
-                        label: t.moneyTracker_addTransactionButton,
-                        onTap: onTap,
-                      ),
-                      if (widget.transaction != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 32),
-                          child: Button1(
-                            label: t.moneyTracker_deleteTransactionButton,
-                            onTap: onDelete,
+    return BlocBuilder<MoneyTrackerBloc, MoneyTrackerState>(
+      builder: (context, state) {
+        return GestureDetector(
+          onTap: () {
+            ForrestRouter.inst.pop();
+          },
+          child: Scaffold(
+            backgroundColor: const Color(0xFF000000).withOpacity(0.5),
+            body: GestureDetector(
+              onTap: () {},
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(32),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32),
+                      color: const Color(0xFF833991),
+                    ),
+                    width: double.infinity,
+                    height: 400,
+                    child: Center(
+                      child: Column(
+                        children: [
+                          TextField(
+                            controller: textController,
                           ),
-                        ),
-                    ],
+                          const SizedBox(height: 32),
+                          TextField(
+                            controller: amountTextController,
+                          ),
+                          const SizedBox(height: 32),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: state.transactionCategories
+                                  .map((e) => TransactionCategoryItem(
+                                      category: e,
+                                      onTransactionCategoryTap: (e) {
+                                        setState(() {
+                                          category = e;
+                                        });
+                                      }))
+                                  .toList(),
+                            ),
+                          ),
+                          Button1(
+                            label: t.moneyTracker_addTransactionButton,
+                            onTap: onTap,
+                          ),
+                          if (widget.transaction != null)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 32),
+                              child: Button1(
+                                label: t.moneyTracker_deleteTransactionButton,
+                                onTap: onDelete,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
