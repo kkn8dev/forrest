@@ -1,3 +1,4 @@
+import 'package:forrest/features/core/data/data_sources/core_local_data_source_mock.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -46,9 +47,9 @@ Future<void> init() async {
     () => CoreRemoteDataSourceImpl(client: sl()),
   );
   sl.registerLazySingleton<CoreLocalDataSource>(
-    () => CoreLocalDataSourceImpl(
-      storage: sl(),
-    ),
+    () => CoreLocalDataSourceMock(
+        // storage: sl(),
+        ),
   );
   //----------------------------------------------------------------------------
 
@@ -83,9 +84,9 @@ Future<void> init() async {
     () => MoneyTrackerRemoteDataSourceImpl(client: sl()),
   );
   sl.registerLazySingleton<MoneyTrackerLocalDataSource>(
-    () => MoneyTrackerLocalDataSourceImpl(
-      storage: sl(),
-    ),
+    () => MoneyTrackerLocalDataSourceMock(
+        // storage: sl(),
+        ),
   );
   //----------------------------------------------------------------------------
 

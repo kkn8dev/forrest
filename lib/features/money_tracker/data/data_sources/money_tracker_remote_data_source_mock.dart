@@ -1,4 +1,4 @@
-import 'core_remote_data_source.dart';
+import 'money_tracker_remote_data_source.dart';
 
 class MoneyTrackerRemoteDataSourceMock implements MoneyTrackerRemoteDataSource {
   MoneyTrackerRemoteDataSourceMock();

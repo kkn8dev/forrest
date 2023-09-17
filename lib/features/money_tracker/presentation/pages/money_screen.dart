@@ -39,12 +39,6 @@ class _MoneyScreenState extends State<MoneyScreen> {
     ForrestRouter.inst.goToTransactionCategories();
   }
 
-  onDeleteTransaction(TransactionEntity transactionEntity) {
-    moneyTrackerBloc.add(
-      DeleteTransactionCoreEvent(transactionEntity: transactionEntity),
-    );
-  }
-
   onEditTransaction(TransactionEntity transactionEntity) {
     ForrestRouter.inst.openAddTransactionModal(transactionEntity);
   }
@@ -84,8 +78,6 @@ class _MoneyScreenState extends State<MoneyScreen> {
                   itemBuilder: (_, i) {
                     return TransactionItem(
                       transaction: transactions[i],
-                      onTransactionDoubleTap: onDeleteTransaction,
-                      onTransactionLongTap: onEditTransaction,
                       onTransactionTap: onEditTransaction,
                     );
                   },

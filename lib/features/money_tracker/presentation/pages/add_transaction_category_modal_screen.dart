@@ -47,14 +47,13 @@ class _AddTransactionCategoryModalScreenState
 
   onTap() {
     var uuid = const Uuid();
-    var currentDay = DateTime.now().day;
     if (widget.transaction == null) {
       moneyTrackerBloc.add(
         CreateTransactionCategoryCoreEvent(
           transactionEntity: TransactionCategoryEntity(
             uuid: uuid.v4(),
-            color: Colors.red,
-            label: 'label',
+            color: Colors.yellowAccent,
+            label: textController.value.text,
           ),
         ),
       );
@@ -64,7 +63,7 @@ class _AddTransactionCategoryModalScreenState
           transactionEntity: TransactionCategoryEntity(
             uuid: widget.transaction!.uuid,
             color: Colors.red,
-            label: 'label',
+            label: textController.value.text,
           ),
         ),
       );

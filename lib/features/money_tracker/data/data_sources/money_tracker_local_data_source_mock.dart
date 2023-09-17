@@ -1,18 +1,12 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../../../core/data/data_sources/data_sources.dart';
 import '../../../core/data/models/models.dart';
 import '../models/models.dart';
-import 'core_local_data_source.dart';
+import 'money_tracker_local_data_source.dart';
 
-class MoneyTrackerLocalDataSourceImpl implements MoneyTrackerLocalDataSource {
-  final HiveInterface storage;
-
-  MoneyTrackerLocalDataSourceImpl({required this.storage});
+class MoneyTrackerLocalDataSourceMock implements MoneyTrackerLocalDataSource {
+  MoneyTrackerLocalDataSourceMock();
 
   @override
   Future<bool> initApp() async {
@@ -29,13 +23,13 @@ class MoneyTrackerLocalDataSourceImpl implements MoneyTrackerLocalDataSource {
 
   @override
   Future<List<TransactionModel>> loadTransactions() async {
-    var transactions = readTransactions();
+    var transactions = transactionsMock;
     return transactions;
   }
 
   @override
   Future<List<TransactionCategoryModel>> loadTransactionCategories() async {
-    var categories = readTransactionCategories();
+    var categories = categoriesMock;
     return categories;
   }
 
@@ -43,7 +37,8 @@ class MoneyTrackerLocalDataSourceImpl implements MoneyTrackerLocalDataSource {
   Future<List<TransactionModel>> editTransaction(
     TransactionModel transactionModel,
   ) async {
-    var transactions = await readTransactions();
+    print(transactionModel);
+    var transactions = transactionsMock;
     var oldTransaction = transactions
         .firstWhere((element) => element.uuid == transactionModel.uuid);
     var index = transactions.indexOf(oldTransaction);
@@ -53,27 +48,24 @@ class MoneyTrackerLocalDataSourceImpl implements MoneyTrackerLocalDataSource {
       updatedTransaction,
       ...transactions.sublist(index + 1)
     ];
-    writeTransactions(a);
     return a;
   }
 
   @override
   Future<List<TransactionModel>> createTransaction(
       TransactionModel transactionModel) async {
-    var transactions = await readTransactions();
+    var transactions = transactionsMock;
     transactions.add(transactionModel);
-    writeTransactions(transactions);
     return transactions;
   }
 
   @override
   Future<List<TransactionModel>> deleteTransaction(
       TransactionModel transactionModel) async {
-    var transactions = await readTransactions();
+    var transactions = transactionsMock;
     var newTransactions = transactions
         .where((element) => element.uuid != transactionModel.uuid)
         .toList();
-    writeTransactions(newTransactions);
     return newTransactions;
   }
 
@@ -81,7 +73,7 @@ class MoneyTrackerLocalDataSourceImpl implements MoneyTrackerLocalDataSource {
   Future<List<TransactionCategoryModel>> editTransactionCategory(
     TransactionCategoryModel transactionModel,
   ) async {
-    var transactions = await readTransactionCategories();
+    var transactions = categoriesMock;
     var oldTransaction = transactions
         .firstWhere((element) => element.uuid == transactionModel.uuid);
     var index = transactions.indexOf(oldTransaction);
@@ -91,88 +83,49 @@ class MoneyTrackerLocalDataSourceImpl implements MoneyTrackerLocalDataSource {
       updatedTransaction,
       ...transactions.sublist(index + 1)
     ];
-    writeTransactionCategories(a);
     return a;
   }
 
   @override
   Future<List<TransactionCategoryModel>> createTransactionCategory(
       TransactionCategoryModel transactionModel) async {
-    var transactions = await readTransactionCategories();
+    var transactions = categoriesMock;
     transactions.add(transactionModel);
-    writeTransactionCategories(transactions);
     return transactions;
   }
 
   @override
   Future<List<TransactionCategoryModel>> deleteTransactionCategory(
       TransactionCategoryModel transactionModel) async {
-    var transactions = await readTransactionCategories();
+    var transactions = categoriesMock;
     var newTransactions = transactions
         .where((element) => element.uuid != transactionModel.uuid)
         .toList();
-    writeTransactionCategories(newTransactions);
     return newTransactions;
   }
 }
 
-Future<String> get _localPath async {
-  final directory = await getApplicationDocumentsDirectory();
-
-  return directory.path;
-}
-
-Future<File> get _localFile async {
-  final path = await _localPath;
-  return File('$path/money_tracker_db.txt');
-}
-
-Future<List<TransactionModel>> readTransactions() async {
-  try {
-    final file = await _localFile;
-
-    final content = await file.readAsString();
-    var result = jsonDecode(content);
-    final jsonMap = result;
-    return (jsonMap as List)
-        .map((element) => TransactionModel.fromJson(element))
-        .toList();
-  } catch (e) {
-    return [];
-  }
-}
-
-Future<File> writeTransactions(List<TransactionModel> transactions) async {
-  final file = await _localFile;
-  var result = jsonEncode(transactions);
-
-  return file.writeAsString(result);
-}
-
-Future<File> get _categoriesLocalFile async {
-  final path = await _localPath;
-  return File('$path/categories_db.txt');
-}
-
-Future<List<TransactionCategoryModel>> readTransactionCategories() async {
-  try {
-    final file = await _categoriesLocalFile;
-
-    final content = await file.readAsString();
-    var result = jsonDecode(content);
-    final jsonMap = result;
-    return (jsonMap as List)
-        .map((element) => TransactionCategoryModel.fromJson(element))
-        .toList();
-  } catch (e) {
-    return [];
-  }
-}
-
-Future<File> writeTransactionCategories(
-    List<TransactionCategoryModel> transactions) async {
-  final file = await _categoriesLocalFile;
-  var result = jsonEncode(transactions);
-
-  return file.writeAsString(result);
-}
+const List<TransactionCategoryModel> categoriesMock = [
+  TransactionCategoryModel(uuid: '123', color: 'ff00ff', label: 'purple'),
+  TransactionCategoryModel(uuid: '1234', color: 'ffffff', label: 'white'),
+  TransactionCategoryModel(uuid: '1235', color: 'ff0000', label: 'red'),
+  TransactionCategoryModel(uuid: '1236', color: '00ff00', label: 'green'),
+];
+List<TransactionModel> transactionsMock = [
+  TransactionModel(
+    uuid: '123',
+    amount: 500,
+    text:
+        'Using the Impeller rendering backend. Debug service listening on ws://127.0.0.1:50146/8ggMoH0QWLE=/ws Syncing files to device iPhone 14 Pro Max...',
+    description:
+        'Using the Impeller rendering backend. Debug service listening on ws://127.0.0.1:50146/8ggMoH0QWLE=/ws Syncing files to device iPhone 14 Pro Max...',
+    source: 'source',
+    transactionType: 'income',
+    createdAt: DateTime.now(),
+    category: TransactionCategoryModel(
+      uuid: '123',
+      color: 'ff00ff',
+      label: 'purple',
+    ),
+  ),
+];
