@@ -83,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
             .toList();
 
         return ScreenBox(
+          key: const Key('habitsScreen'),
           backgroundColor: appColors.white,
           child: Column(
             children: [
@@ -100,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 32),
               Button1(
+                key: const Key('newHabit'),
                 label: t.habitScreen_addHabitButton,
                 onTap: createHabit,
               ),

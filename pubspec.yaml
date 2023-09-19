@@ -41,6 +41,14 @@ dev_dependencies:
   build_runner: ^2.4.6
   freezed: ^2.4.2
   json_serializable: ^6.7.1
+  patrol: ^2.2.5
+
+patrol:
+  app_name: My App
+  android:
+    package_name: com.kkn8dev.forrest
+  ios:
+    bundle_id: com.example.MyApp
 
 flutter:
   generate: true
