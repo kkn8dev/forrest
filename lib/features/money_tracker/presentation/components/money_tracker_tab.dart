@@ -6,6 +6,7 @@ class MoneyTrackerTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Tab(
+      key: Key('moneyTrackerTab'),
       icon: Icon(
         Icons.monetization_on_outlined,
         size: 40,
