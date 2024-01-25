@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../../extensions/extensions.dart';
+import 'package:forrest/extensions/extensions.dart';
 
 class Button1 extends StatefulWidget {
   const Button1({
-    Key? key,
-    required this.label,
+    required this.label, super.key,
     this.isDisabled = false,
     this.onTap,
-  }) : super(key: key);
+  });
 
   final String label;
   final bool isDisabled;
@@ -21,8 +20,8 @@ class Button1 extends StatefulWidget {
 class _Button1State extends State<Button1> {
   @override
   Widget build(BuildContext context) {
-    var appColors = Theme.of(context).extension<AppColors>();
-    var textStyles = Theme.of(context).extension<AppTextStyles>();
+    final appColors = Theme.of(context).extension<AppColors>();
+    final textStyles = Theme.of(context).extension<AppTextStyles>();
 
     return GestureDetector(
       onTap: () {

@@ -2,16 +2,15 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../../navigation/forrest_router.dart';
-import '../../../core/presentation/widgets/widgets.dart';
-import '../../domain/entity/entity.dart';
-import '../bloc/bloc.dart';
-import '../widgets/widgets.dart';
+import 'package:forrest/features/core/presentation/widgets/widgets.dart';
+import 'package:forrest/features/money_tracker/domain/entity/entity.dart';
+import 'package:forrest/features/money_tracker/presentation/bloc/bloc.dart';
+import 'package:forrest/features/money_tracker/presentation/widgets/widgets.dart';
+import 'package:forrest/navigation/forrest_router.dart';
 
 @RoutePage()
 class MoneyScreen extends StatefulWidget {
-  const MoneyScreen({Key? key}) : super(key: key);
+  const MoneyScreen({super.key});
 
   @override
   State<MoneyScreen> createState() => _MoneyScreenState();
@@ -24,7 +23,7 @@ class _MoneyScreenState extends State<MoneyScreen> {
   @override
   void initState() {
     moneyTrackerBloc.add(LoadMoneyTrackerEvent());
-    var day = DateTime.now().day;
+    final day = DateTime.now().day;
     setState(() {
       currentDay = day;
     });
@@ -45,11 +44,11 @@ class _MoneyScreenState extends State<MoneyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var t = AppLocalizations.of(context)!;
+    final t = AppLocalizations.of(context)!;
 
     return BlocBuilder<MoneyTrackerBloc, MoneyTrackerState>(
       builder: (context, state) {
-        var transactions = state.transactions
+        final transactions = state.transactions
             .where(
               (element) => element.day == currentDay,
             )

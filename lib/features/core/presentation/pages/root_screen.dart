@@ -2,20 +2,18 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../../main.dart';
-import '../../../../navigation/auto_router.dart';
-import '../../../../styles/dark_theme.dart';
-import '../../../../styles/light_theme.dart';
-import '../../../../utils/dio_client.dart';
-import '../bloc/bloc.dart';
+import 'package:forrest/features/core/presentation/bloc/bloc.dart';
+import 'package:forrest/main.dart';
+import 'package:forrest/navigation/auto_router.dart';
+import 'package:forrest/styles/dark_theme.dart';
+import 'package:forrest/styles/light_theme.dart';
+import 'package:forrest/utils/dio_client.dart';
 
 final RootRouter _appRouter = RootRouter();
 
 class RootScreen extends StatefulWidget {
   const RootScreen({
-    super.key,
-    required this.id,
+    required this.id, super.key,
   });
 
   final String? id;
@@ -47,7 +45,7 @@ class _RootScreenState extends State<RootScreen> {
   }
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return BlocConsumer<CoreBloc, CoreState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -59,7 +57,7 @@ class _RootScreenState extends State<RootScreen> {
           locale: getLocale(state.locale),
           routeInformationParser: _appRouter.defaultRouteParser(),
           localeResolutionCallback: (deviceLocale, supportedLocales) {
-            for (var locale in supportedLocales) {
+            for (final locale in supportedLocales) {
               if (locale.languageCode == deviceLocale!.languageCode) {
                 return deviceLocale;
               }

@@ -1,25 +1,25 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forrest/features/core/data/data_sources/data_sources.dart';
+import 'package:forrest/features/core/presentation/bloc/bloc.dart';
+import 'package:forrest/navigation/forrest_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
-import '../../../../navigation/forrest_router.dart';
-import '../../data/data_sources/data_sources.dart';
-import '../bloc/bloc.dart';
 
 @RoutePage()
 class RootWrapperScreen extends StatefulWidget implements AutoRouteWrapper {
   const RootWrapperScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  Widget wrappedRoute(context) {
+  Widget wrappedRoute(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable: Hive.box(coreBox).listenable(),
-        builder: (BuildContext _, Box<dynamic> box, Widget? child) {
-          return this;
-        });
+      valueListenable: Hive.box<String?>(coreBox).listenable(),
+      builder: (BuildContext _, Box<dynamic> box, Widget? child) {
+        return this;
+      },
+    );
   }
 
   @override
@@ -29,7 +29,7 @@ class RootWrapperScreen extends StatefulWidget implements AutoRouteWrapper {
 class _RootWrapperScreenState extends State<RootWrapperScreen>
     with WidgetsBindingObserver {
   late CoreBloc coreBloc = context.read<CoreBloc>();
-  var isUpdateModalOpen = false;
+  bool isUpdateModalOpen = false;
 
   @override
   void initState() {
@@ -39,20 +39,20 @@ class _RootWrapperScreenState extends State<RootWrapperScreen>
   }
 
   @override
-  void dispose() async {
+  Future<void> dispose() async {
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
-  void didChangeDependencies() async {
-    Locale userLocale = Localizations.localeOf(context);
+  Future<void> didChangeDependencies() async {
+    final userLocale = Localizations.localeOf(context);
 
-    var box = await Hive.openBox(coreBox);
-    var oldLocale = box.get(locale);
+    final box = await Hive.openBox<String?>(coreBox);
+    final oldLocale = box.get(locale);
 
     if (oldLocale == null) {
-      box.put(locale, userLocale.languageCode);
+      await box.put(locale, userLocale.languageCode);
       coreBloc.add(UpdateUserLocaleCoreEvent(locale: userLocale.languageCode));
     }
     super.didChangeDependencies();

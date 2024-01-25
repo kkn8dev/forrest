@@ -5,11 +5,11 @@ part 'transaction_category_entity.freezed.dart';
 
 @freezed
 class TransactionCategoryEntity with _$TransactionCategoryEntity {
-  const TransactionCategoryEntity._();
 
   const factory TransactionCategoryEntity({
     required String uuid,
     required Color color,
     required String label,
   }) = _TransactionCategoryEntity;
+  const TransactionCategoryEntity._();
 }

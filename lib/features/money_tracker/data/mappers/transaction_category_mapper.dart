@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
-import '../../domain/entity/entity.dart';
-import '../models/models.dart';
+import 'package:forrest/features/money_tracker/data/models/models.dart';
+import 'package:forrest/features/money_tracker/domain/entity/entity.dart';
 
 TransactionCategoryEntity transactionCategoryMapper(
-    TransactionCategoryModel model) {
+    TransactionCategoryModel model,) {
   return TransactionCategoryEntity(
     uuid: model.uuid,
     color: HexColor.fromHex(model.color),

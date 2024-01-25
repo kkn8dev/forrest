@@ -1,20 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../main.dart';
-import '../../../core/domain/usecases/usecases.dart';
-import '../../domain/usecases/usecases.dart';
-import 'core_event.dart';
-import 'core_state.dart';
+import 'package:forrest/features/core/domain/usecases/usecases.dart';
+import 'package:forrest/features/money_tracker/domain/usecases/usecases.dart';
+import 'package:forrest/features/money_tracker/presentation/bloc/core_event.dart';
+import 'package:forrest/features/money_tracker/presentation/bloc/core_state.dart';
+import 'package:forrest/main.dart';
 
 class MoneyTrackerBloc extends Bloc<MoneyTrackerEvent, MoneyTrackerState> {
-  final LoadTransactionsUseCase loadTransactionsUseCase;
-  final LoadTransactionCategoriesUseCase loadTransactionCategoriesUseCase;
-  final CreateTransactionUseCase createTransactionUseCase;
-  final DeleteTransactionUseCase deleteTransactionUseCase;
-  final EditTransactionUseCase editTransactionUseCase;
-  final CreateTransactionCategoryUseCase createTransactionCategoryUseCase;
-  final DeleteTransactionCategoryUseCase deleteTransactionCategoryUseCase;
-  final EditTransactionCategoryUseCase editTransactionCategoryUseCase;
 
   MoneyTrackerBloc({
     required this.loadTransactionsUseCase,
@@ -34,20 +25,28 @@ class MoneyTrackerBloc extends Bloc<MoneyTrackerEvent, MoneyTrackerState> {
     on<DeleteTransactionCoreEvent>(_onDeleteTransactionCoreEvent);
     on<EditTransactionCoreEvent>(_onEditTransactionCoreEvent);
     on<CreateTransactionCategoryCoreEvent>(
-        _onCreateTransactionCategoryCoreEvent);
+        _onCreateTransactionCategoryCoreEvent,);
     on<DeleteTransactionCategoryCoreEvent>(
-        _onDeleteTransactionCategoryCoreEvent);
+        _onDeleteTransactionCategoryCoreEvent,);
     on<EditTransactionCategoryCoreEvent>(_onEditTransactionCategoryCoreEvent);
   }
+  final LoadTransactionsUseCase loadTransactionsUseCase;
+  final LoadTransactionCategoriesUseCase loadTransactionCategoriesUseCase;
+  final CreateTransactionUseCase createTransactionUseCase;
+  final DeleteTransactionUseCase deleteTransactionUseCase;
+  final EditTransactionUseCase editTransactionUseCase;
+  final CreateTransactionCategoryUseCase createTransactionCategoryUseCase;
+  final DeleteTransactionCategoryUseCase deleteTransactionCategoryUseCase;
+  final EditTransactionCategoryUseCase editTransactionCategoryUseCase;
 
-  void _onEditTransactionCoreEvent(
+  Future<void> _onEditTransactionCoreEvent(
     EditTransactionCoreEvent event,
     Emitter<MoneyTrackerState> emit,
   ) async {
     emit(
       state.copyWith(),
     );
-    var result = await editTransactionUseCase(
+    final result = await editTransactionUseCase(
       EditTransactionUseCaseParams(
         transaction: event.transactionEntity,
       ),
@@ -68,14 +67,14 @@ class MoneyTrackerBloc extends Bloc<MoneyTrackerEvent, MoneyTrackerState> {
     );
   }
 
-  void _onDeleteTransactionCoreEvent(
+  Future<void> _onDeleteTransactionCoreEvent(
     DeleteTransactionCoreEvent event,
     Emitter<MoneyTrackerState> emit,
   ) async {
     emit(
       state.copyWith(),
     );
-    var result = await deleteTransactionUseCase(
+    final result = await deleteTransactionUseCase(
       DeleteTransactionUseCaseParams(
         transaction: event.transactionEntity,
       ),
@@ -96,14 +95,14 @@ class MoneyTrackerBloc extends Bloc<MoneyTrackerEvent, MoneyTrackerState> {
     );
   }
 
-  void _onCreateTransactionCoreEvent(
+  Future<void> _onCreateTransactionCoreEvent(
     CreateTransactionCoreEvent event,
     Emitter<MoneyTrackerState> emit,
   ) async {
     emit(
       state.copyWith(),
     );
-    var result = await createTransactionUseCase(
+    final result = await createTransactionUseCase(
       CreateTransactionUseCaseParams(
         transaction: event.transactionEntity,
       ),
@@ -124,14 +123,14 @@ class MoneyTrackerBloc extends Bloc<MoneyTrackerEvent, MoneyTrackerState> {
     );
   }
 
-  void _onEditTransactionCategoryCoreEvent(
+  Future<void> _onEditTransactionCategoryCoreEvent(
     EditTransactionCategoryCoreEvent event,
     Emitter<MoneyTrackerState> emit,
   ) async {
     emit(
       state.copyWith(),
     );
-    var result = await editTransactionCategoryUseCase(
+    final result = await editTransactionCategoryUseCase(
       EditTransactionCategoryUseCaseParams(
         transaction: event.transactionEntity,
       ),
@@ -152,14 +151,14 @@ class MoneyTrackerBloc extends Bloc<MoneyTrackerEvent, MoneyTrackerState> {
     );
   }
 
-  void _onDeleteTransactionCategoryCoreEvent(
+  Future<void> _onDeleteTransactionCategoryCoreEvent(
     DeleteTransactionCategoryCoreEvent event,
     Emitter<MoneyTrackerState> emit,
   ) async {
     emit(
       state.copyWith(),
     );
-    var result = await deleteTransactionCategoryUseCase(
+    final result = await deleteTransactionCategoryUseCase(
       DeleteTransactionCategoryUseCaseParams(
         transaction: event.transactionEntity,
       ),
@@ -180,14 +179,14 @@ class MoneyTrackerBloc extends Bloc<MoneyTrackerEvent, MoneyTrackerState> {
     );
   }
 
-  void _onCreateTransactionCategoryCoreEvent(
+  Future<void> _onCreateTransactionCategoryCoreEvent(
     CreateTransactionCategoryCoreEvent event,
     Emitter<MoneyTrackerState> emit,
   ) async {
     emit(
       state.copyWith(),
     );
-    var result = await createTransactionCategoryUseCase(
+    final result = await createTransactionCategoryUseCase(
       CreateTransactionCategoryUseCaseParams(
         transaction: event.transactionEntity,
       ),
@@ -208,15 +207,15 @@ class MoneyTrackerBloc extends Bloc<MoneyTrackerEvent, MoneyTrackerState> {
     );
   }
 
-  void _onLoadMoneyTrackerEvent(
+  Future<void> _onLoadMoneyTrackerEvent(
     LoadMoneyTrackerEvent event,
     Emitter<MoneyTrackerState> emit,
   ) async {
     emit(
       state.copyWith(),
     );
-    var result = await loadTransactionsUseCase(NoParams());
-    var categories = await loadTransactionCategoriesUseCase(NoParams());
+    final result = await loadTransactionsUseCase(NoParams());
+    final categories = await loadTransactionCategoriesUseCase(NoParams());
     result.fold(
       (error) {
         return emit(

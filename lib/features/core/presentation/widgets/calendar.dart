@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../extensions/extensions.dart';
+import 'package:forrest/extensions/extensions.dart';
 
 class Calendar extends StatefulWidget {
   const Calendar({
-    Key? key,
-    required this.onDayPressed,
-    required this.currentDay,
-  }) : super(key: key);
+    required this.onDayPressed, required this.currentDay, super.key,
+  });
 
   final Function(int day) onDayPressed;
   final int currentDay;
@@ -20,9 +18,9 @@ class Calendar extends StatefulWidget {
 class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
-    var appColors = Theme.of(context).extension<AppColors>();
-    var textStyles = Theme.of(context).extension<AppTextStyles>();
-    var t = AppLocalizations.of(context)!;
+    final appColors = Theme.of(context).extension<AppColors>();
+    final textStyles = Theme.of(context).extension<AppTextStyles>();
+    final t = AppLocalizations.of(context)!;
 
     return GestureDetector(
       onTap: () {},
@@ -57,7 +55,7 @@ class _CalendarState extends State<Calendar> {
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (_, index) {
-                  var i = index + 1;
+                  final i = index + 1;
                   return GestureDetector(
                     onTap: () {
                       widget.onDayPressed(i);

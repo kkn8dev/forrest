@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../extensions/extensions.dart';
-import 'colors.dart';
+import 'package:forrest/extensions/extensions.dart';
+import 'package:forrest/styles/colors.dart';
 
 ThemeData lightTheme = ThemeData(
   extensions: const [

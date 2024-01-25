@@ -2,16 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:forrest/extensions/extensions.dart';
+import 'package:forrest/features/core/domain/entity/entity.dart';
+import 'package:forrest/features/core/presentation/bloc/bloc.dart';
+import 'package:forrest/features/core/presentation/widgets/widgets.dart';
 import 'package:uuid/uuid.dart';
-
-import '../../../../extensions/extensions.dart';
-import '../../domain/entity/entity.dart';
-import '../bloc/bloc.dart';
-import '../widgets/widgets.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -25,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     coreBloc.add(LoadHabitsCoreEvent());
-    var day = DateTime.now().day;
+    final day = DateTime.now().day;
     setState(() {
       currentDay = day;
     });
@@ -53,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   createHabit() {
-    var uuid = const Uuid();
+    const uuid = Uuid();
     coreBloc.add(
       CreateHabitCoreEvent(
         habit: HabitEntity(
@@ -71,12 +70,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var appColors = Theme.of(context).extension<AppColors>()!;
-    var t = AppLocalizations.of(context)!;
+    final appColors = Theme.of(context).extension<AppColors>()!;
+    final t = AppLocalizations.of(context)!;
 
     return BlocBuilder<CoreBloc, CoreState>(
       builder: (context, state) {
-        var habits = state.habits
+        final habits = state.habits
             .where(
               (element) => element.day == currentDay,
             )

@@ -1,16 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../extensions/extensions.dart';
+import 'package:forrest/extensions/extensions.dart';
 
 class LanguageItem extends StatelessWidget {
   const LanguageItem({
-    Key? key,
-    required this.language,
-    required this.translate,
-    required this.isActive,
-    required this.onTap,
-  }) : super(key: key);
+    required this.language, required this.translate, required this.isActive, required this.onTap, super.key,
+  });
 
   final String language;
   final String translate;
@@ -19,7 +15,7 @@ class LanguageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var textStyles = Theme.of(context).extension<AppTextStyles>()!;
+    final textStyles = Theme.of(context).extension<AppTextStyles>()!;
 
     return GestureDetector(
       onTap: onTap,

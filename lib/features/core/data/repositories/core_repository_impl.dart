@@ -1,31 +1,30 @@
 import 'package:dartz/dartz.dart';
-
-import '../../domain/entity/entity.dart';
-import '../../domain/repositories/core_repository.dart';
-import '../data_sources/data_sources.dart';
-import '../mappers/mappers.dart';
-import '../models/models.dart';
+import 'package:forrest/features/core/data/data_sources/data_sources.dart';
+import 'package:forrest/features/core/data/mappers/mappers.dart';
+import 'package:forrest/features/core/data/models/models.dart';
+import 'package:forrest/features/core/domain/entity/entity.dart';
+import 'package:forrest/features/core/domain/repositories/core_repository.dart';
 
 class CoreRepositoryImpl implements CoreRepository {
-  final CoreRemoteDataSource remoteDataSource;
-  final CoreLocalDataSource localDataSource;
 
   CoreRepositoryImpl({
     required this.remoteDataSource,
     required this.localDataSource,
   });
+  final CoreRemoteDataSource remoteDataSource;
+  final CoreLocalDataSource localDataSource;
 
   @override
   Future<Either<Failure, bool>> initApp() async {
-    remoteDataSource.initApp();
+    await remoteDataSource.initApp();
     return const Right(true);
   }
 
   @override
   Future<Either<Failure, List<HabitEntity>>> loadHabits() async {
     try {
-      var result = await localDataSource.loadHabits();
-      return Right(result.map((e) => habitMapper(e)).toList());
+      final result = await localDataSource.loadHabits();
+      return Right(result.map(habitMapper).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {
@@ -35,9 +34,9 @@ class CoreRepositoryImpl implements CoreRepository {
 
   @override
   Future<Either<Failure, List<HabitEntity>>> toggleHabitStatus(
-      HabitEntity habitEntity) async {
+      HabitEntity habitEntity,) async {
     try {
-      var habitModel = HabitModel(
+      final habitModel = HabitModel(
         uuid: habitEntity.uuid,
         isCompleted: habitEntity.isCompleted,
         isLocked: habitEntity.isLocked,
@@ -45,8 +44,8 @@ class CoreRepositoryImpl implements CoreRepository {
         createdAt:
         DateTime(habitEntity.year, habitEntity.month, habitEntity.day),
       );
-      var result = await localDataSource.toggleHabitStatus(habitModel);
-      return Right(result.map((e) => habitMapper(e)).toList());
+      final result = await localDataSource.toggleHabitStatus(habitModel);
+      return Right(result.map(habitMapper).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {
@@ -56,9 +55,9 @@ class CoreRepositoryImpl implements CoreRepository {
 
   @override
   Future<Either<Failure, List<HabitEntity>>> toggleHabitLock(
-      HabitEntity habitEntity) async {
+      HabitEntity habitEntity,) async {
     try {
-      var habitModel = HabitModel(
+      final habitModel = HabitModel(
         uuid: habitEntity.uuid,
         isCompleted: habitEntity.isCompleted,
         isLocked: habitEntity.isLocked,
@@ -66,8 +65,8 @@ class CoreRepositoryImpl implements CoreRepository {
         createdAt:
         DateTime(habitEntity.year, habitEntity.month, habitEntity.day),
       );
-      var result = await localDataSource.toggleHabitLock(habitModel);
-      return Right(result.map((e) => habitMapper(e)).toList());
+      final result = await localDataSource.toggleHabitLock(habitModel);
+      return Right(result.map(habitMapper).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {
@@ -79,7 +78,7 @@ class CoreRepositoryImpl implements CoreRepository {
   Future<Either<Failure, List<HabitEntity>>> createHabit(
       HabitEntity habitEntity,) async {
     try {
-      var habitModel = HabitModel(
+      final habitModel = HabitModel(
         uuid: habitEntity.uuid,
         isCompleted: habitEntity.isCompleted,
         isLocked: habitEntity.isLocked,
@@ -87,8 +86,8 @@ class CoreRepositoryImpl implements CoreRepository {
         createdAt:
         DateTime(habitEntity.year, habitEntity.month, habitEntity.day),
       );
-      var result = await localDataSource.createHabit(habitModel);
-      return Right(result.map((e) => habitMapper(e)).toList());
+      final result = await localDataSource.createHabit(habitModel);
+      return Right(result.map(habitMapper).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {
@@ -100,7 +99,7 @@ class CoreRepositoryImpl implements CoreRepository {
   Future<Either<Failure, List<HabitEntity>>> deleteHabit(
       HabitEntity habitEntity,) async {
     try {
-      var habitModel = HabitModel(
+      final habitModel = HabitModel(
         uuid: habitEntity.uuid,
         isCompleted: habitEntity.isCompleted,
         isLocked: habitEntity.isLocked,
@@ -108,8 +107,8 @@ class CoreRepositoryImpl implements CoreRepository {
         createdAt:
         DateTime(habitEntity.year, habitEntity.month, habitEntity.day),
       );
-      var result = await localDataSource.deleteHabit(habitModel);
-      return Right(result.map((e) => habitMapper(e)).toList());
+      final result = await localDataSource.deleteHabit(habitModel);
+      return Right(result.map(habitMapper).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {

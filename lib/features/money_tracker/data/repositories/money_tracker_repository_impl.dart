@@ -1,32 +1,31 @@
 import 'package:dartz/dartz.dart';
-
-import '../../../core/data/models/models.dart';
-import '../../../core/domain/entity/entity.dart';
-import '../../domain/entity/entity.dart';
-import '../../domain/repositories/money_tracker_repository.dart';
-import '../data_sources/data_sources.dart';
-import '../mappers/mappers.dart';
+import 'package:forrest/features/core/data/models/models.dart';
+import 'package:forrest/features/core/domain/entity/entity.dart';
+import 'package:forrest/features/money_tracker/data/data_sources/data_sources.dart';
+import 'package:forrest/features/money_tracker/data/mappers/mappers.dart';
+import 'package:forrest/features/money_tracker/domain/entity/entity.dart';
+import 'package:forrest/features/money_tracker/domain/repositories/money_tracker_repository.dart';
 
 class MoneyTrackerRepositoryImpl implements MoneyTrackerRepository {
-  final MoneyTrackerRemoteDataSource remoteDataSource;
-  final MoneyTrackerLocalDataSource localDataSource;
 
   MoneyTrackerRepositoryImpl({
     required this.remoteDataSource,
     required this.localDataSource,
   });
+  final MoneyTrackerRemoteDataSource remoteDataSource;
+  final MoneyTrackerLocalDataSource localDataSource;
 
   @override
   Future<Either<Failure, bool>> initApp() async {
-    remoteDataSource.initApp();
+    await remoteDataSource.initApp();
     return const Right(true);
   }
 
   @override
   Future<Either<Failure, List<TransactionEntity>>> loadTransactions() async {
     try {
-      var result = await localDataSource.loadTransactions();
-      return Right(result.map((e) => transactionMapper(e)).toList());
+      final result = await localDataSource.loadTransactions();
+      return Right(result.map(transactionMapper).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {
@@ -39,10 +38,10 @@ class MoneyTrackerRepositoryImpl implements MoneyTrackerRepository {
     TransactionEntity transactionEntity,
   ) async {
     try {
-      var result = await localDataSource.createTransaction(
+      final result = await localDataSource.createTransaction(
         transactionToModel(transactionEntity),
       );
-      return Right(result.map((e) => transactionMapper(e)).toList());
+      return Right(result.map(transactionMapper).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {
@@ -55,10 +54,10 @@ class MoneyTrackerRepositoryImpl implements MoneyTrackerRepository {
     TransactionEntity transactionEntity,
   ) async {
     try {
-      var result = await localDataSource.deleteTransaction(
+      final result = await localDataSource.deleteTransaction(
         transactionToModel(transactionEntity),
       );
-      return Right(result.map((e) => transactionMapper(e)).toList());
+      return Right(result.map(transactionMapper).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {
@@ -71,10 +70,10 @@ class MoneyTrackerRepositoryImpl implements MoneyTrackerRepository {
     TransactionEntity transactionEntity,
   ) async {
     try {
-      var result = await localDataSource.editTransaction(
+      final result = await localDataSource.editTransaction(
         transactionToModel(transactionEntity),
       );
-      return Right(result.map((e) => transactionMapper(e)).toList());
+      return Right(result.map(transactionMapper).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {
@@ -88,10 +87,10 @@ class MoneyTrackerRepositoryImpl implements MoneyTrackerRepository {
     TransactionCategoryEntity categoryEntity,
   ) async {
     try {
-      var result = await localDataSource.createTransactionCategory(
+      final result = await localDataSource.createTransactionCategory(
         transactionCategoryToModel(categoryEntity),
       );
-      return Right(result.map((e) => transactionCategoryMapper(e)).toList());
+      return Right(result.map(transactionCategoryMapper).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {
@@ -105,10 +104,10 @@ class MoneyTrackerRepositoryImpl implements MoneyTrackerRepository {
     TransactionCategoryEntity categoryEntity,
   ) async {
     try {
-      var result = await localDataSource.deleteTransactionCategory(
+      final result = await localDataSource.deleteTransactionCategory(
         transactionCategoryToModel(categoryEntity),
       );
-      return Right(result.map((e) => transactionCategoryMapper(e)).toList());
+      return Right(result.map(transactionCategoryMapper).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {
@@ -122,10 +121,10 @@ class MoneyTrackerRepositoryImpl implements MoneyTrackerRepository {
     TransactionCategoryEntity categoryEntity,
   ) async {
     try {
-      var result = await localDataSource.editTransactionCategory(
+      final result = await localDataSource.editTransactionCategory(
         transactionCategoryToModel(categoryEntity),
       );
-      return Right(result.map((e) => transactionCategoryMapper(e)).toList());
+      return Right(result.map(transactionCategoryMapper).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {
@@ -137,8 +136,8 @@ class MoneyTrackerRepositoryImpl implements MoneyTrackerRepository {
   Future<Either<Failure, List<TransactionCategoryEntity>>>
       loadTransactionCategories() async {
     try {
-      var result = await localDataSource.loadTransactionCategories();
-      return Right(result.map((e) => transactionCategoryMapper(e)).toList());
+      final result = await localDataSource.loadTransactionCategories();
+      return Right(result.map(transactionCategoryMapper).toList());
     } on UserException catch (e) {
       return Left(UserFailure(code: e.code, message: e.message));
     } on ServerException {

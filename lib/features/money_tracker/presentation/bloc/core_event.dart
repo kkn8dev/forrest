@@ -1,4 +1,4 @@
-import '../../domain/entity/entity.dart';
+import 'package:forrest/features/money_tracker/domain/entity/entity.dart';
 
 abstract class MoneyTrackerEvent {}
 

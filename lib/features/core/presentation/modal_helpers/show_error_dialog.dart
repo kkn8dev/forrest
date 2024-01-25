@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../extensions/extensions.dart';
+import 'package:forrest/extensions/extensions.dart';
 
 void showErrorDialog(BuildContext context) {
-  var t = AppLocalizations.of(context)!;
+  final t = AppLocalizations.of(context)!;
 
   showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext alertDialogContext) {
-        var textStyles = Theme.of(context).extension<AppTextStyles>()!;
+        final textStyles = Theme.of(context).extension<AppTextStyles>()!;
 
         return AlertDialog(
           shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+            borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
           title: Text(
             t.errorModal_title,
@@ -42,11 +42,11 @@ void showErrorDialog(BuildContext context) {
             ),
           ],
           actionsPadding: const EdgeInsets.only(
-            left: 16.0,
-            right: 16.0,
-            bottom: 16.0,
+            left: 16,
+            right: 16,
+            bottom: 16,
           ),
-          insetPadding: const EdgeInsets.symmetric(horizontal: 55.0),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 55),
         );
-      });
+      },);
 }

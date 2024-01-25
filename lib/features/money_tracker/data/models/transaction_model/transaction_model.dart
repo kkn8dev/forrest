@@ -13,8 +13,7 @@ class TransactionModel with _$TransactionModel {
     required String description,
     required String source,
     required String transactionType,
-    TransactionCategoryModel? category,
-    required DateTime createdAt,
+    required DateTime createdAt, TransactionCategoryModel? category,
   }) = _TransactionModel;
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) =>

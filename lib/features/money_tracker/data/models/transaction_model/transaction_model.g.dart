@@ -17,7 +17,7 @@ _$_TransactionModel _$$_TransactionModelFromJson(Map<String, dynamic> json) =>
       category: json['category'] == null
           ? null
           : TransactionCategoryModel.fromJson(
-              json['category'] as Map<String, dynamic>),
+              json['category'] as Map<String, dynamic>,),
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 

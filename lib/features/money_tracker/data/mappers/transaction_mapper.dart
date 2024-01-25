@@ -1,10 +1,10 @@
-import '../../domain/entity/entity.dart';
-import '../models/models.dart';
-import 'mappers.dart';
+import 'package:forrest/features/money_tracker/data/mappers/mappers.dart';
+import 'package:forrest/features/money_tracker/data/models/models.dart';
+import 'package:forrest/features/money_tracker/domain/entity/entity.dart';
 
 TransactionEntity transactionMapper(TransactionModel model) {
   TransactionCategoryEntity? category;
-  TransactionCategoryModel? modelCategory = model.category;
+  final modelCategory = model.category;
   if (modelCategory != null) {
     category = TransactionCategoryEntity(
       uuid: modelCategory.uuid,

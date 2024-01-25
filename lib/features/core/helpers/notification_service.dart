@@ -5,14 +5,11 @@ class NotificationService {
       FlutterLocalNotificationsPlugin();
 
   Future<void> initNotification() async {
-    AndroidInitializationSettings initializationSettingsAndroid =
-        const AndroidInitializationSettings('logo');
+    const initializationSettingsAndroid =
+        AndroidInitializationSettings('logo');
 
-    DarwinInitializationSettings initializationSettingsIos =
+    final initializationSettingsIos =
         DarwinInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
       onDidReceiveLocalNotification: (
         int id,
         String? title,
@@ -21,7 +18,7 @@ class NotificationService {
       ) async {},
     );
 
-    var initializationSettings = InitializationSettings(
+    final initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIos,
     );
@@ -32,7 +29,7 @@ class NotificationService {
     );
   }
 
-  notificationDetails() {
+  NotificationDetails notificationDetails() {
     return const NotificationDetails(
       android: AndroidNotificationDetails('channelId', 'channelName'),
       iOS: DarwinNotificationDetails(),
@@ -49,7 +46,7 @@ class NotificationService {
       id,
       title,
       body,
-      await notificationDetails(),
+      notificationDetails(),
     );
   }
 }

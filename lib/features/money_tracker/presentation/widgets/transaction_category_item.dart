@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../../extensions/extensions.dart';
-import '../../domain/entity/entity.dart';
+import 'package:forrest/extensions/extensions.dart';
+import 'package:forrest/features/money_tracker/domain/entity/entity.dart';
 
 class TransactionCategoryItem extends StatefulWidget {
   const TransactionCategoryItem({
-    Key? key,
-    required this.category,
-    required this.onTransactionCategoryTap,
-  }) : super(key: key);
+    required this.category, required this.onTransactionCategoryTap, super.key,
+  });
 
   final TransactionCategoryEntity category;
   final Function(TransactionCategoryEntity transactionEntity)
@@ -22,7 +20,7 @@ class TransactionCategoryItem extends StatefulWidget {
 class _TransactionCategoryItemState extends State<TransactionCategoryItem> {
   @override
   Widget build(BuildContext context) {
-    var textStyles = Theme.of(context).extension<AppTextStyles>()!;
+    final textStyles = Theme.of(context).extension<AppTextStyles>()!;
 
     return GestureDetector(
       onTap: () {

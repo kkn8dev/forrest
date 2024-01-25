@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-var options = BaseOptions(
+BaseOptions options = BaseOptions(
   baseUrl: dotenv.env['BASE_API_URL'] ?? '',
   // connectTimeout: const Duration(seconds: 10),
   // receiveTimeout: const Duration(seconds: 10),
@@ -12,11 +12,11 @@ Dio dio = Dio(options)
   ..interceptors.add(
     QueuedInterceptorsWrapper(
       onRequest: (options, handler) {
-        var newOptions = options;
+        final newOptions = options;
         if (options.uri.path == '/auth/login') {
           newOptions.headers = {
-            "Authorization": null,
-            "Content-Type": Headers.jsonContentType,
+            'Authorization': null,
+            'Content-Type': Headers.jsonContentType,
           };
         }
         return handler.next(newOptions);

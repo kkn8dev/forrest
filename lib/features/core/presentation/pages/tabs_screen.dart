@@ -1,20 +1,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../extensions/extensions.dart';
-import '../../../../navigation/auto_router.gr.dart';
-import '../../../../styles/app_images.dart';
-import '../../../money_tracker/presentation/components/components.dart';
-import '../bloc/bloc.dart';
+import 'package:forrest/extensions/extensions.dart';
+import 'package:forrest/features/core/presentation/bloc/bloc.dart';
+import 'package:forrest/features/money_tracker/presentation/components/components.dart';
+import 'package:forrest/navigation/auto_router.gr.dart';
+import 'package:forrest/styles/app_images.dart';
 
 @RoutePage()
 class TabsScreen extends StatelessWidget {
   const TabsScreen({super.key});
 
   @override
-  Widget build(context) {
-    var appColors = Theme.of(context).extension<AppColors>()!;
+  Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
 
     return BlocBuilder<CoreBloc, CoreState>(
       builder: (context, state) {

@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 
-import '../../../../extensions/extensions.dart';
-import '../../domain/entity/entity.dart';
+import 'package:forrest/extensions/extensions.dart';
+import 'package:forrest/features/money_tracker/domain/entity/entity.dart';
 
 class TransactionItem extends StatelessWidget {
   const TransactionItem({
-    Key? key,
-    required this.transaction,
-    required this.onTransactionTap,
-  }) : super(key: key);
+    required this.transaction, required this.onTransactionTap, super.key,
+  });
 
   final TransactionEntity transaction;
   final Function(TransactionEntity transactionEntity) onTransactionTap;
 
   @override
   Widget build(BuildContext context) {
-    var appColors = Theme.of(context).extension<AppColors>()!;
-    var textStyles = Theme.of(context).extension<AppTextStyles>()!;
+    final appColors = Theme.of(context).extension<AppColors>()!;
+    final textStyles = Theme.of(context).extension<AppTextStyles>()!;
     return GestureDetector(
       onTap: () {
         onTransactionTap(transaction);
@@ -34,7 +32,7 @@ class TransactionItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      '${transaction.transactionType == TransactionType.income ? '+' : '-'}${transaction.amount.toString()}',
+                      '${transaction.transactionType == TransactionType.income ? '+' : '-'}${transaction.amount}',
                       style: textStyles.h1.copyWith(
                         color: transaction.transactionType ==
                                 TransactionType.income

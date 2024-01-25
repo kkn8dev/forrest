@@ -1,4 +1,4 @@
-import '../models/models.dart';
+import 'package:forrest/features/core/data/models/models.dart';
 
 abstract class CoreLocalDataSource {
   Future<bool> initApp();

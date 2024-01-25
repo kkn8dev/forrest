@@ -3,16 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:forrest/extensions/extensions.dart';
+import 'package:forrest/features/core/data/data_sources/data_sources.dart';
+import 'package:forrest/features/core/presentation/bloc/bloc.dart';
+import 'package:forrest/features/core/presentation/widgets/widgets.dart';
 import 'package:hive/hive.dart';
-
-import '../../../../extensions/extensions.dart';
-import '../../data/data_sources/data_sources.dart';
-import '../bloc/bloc.dart';
-import '../widgets/widgets.dart';
 
 @RoutePage()
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -23,14 +22,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   onSelectLanguage(String language) async {
     coreBloc.add(UpdateUserLocaleCoreEvent(locale: language));
-    var box = await Hive.openBox(coreBox);
-    box.put(locale, language);
+    final box = await Hive.openBox<String?>(coreBox);
+    await box.put(locale, language);
   }
 
   @override
   Widget build(BuildContext context) {
-    var textStyles = Theme.of(context).extension<AppTextStyles>()!;
-    var t = AppLocalizations.of(context)!;
+    final textStyles = Theme.of(context).extension<AppTextStyles>()!;
+    final t = AppLocalizations.of(context)!;
 
     return BlocBuilder<CoreBloc, CoreState>(
       builder: (context, state) {
@@ -96,7 +95,7 @@ class Language {
   final String locale;
 }
 
-var languages = [
+List<Language> languages = [
   Language(language: 'English', translate: 'English', locale: 'en'),
   Language(language: 'Russian', translate: 'Русский', locale: 'ru'),
 ];

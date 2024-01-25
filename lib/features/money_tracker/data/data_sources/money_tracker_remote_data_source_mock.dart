@@ -1,4 +1,4 @@
-import 'money_tracker_remote_data_source.dart';
+import 'package:forrest/features/money_tracker/data/data_sources/money_tracker_remote_data_source.dart';
 
 class MoneyTrackerRemoteDataSourceMock implements MoneyTrackerRemoteDataSource {
   MoneyTrackerRemoteDataSourceMock();

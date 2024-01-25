@@ -2,16 +2,15 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../../navigation/forrest_router.dart';
-import '../../../core/presentation/widgets/widgets.dart';
-import '../../domain/entity/entity.dart';
-import '../bloc/bloc.dart';
-import '../widgets/widgets.dart';
+import 'package:forrest/features/core/presentation/widgets/widgets.dart';
+import 'package:forrest/features/money_tracker/domain/entity/entity.dart';
+import 'package:forrest/features/money_tracker/presentation/bloc/bloc.dart';
+import 'package:forrest/features/money_tracker/presentation/widgets/widgets.dart';
+import 'package:forrest/navigation/forrest_router.dart';
 
 @RoutePage()
 class TransactionCategoriesScreen extends StatefulWidget {
-  const TransactionCategoriesScreen({Key? key}) : super(key: key);
+  const TransactionCategoriesScreen({super.key});
 
   @override
   State<TransactionCategoriesScreen> createState() =>
@@ -26,7 +25,7 @@ class _TransactionCategoriesScreenState
   @override
   void initState() {
     moneyTrackerBloc.add(LoadMoneyTrackerEvent());
-    var day = DateTime.now().day;
+    final day = DateTime.now().day;
     setState(() {
       currentDay = day;
     });
@@ -49,11 +48,11 @@ class _TransactionCategoriesScreenState
 
   @override
   Widget build(BuildContext context) {
-    var t = AppLocalizations.of(context)!;
+    final t = AppLocalizations.of(context)!;
 
     return BlocBuilder<MoneyTrackerBloc, MoneyTrackerState>(
       builder: (context, state) {
-        var transactions = state.transactions
+        final transactions = state.transactions
             .where(
               (element) => element.day == currentDay,
             )
@@ -66,8 +65,8 @@ class _TransactionCategoriesScreenState
                 height: 380,
                 child: GridView.count(
                   crossAxisCount: 3,
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
                   children: state.transactionCategories
                       .map(
                         (e) => TransactionCategoryItem(

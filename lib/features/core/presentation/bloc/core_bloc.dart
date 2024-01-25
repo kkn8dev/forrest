@@ -1,18 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../main.dart';
-import '../../domain/entity/entity.dart';
-import '../../domain/usecases/usecases.dart';
-import 'core_event.dart';
-import 'core_state.dart';
+import 'package:forrest/features/core/domain/entity/entity.dart';
+import 'package:forrest/features/core/domain/usecases/usecases.dart';
+import 'package:forrest/features/core/presentation/bloc/core_event.dart';
+import 'package:forrest/features/core/presentation/bloc/core_state.dart';
+import 'package:forrest/main.dart';
 
 class CoreBloc extends Bloc<CoreEvent, CoreState> {
-  final InitAppUseCase initAppUseCase;
-  final LoadHabitsUseCase loadHabitsUseCase;
-  final ToggleHabitStatusUseCase toggleHabitStatusUseCase;
-  final ToggleHabitLockUseCase toggleHabitLockUseCase;
-  final CreateHabitUseCase createHabitUseCase;
-  final DeleteHabitUseCase deleteHabitUseCase;
 
   CoreBloc({
     required this.initAppUseCase,
@@ -29,7 +22,7 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
       emit(
         state.copyWith(),
       );
-      initAppUseCase(NoParams());
+      await initAppUseCase(NoParams());
     });
     on<ToggleMoneyTrackerFeatureCoreEvent>((event, emit) async {
       emit(
@@ -45,7 +38,7 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
       if (event.locale != null) {
         emit(state.copyWith(
           locale: event.locale,
-        ));
+        ),);
       }
     });
     on<LoadHabitsCoreEvent>(_onLoadHabitsCoreEvent);
@@ -54,15 +47,21 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
     on<CreateHabitCoreEvent>(_onCreateHabitCoreEvent);
     on<DeleteHabitCoreEvent>(_onDeleteHabitCoreEvent);
   }
+  final InitAppUseCase initAppUseCase;
+  final LoadHabitsUseCase loadHabitsUseCase;
+  final ToggleHabitStatusUseCase toggleHabitStatusUseCase;
+  final ToggleHabitLockUseCase toggleHabitLockUseCase;
+  final CreateHabitUseCase createHabitUseCase;
+  final DeleteHabitUseCase deleteHabitUseCase;
 
-  void _onLoadHabitsCoreEvent(
+  Future<void> _onLoadHabitsCoreEvent(
     LoadHabitsCoreEvent event,
     Emitter<CoreState> emit,
   ) async {
     emit(
       state.copyWith(),
     );
-    var result = await loadHabitsUseCase(NoParams());
+    final result = await loadHabitsUseCase(NoParams());
     result.fold(
       (error) {
         if (error is ServerFailure) {
@@ -87,14 +86,14 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
     );
   }
 
-  void _onToggleHabitLockCoreEvent(
+  Future<void> _onToggleHabitLockCoreEvent(
     ToggleHabitLockCoreEvent event,
     Emitter<CoreState> emit,
   ) async {
     emit(
       state.copyWith(),
     );
-    var result = await toggleHabitLockUseCase(
+    final result = await toggleHabitLockUseCase(
       ToggleHabitLockUseCaseParams(
         habit: event.habit,
       ),
@@ -123,14 +122,14 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
     );
   }
 
-  void _onToggleHabitStatusCoreEvent(
+  Future<void> _onToggleHabitStatusCoreEvent(
     ToggleHabitStatusCoreEvent event,
     Emitter<CoreState> emit,
   ) async {
     emit(
       state.copyWith(),
     );
-    var result = await toggleHabitStatusUseCase(
+    final result = await toggleHabitStatusUseCase(
       ToggleHabitStatusUseCaseParams(
         habit: event.habit,
       ),
@@ -159,14 +158,14 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
     );
   }
 
-  void _onCreateHabitCoreEvent(
+  Future<void> _onCreateHabitCoreEvent(
     CreateHabitCoreEvent event,
     Emitter<CoreState> emit,
   ) async {
     emit(
       state.copyWith(),
     );
-    var result = await createHabitUseCase(
+    final result = await createHabitUseCase(
       CreateHabitUseCaseParams(
         habit: event.habit,
       ),
@@ -195,14 +194,14 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
     );
   }
 
-  void _onDeleteHabitCoreEvent(
+  Future<void> _onDeleteHabitCoreEvent(
     DeleteHabitCoreEvent event,
     Emitter<CoreState> emit,
   ) async {
     emit(
       state.copyWith(),
     );
-    var result = await deleteHabitUseCase(
+    final result = await deleteHabitUseCase(
       DeleteHabitUseCaseParams(
         habit: event.habit,
       ),

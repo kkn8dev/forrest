@@ -1,21 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:forrest/features/core/data/data_sources/core_local_data_source.dart';
+import 'package:forrest/features/core/data/models/models.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../models/models.dart';
-import 'core_local_data_source.dart';
-
 class CoreLocalDataSourceImpl implements CoreLocalDataSource {
-  final HiveInterface storage;
-
   CoreLocalDataSourceImpl({required this.storage});
+
+  final HiveInterface storage;
 
   @override
   Future<bool> initApp() async {
     try {
-      await Hive.openBox(coreBox);
+      await Hive.openBox<String?>(coreBox);
       return true;
     } on HiveError catch (e) {
       throw StorageException(
@@ -27,56 +26,56 @@ class CoreLocalDataSourceImpl implements CoreLocalDataSource {
 
   @override
   Future<List<HabitModel>> loadHabits() async {
-    var habits = readHabits();
+    final habits = readHabits();
     return habits;
   }
 
   @override
   Future<List<HabitModel>> toggleHabitStatus(HabitModel habitModel) async {
-    var habits = await readHabits();
-    var newHabit =
+    final habits = await readHabits();
+    final newHabit =
         habits.firstWhere((element) => element.uuid == habitModel.uuid);
-    var index = habits.indexOf(habitModel);
-    var updatedHabit = newHabit.copyWith(isCompleted: !newHabit.isCompleted);
-    var a = [
+    final index = habits.indexOf(habitModel);
+    final updatedHabit = newHabit.copyWith(isCompleted: !newHabit.isCompleted);
+    final a = [
       ...habits.sublist(0, index),
       updatedHabit,
-      ...habits.sublist(index + 1)
+      ...habits.sublist(index + 1),
     ];
-    writeHabits(a);
+    await writeHabits(a);
     return a;
   }
 
   @override
   Future<List<HabitModel>> toggleHabitLock(HabitModel habitModel) async {
-    var habits = await readHabits();
-    var newHabit =
+    final habits = await readHabits();
+    final newHabit =
         habits.firstWhere((element) => element.uuid == habitModel.uuid);
-    var index = habits.indexOf(habitModel);
-    var updatedHabit = newHabit.copyWith(isLocked: !newHabit.isLocked);
-    var a = [
+    final index = habits.indexOf(habitModel);
+    final updatedHabit = newHabit.copyWith(isLocked: !newHabit.isLocked);
+    final a = [
       ...habits.sublist(0, index),
       updatedHabit,
-      ...habits.sublist(index + 1)
+      ...habits.sublist(index + 1),
     ];
-    writeHabits(a);
+    await writeHabits(a);
     return a;
   }
 
   @override
   Future<List<HabitModel>> createHabit(HabitModel habitModel) async {
-    var habits = await readHabits();
+    final habits = await readHabits();
     habits.add(habitModel);
-    writeHabits(habits);
+    await writeHabits(habits);
     return habits;
   }
 
   @override
   Future<List<HabitModel>> deleteHabit(HabitModel habitModel) async {
-    var habits = await readHabits();
-    var newHabits =
+    final habits = await readHabits();
+    final newHabits =
         habits.where((element) => element.uuid != habitModel.uuid).toList();
-    writeHabits(newHabits);
+    await writeHabits(newHabits);
     return newHabits;
   }
 }
@@ -97,11 +96,9 @@ Future<List<HabitModel>> readHabits() async {
     final file = await _localFile;
 
     final content = await file.readAsString();
-    var result = jsonDecode(content);
-    final jsonMap = result;
-    return (jsonMap as List)
-        .map((element) => HabitModel.fromJson(element))
-        .toList();
+    final result = jsonDecode(content);
+    final jsonMap = result as List<Map<String, dynamic>>;
+    return jsonMap.map(HabitModel.fromJson).toList();
   } catch (e) {
     return [];
   }
@@ -109,7 +106,7 @@ Future<List<HabitModel>> readHabits() async {
 
 Future<File> writeHabits(List<HabitModel> habits) async {
   final file = await _localFile;
-  var result = jsonEncode(habits);
+  final result = jsonEncode(habits);
 
   return file.writeAsString(result);
 }

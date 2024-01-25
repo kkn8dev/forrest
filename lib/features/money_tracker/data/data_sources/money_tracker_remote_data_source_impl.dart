@@ -1,14 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-import '../../../core/data/models/models.dart';
-import 'data_sources.dart';
+import 'package:forrest/features/core/data/models/models.dart';
+import 'package:forrest/features/money_tracker/data/data_sources/data_sources.dart';
 
 class MoneyTrackerRemoteDataSourceImpl implements MoneyTrackerRemoteDataSource {
+  MoneyTrackerRemoteDataSourceImpl({required this.client});
+
   final String baseApiUrl = dotenv.get('BASE_API_URL');
   final Dio client;
-
-  MoneyTrackerRemoteDataSourceImpl({required this.client});
 
   @override
   Future<bool> initApp() async {
@@ -22,7 +21,14 @@ class MoneyTrackerRemoteDataSourceImpl implements MoneyTrackerRemoteDataSource {
       }
     } on DioException catch (e) {
       final jsonMap = e.response?.data as Map<String, dynamic>;
-      throw UserException(code: jsonMap['code'], message: jsonMap['message']);
+      try {
+        throw UserException(
+          code: jsonMap['code'] as int,
+          message: jsonMap['message'] as String,
+        );
+      } catch (e) {
+        throw ServerException();
+      }
     }
     throw ServerException();
   }

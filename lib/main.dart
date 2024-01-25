@@ -2,16 +2,15 @@ import 'package:alice/alice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:forrest/features/core/data/data_sources/data_sources.dart';
+import 'package:forrest/features/core/helpers/notification_service.dart';
+import 'package:forrest/features/core/presentation/bloc/bloc.dart';
+import 'package:forrest/features/core/presentation/pages/root_screen.dart';
+import 'package:forrest/features/money_tracker/presentation/bloc/bloc.dart';
+import 'package:forrest/injection_container.dart' as di;
+import 'package:forrest/injection_container.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:logger/logger.dart';
-
-import 'features/core/data/data_sources/data_sources.dart';
-import 'features/core/helpers/notification_service.dart';
-import 'features/core/presentation/bloc/bloc.dart';
-import 'features/core/presentation/pages/root_screen.dart';
-import 'features/money_tracker/presentation/bloc/bloc.dart';
-import 'injection_container.dart' as di;
-import 'injection_container.dart';
 
 final logger = Logger(
   printer: PrettyPrinter(stackTraceBeginIndex: 20),
@@ -22,16 +21,16 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter('Forrest');
   await di.init();
-  NotificationService().initNotification();
-  var box = await Hive.openBox(coreBox);
-  String? id = box.get(userId);
-  String? env = box.get(environment);
-  String? userLocale = box.get(locale);
+  await NotificationService().initNotification();
+  final box = await Hive.openBox<String?>(coreBox);
+  final id = box.get(userId);
+  final env = box.get(environment);
+  final userLocale = box.get(locale);
 
   if (env == 'develop') {
-    await dotenv.load(fileName: ".env.dev");
+    await dotenv.load(fileName: '.env.dev');
   } else {
-    await dotenv.load(fileName: ".env");
+    await dotenv.load(); // load .env file by default
   }
   runApp(
     MyApp(
@@ -43,9 +42,9 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({
-    super.key,
     required this.id,
     required this.locale,
+    super.key,
   });
 
   final String? id;

@@ -10,19 +10,19 @@ import 'package:patrol/patrol.dart';
 void main() {
   patrolTest(
     'add new habit',
-    nativeAutomation: true,
+    // nativeAutomation: true,
     ($) async {
       WidgetsFlutterBinding.ensureInitialized();
       await Hive.initFlutter('Forrest');
       await di.init();
-      NotificationService().initNotification();
-      var box = await Hive.openBox(coreBox);
-      String? env = box.get(environment);
+      await NotificationService().initNotification();
+      final box = await Hive.openBox<String?>(coreBox);
+      final env = box.get(environment);
 
       if (env == 'develop') {
-        await dotenv.load(fileName: ".env.dev");
+        await dotenv.load(fileName: '.env.dev');
       } else {
-        await dotenv.load(fileName: ".env");
+        await dotenv.load();
       }
       await $.pumpWidgetAndSettle(
         const MyApp(id: 'id', locale: 'en'),
@@ -37,19 +37,18 @@ void main() {
   );
   patrolTest(
     'add new habit',
-    nativeAutomation: true,
     ($) async {
       WidgetsFlutterBinding.ensureInitialized();
       await Hive.initFlutter('Forrest');
       await di.init();
-      NotificationService().initNotification();
-      var box = await Hive.openBox(coreBox);
-      String? env = box.get(environment);
+      await NotificationService().initNotification();
+      final box = await Hive.openBox<String?>(coreBox);
+      final env = box.get(environment);
 
       if (env == 'develop') {
-        await dotenv.load(fileName: ".env.dev");
+        await dotenv.load(fileName: '.env.dev');
       } else {
-        await dotenv.load(fileName: ".env");
+        await dotenv.load();
       }
       await $.pumpWidgetAndSettle(
         const MyApp(id: 'id', locale: 'en'),

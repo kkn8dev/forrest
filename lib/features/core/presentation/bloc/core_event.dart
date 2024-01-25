@@ -1,5 +1,5 @@
-import '../../../../main.dart';
-import '../../domain/entity/entity.dart';
+import 'package:forrest/features/core/domain/entity/entity.dart';
+import 'package:forrest/main.dart';
 
 abstract class CoreEvent {
   void call() {

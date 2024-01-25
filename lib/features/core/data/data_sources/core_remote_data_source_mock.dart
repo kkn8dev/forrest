@@ -1,4 +1,4 @@
-import 'core_remote_data_source.dart';
+import 'package:forrest/features/core/data/data_sources/core_remote_data_source.dart';
 
 class CoreRemoteDataSourceMock implements CoreRemoteDataSource {
   CoreRemoteDataSourceMock();

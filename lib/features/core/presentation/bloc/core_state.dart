@@ -1,6 +1,5 @@
+import 'package:forrest/features/core/domain/entity/entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../../domain/entity/entity.dart';
 
 part 'core_state.freezed.dart';
 

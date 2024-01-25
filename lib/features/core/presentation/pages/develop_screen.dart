@@ -2,16 +2,15 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forrest/extensions/extensions.dart';
+import 'package:forrest/features/core/data/data_sources/data_sources.dart';
+import 'package:forrest/features/core/presentation/bloc/bloc.dart';
+import 'package:forrest/features/core/presentation/widgets/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
-import '../../../../extensions/extensions.dart';
-import '../../data/data_sources/data_sources.dart';
-import '../bloc/bloc.dart';
-import '../widgets/widgets.dart';
 
 @RoutePage()
 class DevelopScreen extends StatefulWidget {
-  const DevelopScreen({Key? key}) : super(key: key);
+  const DevelopScreen({super.key});
 
   @override
   State<DevelopScreen> createState() => _DevelopScreenState();
@@ -22,8 +21,8 @@ class _DevelopScreenState extends State<DevelopScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var textStyles = Theme.of(context).extension<AppTextStyles>();
-    late CoreBloc coreBloc = context.read<CoreBloc>();
+    final textStyles = Theme.of(context).extension<AppTextStyles>();
+    late final coreBloc = context.read<CoreBloc>();
 
     return BlocBuilder<CoreBloc, CoreState>(
       builder: (context, state) {
@@ -76,9 +75,9 @@ class _DevelopScreenState extends State<DevelopScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: ValueListenableBuilder(
-                  valueListenable: Hive.box<dynamic>(coreBox).listenable(),
+                  valueListenable: Hive.box<String?>(coreBox).listenable(),
                   builder: (BuildContext context, box, Widget? child) {
-                    var isDevelop = box.get(environment) == 'develop';
+                    final isDevelop = box.get(environment) == 'develop';
                     return GestureDetector(
                       onTap: () {
                         if (isDevelop) {

@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-
-import 'auto_router.gr.dart';
+import 'package:forrest/navigation/auto_router.gr.dart';
 
 @AutoRouterConfig()
 class RootRouter extends $RootRouter {
@@ -63,7 +61,6 @@ class RootRouter extends $RootRouter {
         CustomRoute(
           durationInMilliseconds: 0,
           reverseDurationInMilliseconds: 0,
-          barrierDismissible: true,
           opaque: false,
           path: Routes.updateModal,
           page: UpdateModalRoute.page,
@@ -72,7 +69,6 @@ class RootRouter extends $RootRouter {
         CustomRoute(
           durationInMilliseconds: 0,
           reverseDurationInMilliseconds: 0,
-          barrierDismissible: true,
           opaque: false,
           path: Routes.addTransactionModal,
           page: AddTransactionModalRoute.page,
@@ -81,7 +77,6 @@ class RootRouter extends $RootRouter {
         CustomRoute(
           durationInMilliseconds: 0,
           reverseDurationInMilliseconds: 0,
-          barrierDismissible: true,
           opaque: false,
           path: Routes.addTransactionCategoryModal,
           page: AddTransactionCategoryModalRoute.page,
@@ -114,7 +109,7 @@ class ProfileTabPage extends AutoRouter {
 }
 
 class EmptyRouterPage extends AutoRouter {
-  const EmptyRouterPage({Key? key}) : super(key: key);
+  const EmptyRouterPage({super.key});
 }
 
 class Routes {

@@ -1,17 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../extensions/extensions.dart';
-import '../../domain/entity/entity.dart';
+import 'package:forrest/extensions/extensions.dart';
+import 'package:forrest/features/core/domain/entity/entity.dart';
 
 class HabitItem extends StatefulWidget {
   const HabitItem({
-    Key? key,
-    required this.habit,
-    required this.onHabitTap,
-    required this.onHabitDoubleTap,
-    required this.onHabitLongTap,
-  }) : super(key: key);
+    required this.habit, required this.onHabitTap, required this.onHabitDoubleTap, required this.onHabitLongTap, super.key,
+  });
 
   final HabitEntity habit;
   final Function(HabitEntity habitEntity) onHabitTap;
@@ -25,8 +21,8 @@ class HabitItem extends StatefulWidget {
 class _HabitItemState extends State<HabitItem> {
   @override
   Widget build(BuildContext context) {
-    var appColors = Theme.of(context).extension<AppColors>()!;
-    var textStyles = Theme.of(context).extension<AppTextStyles>()!;
+    final appColors = Theme.of(context).extension<AppColors>()!;
+    final textStyles = Theme.of(context).extension<AppTextStyles>()!;
 
     return GestureDetector(
       onTap: () {
@@ -46,7 +42,6 @@ class _HabitItemState extends State<HabitItem> {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
@@ -70,9 +65,7 @@ class _HabitItemState extends State<HabitItem> {
                 ),
               ],
             ),
-            widget.habit.isLocked
-                ? const Icon(CupertinoIcons.lock_fill)
-                : const Icon(CupertinoIcons.lock_open_fill),
+            if (widget.habit.isLocked) const Icon(CupertinoIcons.lock_fill) else const Icon(CupertinoIcons.lock_open_fill),
           ],
         ),
       ),

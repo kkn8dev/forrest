@@ -1,13 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../navigation/forrest_router.dart';
-import '../bloc/bloc.dart';
+import 'package:forrest/features/core/presentation/bloc/bloc.dart';
+import 'package:forrest/navigation/forrest_router.dart';
 
 @RoutePage()
 class UpdateModalScreen extends StatefulWidget {
-  const UpdateModalScreen({Key? key}) : super(key: key);
+  const UpdateModalScreen({super.key});
 
   @override
   State<UpdateModalScreen> createState() => _UpdateModalScreenState();
@@ -19,9 +18,7 @@ class _UpdateModalScreenState extends State<UpdateModalScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        ForrestRouter.inst.pop();
-      },
+      onTap: ForrestRouter.inst.pop,
       child: Scaffold(
         backgroundColor: const Color(0xFF000000).withOpacity(0.5),
         body: GestureDetector(
@@ -39,7 +36,7 @@ class _UpdateModalScreenState extends State<UpdateModalScreen> {
                 width: double.infinity,
                 height: 400,
                 child: const Center(
-                  child: Text("money"),
+                  child: Text('money'),
                 ),
               ),
             ],

@@ -1,7 +1,6 @@
+import 'package:forrest/features/core/data/data_sources/core_local_data_source.dart';
+import 'package:forrest/features/core/data/models/models.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
-import '../models/models.dart';
-import 'core_local_data_source.dart';
 
 class CoreLocalDataSourceMock implements CoreLocalDataSource {
   CoreLocalDataSourceMock();
@@ -9,7 +8,7 @@ class CoreLocalDataSourceMock implements CoreLocalDataSource {
   @override
   Future<bool> initApp() async {
     try {
-      await Hive.openBox(coreBox);
+      await Hive.openBox<String?>(coreBox);
       return true;
     } on HiveError catch (e) {
       throw StorageException(
@@ -21,36 +20,36 @@ class CoreLocalDataSourceMock implements CoreLocalDataSource {
 
   @override
   Future<List<HabitModel>> loadHabits() async {
-    var habits = habitsMock;
+    const habits = habitsMock;
     return habits;
   }
 
   @override
   Future<List<HabitModel>> toggleHabitStatus(HabitModel habitModel) async {
-    var habits = habitsMock;
-    var newHabit =
+    const habits = habitsMock;
+    final newHabit =
         habits.firstWhere((element) => element.uuid == habitModel.uuid);
-    var index = habits.indexOf(habitModel);
-    var updatedHabit = newHabit.copyWith(isCompleted: !newHabit.isCompleted);
-    var a = [
+    final index = habits.indexOf(habitModel);
+    final updatedHabit = newHabit.copyWith(isCompleted: !newHabit.isCompleted);
+    final a = [
       ...habits.sublist(0, index),
       updatedHabit,
-      ...habits.sublist(index + 1)
+      ...habits.sublist(index + 1),
     ];
     return a;
   }
 
   @override
   Future<List<HabitModel>> toggleHabitLock(HabitModel habitModel) async {
-    var habits = habitsMock;
-    var newHabit =
+    const habits = habitsMock;
+    final newHabit =
         habits.firstWhere((element) => element.uuid == habitModel.uuid);
-    var index = habits.indexOf(habitModel);
-    var updatedHabit = newHabit.copyWith(isLocked: !newHabit.isLocked);
-    var a = [
+    final index = habits.indexOf(habitModel);
+    final updatedHabit = newHabit.copyWith(isLocked: !newHabit.isLocked);
+    final a = [
       ...habits.sublist(0, index),
       updatedHabit,
-      ...habits.sublist(index + 1)
+      ...habits.sublist(index + 1),
     ];
     return a;
   }
@@ -62,8 +61,8 @@ class CoreLocalDataSourceMock implements CoreLocalDataSource {
 
   @override
   Future<List<HabitModel>> deleteHabit(HabitModel habitModel) async {
-    var habits = habitsMock;
-    var newHabits =
+    const habits = habitsMock;
+    final newHabits =
         habits.where((element) => element.uuid != habitModel.uuid).toList();
 
     return newHabits;

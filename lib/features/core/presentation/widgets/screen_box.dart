@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 class ScreenBox extends StatelessWidget {
   const ScreenBox({
-    Key? key,
-    required this.child,
+    required this.child, super.key,
     this.padding,
     this.backgroundColor,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final EdgeInsets? padding;

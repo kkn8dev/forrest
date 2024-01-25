@@ -5,7 +5,6 @@ part 'transaction_entity.freezed.dart';
 
 @freezed
 class TransactionEntity with _$TransactionEntity {
-  const TransactionEntity._();
 
   const factory TransactionEntity({
     required String uuid,
@@ -14,11 +13,9 @@ class TransactionEntity with _$TransactionEntity {
     required String description,
     required String source,
     required TransactionType transactionType,
-    TransactionCategoryEntity? category,
-    required int year,
-    required int month,
-    required int day,
+    required int year, required int month, required int day, TransactionCategoryEntity? category,
   }) = _TransactionEntity;
+  const TransactionEntity._();
 }
 
 enum TransactionType { income, outcome }

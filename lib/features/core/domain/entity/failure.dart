@@ -1,21 +1,18 @@
 abstract class Failure {
-  int code;
-  String message;
 
   Failure({required this.code, required this.message});
+  int code;
+  String message;
 }
 
 class UserFailure extends Failure {
-  UserFailure({required int code, required String message})
-      : super(code: code, message: message);
+  UserFailure({required super.code, required super.message});
 }
 
 class ServerFailure extends Failure {
-  ServerFailure({required int code, required String message})
-      : super(code: code, message: message);
+  ServerFailure({required super.code, required super.message});
 }
 
 class StorageFailure extends Failure {
-  StorageFailure({required int code, required String message})
-      : super(code: code, message: message);
+  StorageFailure({required super.code, required super.message});
 }

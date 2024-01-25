@@ -1,23 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:forrest/features/core/data/data_sources/data_sources.dart';
+import 'package:forrest/features/core/data/models/models.dart';
+import 'package:forrest/features/money_tracker/data/data_sources/money_tracker_local_data_source.dart';
+import 'package:forrest/features/money_tracker/data/models/models.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../../core/data/data_sources/data_sources.dart';
-import '../../../core/data/models/models.dart';
-import '../models/models.dart';
-import 'money_tracker_local_data_source.dart';
-
 class MoneyTrackerLocalDataSourceImpl implements MoneyTrackerLocalDataSource {
-  final HiveInterface storage;
-
   MoneyTrackerLocalDataSourceImpl({required this.storage});
+
+  final HiveInterface storage;
 
   @override
   Future<bool> initApp() async {
     try {
-      await Hive.openBox(coreBox);
+      await Hive.openBox<String?>(coreBox);
       return true;
     } on HiveError catch (e) {
       throw StorageException(
@@ -29,13 +28,13 @@ class MoneyTrackerLocalDataSourceImpl implements MoneyTrackerLocalDataSource {
 
   @override
   Future<List<TransactionModel>> loadTransactions() async {
-    var transactions = readTransactions();
+    final transactions = readTransactions();
     return transactions;
   }
 
   @override
   Future<List<TransactionCategoryModel>> loadTransactionCategories() async {
-    var categories = readTransactionCategories();
+    final categories = readTransactionCategories();
     return categories;
   }
 
@@ -43,37 +42,39 @@ class MoneyTrackerLocalDataSourceImpl implements MoneyTrackerLocalDataSource {
   Future<List<TransactionModel>> editTransaction(
     TransactionModel transactionModel,
   ) async {
-    var transactions = await readTransactions();
-    var oldTransaction = transactions
+    final transactions = await readTransactions();
+    final oldTransaction = transactions
         .firstWhere((element) => element.uuid == transactionModel.uuid);
-    var index = transactions.indexOf(oldTransaction);
-    var updatedTransaction = transactionModel;
-    var a = [
+    final index = transactions.indexOf(oldTransaction);
+    final updatedTransaction = transactionModel;
+    final a = [
       ...transactions.sublist(0, index),
       updatedTransaction,
-      ...transactions.sublist(index + 1)
+      ...transactions.sublist(index + 1),
     ];
-    writeTransactions(a);
+    await writeTransactions(a);
     return a;
   }
 
   @override
   Future<List<TransactionModel>> createTransaction(
-      TransactionModel transactionModel) async {
-    var transactions = await readTransactions();
+    TransactionModel transactionModel,
+  ) async {
+    final transactions = await readTransactions();
     transactions.add(transactionModel);
-    writeTransactions(transactions);
+    await writeTransactions(transactions);
     return transactions;
   }
 
   @override
   Future<List<TransactionModel>> deleteTransaction(
-      TransactionModel transactionModel) async {
-    var transactions = await readTransactions();
-    var newTransactions = transactions
+    TransactionModel transactionModel,
+  ) async {
+    final transactions = await readTransactions();
+    final newTransactions = transactions
         .where((element) => element.uuid != transactionModel.uuid)
         .toList();
-    writeTransactions(newTransactions);
+    await writeTransactions(newTransactions);
     return newTransactions;
   }
 
@@ -81,37 +82,39 @@ class MoneyTrackerLocalDataSourceImpl implements MoneyTrackerLocalDataSource {
   Future<List<TransactionCategoryModel>> editTransactionCategory(
     TransactionCategoryModel transactionModel,
   ) async {
-    var transactions = await readTransactionCategories();
-    var oldTransaction = transactions
+    final transactions = await readTransactionCategories();
+    final oldTransaction = transactions
         .firstWhere((element) => element.uuid == transactionModel.uuid);
-    var index = transactions.indexOf(oldTransaction);
-    var updatedTransaction = transactionModel;
-    var a = [
+    final index = transactions.indexOf(oldTransaction);
+    final updatedTransaction = transactionModel;
+    final a = [
       ...transactions.sublist(0, index),
       updatedTransaction,
-      ...transactions.sublist(index + 1)
+      ...transactions.sublist(index + 1),
     ];
-    writeTransactionCategories(a);
+    await writeTransactionCategories(a);
     return a;
   }
 
   @override
   Future<List<TransactionCategoryModel>> createTransactionCategory(
-      TransactionCategoryModel transactionModel) async {
-    var transactions = await readTransactionCategories();
+    TransactionCategoryModel transactionModel,
+  ) async {
+    final transactions = await readTransactionCategories();
     transactions.add(transactionModel);
-    writeTransactionCategories(transactions);
+    await writeTransactionCategories(transactions);
     return transactions;
   }
 
   @override
   Future<List<TransactionCategoryModel>> deleteTransactionCategory(
-      TransactionCategoryModel transactionModel) async {
-    var transactions = await readTransactionCategories();
-    var newTransactions = transactions
+    TransactionCategoryModel transactionModel,
+  ) async {
+    final transactions = await readTransactionCategories();
+    final newTransactions = transactions
         .where((element) => element.uuid != transactionModel.uuid)
         .toList();
-    writeTransactionCategories(newTransactions);
+    await writeTransactionCategories(newTransactions);
     return newTransactions;
   }
 }
@@ -132,10 +135,14 @@ Future<List<TransactionModel>> readTransactions() async {
     final file = await _localFile;
 
     final content = await file.readAsString();
-    var result = jsonDecode(content);
+    final result = jsonDecode(content);
     final jsonMap = result;
     return (jsonMap as List)
-        .map((element) => TransactionModel.fromJson(element))
+        .map(
+          (element) => TransactionModel.fromJson(
+            element as Map<String, dynamic>,
+          ),
+        )
         .toList();
   } catch (e) {
     return [];
@@ -144,7 +151,7 @@ Future<List<TransactionModel>> readTransactions() async {
 
 Future<File> writeTransactions(List<TransactionModel> transactions) async {
   final file = await _localFile;
-  var result = jsonEncode(transactions);
+  final result = jsonEncode(transactions);
 
   return file.writeAsString(result);
 }
@@ -159,10 +166,14 @@ Future<List<TransactionCategoryModel>> readTransactionCategories() async {
     final file = await _categoriesLocalFile;
 
     final content = await file.readAsString();
-    var result = jsonDecode(content);
+    final result = jsonDecode(content);
     final jsonMap = result;
     return (jsonMap as List)
-        .map((element) => TransactionCategoryModel.fromJson(element))
+        .map(
+          (element) => TransactionCategoryModel.fromJson(
+            element as Map<String, dynamic>,
+          ),
+        )
         .toList();
   } catch (e) {
     return [];
@@ -170,9 +181,10 @@ Future<List<TransactionCategoryModel>> readTransactionCategories() async {
 }
 
 Future<File> writeTransactionCategories(
-    List<TransactionCategoryModel> transactions) async {
+  List<TransactionCategoryModel> transactions,
+) async {
   final file = await _categoriesLocalFile;
-  var result = jsonEncode(transactions);
+  final result = jsonEncode(transactions);
 
   return file.writeAsString(result);
 }

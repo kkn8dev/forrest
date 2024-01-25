@@ -1,9 +1,9 @@
-import '../../domain/entity/entity.dart';
-import '../models/models.dart';
-import 'mappers.dart';
+import 'package:forrest/features/money_tracker/data/mappers/mappers.dart';
+import 'package:forrest/features/money_tracker/data/models/models.dart';
+import 'package:forrest/features/money_tracker/domain/entity/entity.dart';
 
 TransactionModel transactionToModel(TransactionEntity transactionEntity) {
-  var category = transactionEntity.category;
+  final category = transactionEntity.category;
   TransactionCategoryModel? transactionCategoryModel;
   if (category != null) {
     transactionCategoryModel = TransactionCategoryModel(
@@ -12,7 +12,7 @@ TransactionModel transactionToModel(TransactionEntity transactionEntity) {
       label: category.label,
     );
   }
-  var transactionModel = TransactionModel(
+  final transactionModel = TransactionModel(
     uuid: transactionEntity.uuid,
     text: transactionEntity.text,
     amount: transactionEntity.amount,
@@ -23,7 +23,7 @@ TransactionModel transactionToModel(TransactionEntity transactionEntity) {
         : 'outcome',
     category: transactionCategoryModel,
     createdAt: DateTime(
-        transactionEntity.year, transactionEntity.month, transactionEntity.day),
+        transactionEntity.year, transactionEntity.month, transactionEntity.day,),
   );
   return transactionModel;
 }

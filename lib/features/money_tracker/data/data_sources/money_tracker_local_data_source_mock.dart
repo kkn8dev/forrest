@@ -1,9 +1,8 @@
+import 'package:forrest/features/core/data/data_sources/data_sources.dart';
+import 'package:forrest/features/core/data/models/models.dart';
+import 'package:forrest/features/money_tracker/data/data_sources/money_tracker_local_data_source.dart';
+import 'package:forrest/features/money_tracker/data/models/models.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
-import '../../../core/data/data_sources/data_sources.dart';
-import '../../../core/data/models/models.dart';
-import '../models/models.dart';
-import 'money_tracker_local_data_source.dart';
 
 class MoneyTrackerLocalDataSourceMock implements MoneyTrackerLocalDataSource {
   MoneyTrackerLocalDataSourceMock();
@@ -11,7 +10,7 @@ class MoneyTrackerLocalDataSourceMock implements MoneyTrackerLocalDataSource {
   @override
   Future<bool> initApp() async {
     try {
-      await Hive.openBox(coreBox);
+      await Hive.openBox<String?>(coreBox);
       return true;
     } on HiveError catch (e) {
       throw StorageException(
@@ -23,13 +22,13 @@ class MoneyTrackerLocalDataSourceMock implements MoneyTrackerLocalDataSource {
 
   @override
   Future<List<TransactionModel>> loadTransactions() async {
-    var transactions = transactionsMock;
+    final transactions = transactionsMock;
     return transactions;
   }
 
   @override
   Future<List<TransactionCategoryModel>> loadTransactionCategories() async {
-    var categories = categoriesMock;
+    const categories = categoriesMock;
     return categories;
   }
 
@@ -38,32 +37,34 @@ class MoneyTrackerLocalDataSourceMock implements MoneyTrackerLocalDataSource {
     TransactionModel transactionModel,
   ) async {
     print(transactionModel);
-    var transactions = transactionsMock;
-    var oldTransaction = transactions
+    final transactions = transactionsMock;
+    final oldTransaction = transactions
         .firstWhere((element) => element.uuid == transactionModel.uuid);
-    var index = transactions.indexOf(oldTransaction);
-    var updatedTransaction = transactionModel;
-    var a = [
+    final index = transactions.indexOf(oldTransaction);
+    final updatedTransaction = transactionModel;
+    final a = [
       ...transactions.sublist(0, index),
       updatedTransaction,
-      ...transactions.sublist(index + 1)
+      ...transactions.sublist(index + 1),
     ];
     return a;
   }
 
   @override
   Future<List<TransactionModel>> createTransaction(
-      TransactionModel transactionModel) async {
-    var transactions = transactionsMock;
+    TransactionModel transactionModel,
+  ) async {
+    final transactions = transactionsMock;
     transactions.add(transactionModel);
     return transactions;
   }
 
   @override
   Future<List<TransactionModel>> deleteTransaction(
-      TransactionModel transactionModel) async {
-    var transactions = transactionsMock;
-    var newTransactions = transactions
+    TransactionModel transactionModel,
+  ) async {
+    final transactions = transactionsMock;
+    final newTransactions = transactions
         .where((element) => element.uuid != transactionModel.uuid)
         .toList();
     return newTransactions;
@@ -73,32 +74,34 @@ class MoneyTrackerLocalDataSourceMock implements MoneyTrackerLocalDataSource {
   Future<List<TransactionCategoryModel>> editTransactionCategory(
     TransactionCategoryModel transactionModel,
   ) async {
-    var transactions = categoriesMock;
-    var oldTransaction = transactions
+    const transactions = categoriesMock;
+    final oldTransaction = transactions
         .firstWhere((element) => element.uuid == transactionModel.uuid);
-    var index = transactions.indexOf(oldTransaction);
-    var updatedTransaction = transactionModel;
-    var a = [
+    final index = transactions.indexOf(oldTransaction);
+    final updatedTransaction = transactionModel;
+    final a = [
       ...transactions.sublist(0, index),
       updatedTransaction,
-      ...transactions.sublist(index + 1)
+      ...transactions.sublist(index + 1),
     ];
     return a;
   }
 
   @override
   Future<List<TransactionCategoryModel>> createTransactionCategory(
-      TransactionCategoryModel transactionModel) async {
-    var transactions = categoriesMock;
+    TransactionCategoryModel transactionModel,
+  ) async {
+    const transactions = categoriesMock;
     transactions.add(transactionModel);
     return transactions;
   }
 
   @override
   Future<List<TransactionCategoryModel>> deleteTransactionCategory(
-      TransactionCategoryModel transactionModel) async {
-    var transactions = categoriesMock;
-    var newTransactions = transactions
+    TransactionCategoryModel transactionModel,
+  ) async {
+    const transactions = categoriesMock;
+    final newTransactions = transactions
         .where((element) => element.uuid != transactionModel.uuid)
         .toList();
     return newTransactions;
@@ -122,7 +125,7 @@ List<TransactionModel> transactionsMock = [
     source: 'source',
     transactionType: 'income',
     createdAt: DateTime.now(),
-    category: TransactionCategoryModel(
+    category: const TransactionCategoryModel(
       uuid: '123',
       color: 'ff00ff',
       label: 'purple',

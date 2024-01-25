@@ -1,5 +1,5 @@
-import '../../domain/entity/entity.dart';
-import '../models/models.dart';
+import 'package:forrest/features/core/data/models/models.dart';
+import 'package:forrest/features/core/domain/entity/entity.dart';
 
 HabitEntity habitMapper(HabitModel model) {
   return HabitEntity(
